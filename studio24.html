@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Studio 24 Charting Library</title>
+        <script src="/js/d3.min.js"></script>
+        <script src="/js/studio24charts/studio24.charts.js"></script>
+        <style>
+            body {
+                font-family: Cambria;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="svg-container"></div>
+        <div class="svg-container-2"></div>
+
+        <script>
+            Studio24.Charts.init({
+                colourScheme: '/js/studio24charts/colours.json'
+            });
+
+            //.svg-container
+            Studio24.Charts.createHorizontalBarChart('.svg-container', '/js/data/horizontal-bar-chart-1.json', {
+                width : 700
+            });
+
+            //.svg-container-2
+            Studio24.Charts.createLayeredPieChart('.svg-container-2', '/js/data/mfin-employment-breakdown.json', {
+                title: "Breakdown of those Employed",
+                colours: "data-green"
+            });
+        </script>
+    </body>
+</html>

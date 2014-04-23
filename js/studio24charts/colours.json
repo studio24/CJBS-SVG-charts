@@ -1,0 +1,28 @@
+{
+    "primary" : {
+        "colour" : "#e80087",
+        "font" : "#ffffff"
+    },
+
+    "data" : {
+        "1" : {
+            "colour" : "#e80087",
+            "font" : "#ffffff"
+        }
+    },
+
+    "data-green" : {
+        "1" : {
+            "colour" : "#0C8D78",
+            "inactive" : "#EBEBEB"
+        },
+        "2" : {
+            "colour" : "#51B756",
+            "inactive" : "#DEDCDD"
+        },
+        "3" : {
+            "colour" : "#ACD59F",
+            "inactive" : "#CFCFCF"
+        }
+    }
+}

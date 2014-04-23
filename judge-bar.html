@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test SVG</title>
+    <script src="/js/d3.min.js"></script>
+
+
+</head>
+<body>
+
+    <div class="svg-container"></div>
+
+    <script>
+        var dataset = [ { key: 'Charity', value: 1 },
+                        { key: 'Consulting', value: 2 },
+                        { key: 'Cultural Sector', value: 1 },
+                        { key: 'Education', value: 1 },
+                        { key: 'Energy/Utilities', value: 2 },
+                        { key: 'Financial Services', value: 10 },
+                        { key: 'Government', value: 1 },
+                        { key: 'Healthcare', value: 3 },
+                        { key: 'Legal', value: 1 },
+                        { key: 'Manufacturer', value: 3 },
+                        { key: 'Media/Entertainment', value: 1 },
+                        { key: 'Mining', value: 3 },
+                        { key: 'Multilateral Development Bank', value: 1 },
+                        { key: 'Oil and Gas', value: 2 },
+                        { key: 'Pharmaceutical', value: 2 },
+                        { key: 'Public Administration', value: 2 },
+                        { key: 'Publishing', value: 1 },
+                        { key: 'Real Estate', value: 1 },
+                        { key: 'Retail', value: 1 },
+                        { key: 'Technology', value: 2 },
+                        { key: 'Telecoms', value: 1 },
+                        { key: 'Transport/Aviation', value: 1 } ];
+
+        var margin = {top: 20, right: 30, bottom: 200, left: 40};
+        var width = 1000 - margin.left - margin.right;
+        var height = 700 - margin.top - margin.bottom;
+
+        var svg = d3.select('.svg-container')
+                    .append('svg')
+                    .attr('width', width + margin.left + margin.right)
+                    .attr('height', height + margin.top + margin.bottom);
+
+        var key = function (d) {
+            return d.key;
+        }
+
+        var xScale = d3.scale.ordinal()
+                             .domain(d3.range(dataset.length))
+                             .rangeRoundBands([0, width], 0.05);
+
+        var yScale = d3.scale.linear()
+                             .domain([0, d3.max(dataset, function(d) {
+                                return d.value;
+                             })])
+                             .range([height, 0]);
+
+        var xAxisScale = d3.scale.ordinal()
+                                 .domain(dataset.map(function(d) {
+                                    return d.key;
+                                 }))
+                                 .rangeRoundBands([0, width], 0.05);
+
+        var xAxis = d3.svg.axis()
+                          .scale(xAxisScale)
+                          .orient('bottom');
+
+        var yAxis = d3.svg.axis()
+                          .scale(yScale)
+                          .orient('left')
+                          .ticks(10);
+
+        var rectGroup = svg.append('g')
+                           .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+                           .attr('class', 'rect-group');
+
+        var rects = svg.select('.rect-group')
+                       .selectAll('rect')
+                       .data(dataset, key)
+                       .enter()
+                       .append('rect')
+                       .attr('class', 'bar');
+
+        rects.attr('y', function (d) {
+                return yScale(d.value);
+             })
+             .attr('x', function (d,i) {
+                return xScale(i);
+             })
+             .attr('fill', 'orange')
+             .attr('width', xScale.rangeBand())
+             .attr('height', function (d) {
+                return height - yScale(d.value);
+             })
+             .on('mouseover', function (d) {
+                var bar = d3.select((this));
+                var x = parseInt(bar.attr('x'));
+                var y = parseInt(bar.attr('y'));
+                var width = bar.attr('width');
+                var height = bar.attr('height');
+
+                bar.transition().duration(500).style('fill', 'magenta');
+
+                svg.select('.rect-group')
+                   .append('line')
+                   .attr('x1', x + (width / 2))
+                   .attr('y1', y)
+                   .attr('x2', x + (width / 2))
+                   .attr('y2', y)
+                   .transition()
+                   .duration(500)
+                   .attr('y2', y - 40)
+                   .attr('stroke-width', 2)
+                   .attr('stroke', 'black');
+
+                svg.select('.rect-group')
+                   .append('text')
+                   .attr('x', x + (width / 2) - 4)
+                   .attr('y', y - 5)
+                   .transition()
+                   .duration(500)
+                   .attr('y', y - 45)
+                   .attr('class', 'hover-label')
+                   .text(d.value);
+             })
+             .on('mouseout', function() {
+                d3.selectAll('line').remove();
+                d3.selectAll('.hover-label').remove();
+                d3.select((this)).transition().duration(500).style('fill', 'orange');
+             });
+
+        svg.append('g')
+           .attr('class', 'x axis')
+           .attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top + 5) + ')')
+           .call(xAxis)
+           .selectAll('text')
+           .style('text-anchor', 'end')
+           .attr('dx', '-.8em')
+           .attr('dy', '.15em')
+           .attr('transform', 'rotate(-65)');
+
+        svg.append('g')
+           .attr('class', 'y axis')
+           .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+           .call(yAxis);
+
+
+    </script>
+
+
+</body>
+</html>
