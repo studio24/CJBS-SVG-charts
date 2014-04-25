@@ -149,13 +149,7 @@ Studio24.Charts = function()
                     .attr('height', height);
 
                 // Get the max data values
-                var maxValue = 0;
-                for (var x = 0; x < dataset.length; x++) {
-                    // If the new value is higher than the old one, it is now the maxValue
-                    if (dataset[x]['value'] > maxValue) {
-                        maxValue = dataset[x]['value'];
-                    }
-                }
+                var maxValue = getMaxValue(dataset);
 
                 // Append the title
                 svg.append('text')
@@ -228,6 +222,133 @@ Studio24.Charts = function()
             invokeQueue.push(prepareForQueue(createPieChart, [container, jsonUrl, options]));
             return;
         }
+
+        // Set the default options
+        options = setDefaults(options, {
+            width : 750,
+            height: 500,
+            title: ""
+        });
+
+        // Get the data colour scheme
+        var colourScheme = colours[options.colours];
+
+        // Prepare the config for being passed to the anonymous function
+        var config = {
+            container : container,
+            options : options
+        };
+
+        // Get the JSON dataset
+        d3.json(jsonUrl, function(error, dataset) {
+            if (error) return console.warn(error);
+            else {
+                var width = options.width;
+                var height = options.height;
+                var barRadius = height/10;
+
+                // Keep tau (T) for working out angles (2pi)
+                var T = 2 * Math.PI;
+
+                dataset.sort(function(a, b) {
+                    return parseInt(a.value,10) < parseInt(b.value,10);
+                });
+
+                // Get the SVG object
+                var svg = d3.select(config.container)
+                    .append('svg')
+                    .attr('width', width)
+                    .attr('height', height);
+
+                // Create a container for the main pie chart
+                var container = svg.append("g")
+                    .attr("transform", "translate(" + (height / 2) + "," + height / 2 + ")");
+
+                // Create a container for the legend
+                var legendContainer = svg.append("g")
+                    .attr("transform", "translate(" + (width - 230) + "," + 50 + ")");
+
+                // Add the text to the middle, and call the wrap function
+                container.append('text')
+                    .attr('font-style', 'italic')
+                    .attr('text-anchor', 'middle')
+                    .attr('font-size', '30px')
+                    .attr('fill', '#414141')
+                    .text(options.title)
+                    .call(wrap, 200);
+
+                var currentAngle = 0;
+                var maxValue = getTotalValue(dataset);
+                var currentColor = 1;
+                for (var i = 0; i < dataset.length; i++) {
+                    var value = dataset[i]['value'];
+
+                    // Initiate the arc for drawing the bars
+                    var arc = d3.svg.arc()
+                        .innerRadius(height / 2 - (2 * barRadius))
+                        .outerRadius(height / 2 - barRadius)
+                        .startAngle(currentAngle)
+                        .endAngle(currentAngle + (T / maxValue) * value);
+
+                    // Colour pie bar
+                    container.append("path")
+                        .datum({endAngle: 0})
+                        .style("fill", colourScheme[currentColor].colour)
+                        .attr("d", arc)
+                        .attr('s_startAngle', currentAngle)
+                        .attr('s_endAngle', currentAngle + (T / maxValue) * value)
+                        .attr('height', height)
+                        .on('click', function() {
+                            var $this = d3.select(this);
+                            var startAngle = $this.attr('s_startAngle');
+                            var endAngle = $this.attr('s_endAngle');
+
+                            console.log(startAngle, endAngle);
+
+                            var newArc = d3.svg.arc()
+                                .innerRadius(0)
+                                .outerRadius(200)
+                                .startAngle(startAngle)
+                                .endAngle(endAngle);
+
+                            //d3.select(this).attr('d', newArc);
+                        })
+                        .transition()
+                        .duration(1000)
+                        .call(arcTween, (T / maxValue) * value, arc);
+
+//                    container.append("svg:line")
+//                        .attr("x1", 0)
+//                        .attr("y1", 0)
+//                        .attr("x2", 120)
+//                        .attr("y2", 120)
+//                        .style("stroke", "rgb(6,120,155)");
+
+                    // Legend circles
+                    legendContainer.append("circle")
+                        .attr('r', 10)
+                        .attr('cx', 0)
+                        .attr('cy', i * 40)
+                        .attr('fill', colourScheme[currentColor].colour);
+
+                    // Legend text
+                    legendContainer.append("text")
+                        .attr('font-style', 'italic')
+                        .attr('font-size', '18px')
+                        .attr('fill', '#414141')
+                        .attr('x', 25)
+                        .attr('y', 6 + i * 40)
+                        .text(dataset[i]["key"]);
+
+                    // Increase the next angle
+                    currentAngle = currentAngle + (T / maxValue) * value;
+
+                    // Increment the colour and check if we have any more colours
+                    currentColor++;
+                    if (typeof colourScheme[currentColor] == "undefined") currentColor = 1;
+                }
+            }
+        });
     }
 
     /**
@@ -294,8 +415,6 @@ Studio24.Charts = function()
                     .attr('text-anchor', 'middle')
                     .attr('font-size', '30px')
                     .attr('fill', '#414141')
-                    .attr('y', 0)
-                    .attr('dy', 0)
                     .text(options.title)
                     .call(wrap, 200);
 
@@ -352,6 +471,110 @@ Studio24.Charts = function()
     }
 
     /**
+     * Create a global map
+     *
+     * @param container
+     * @param jsonUrl
+     * @param options
+     */
+    var createMap = function(container, jsonUrl, options)
+    {
+        // Check for requirements and add to the queue if it is not yet ready
+        if (typeof(colours) == "undefined") {
+            // Add this method to the queue with its parameters applied
+            invokeQueue.push(prepareForQueue(createMap, [container, jsonUrl, options]));
+            return;
+        }
+
+        var width = 1020;
+        var height = 600;
+
+        var svg = d3.select(container)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height);
+
+        var projection = d3.geo.mercator()
+            .translate([width / 2, height / 2])
+            .scale((width + 1) / 2 / Math.PI)
+            .center([0,50]);
+        var path = d3.geo.path()
+            .projection(projection);
+
+        d3.json('world.json', function (json) {
+            svg.append('path')
+                .datum(topojson.feature(json, json.objects.land))
+                .attr('class', 'map')
+                .attr('d', path);
+
+            d3.csv("judge-map-data.csv", function(error, data) {
+                svg.selectAll("path")
+                    .data(data)
+                    .enter()
+                    .append('g')
+                    .append("path")
+                    .attr("cx", function(d) {
+                        return projection([d.lon, d.lat])[0];
+                    })
+                    .attr("cy", function(d) {
+                        return projection([d.lon, d.lat])[1];
+                    })
+                    .attr('d', 'M130,19.321C130,8.65,121.337,0,110.651,0S91.301,8.65,91.301,19.321c0,9.365,6.674,17.169,15.531,18.94 l3.805,3.799l3.8-3.794C123.31,36.507,130,28.696,130,19.321z')
+                    .attr('transform', function(d) {
+                        return 'translate(' + (projection([d.lon, d.lat])[0] - 108) + "," + (projection([d.lon, d.lat])[1] - 40) + ')';
+                    })
+                    .attr('xPos', function(d) {
+                        return (projection([d.lon, d.lat])[0] - 108)
+                    })
+                    .attr('yPos', function(d) {
+                        return (projection([d.lon, d.lat])[1] - 40)
+                    })
+                    .attr("stroke", "white")
+                    .attr("stroke-width", 2)
+                    .attr("fill", "#E12B88")
+                    .on('mouseover', function(d, i) {
+                        //this.parentNode.appendChild(this);
+                        var $this = d3.select(this);
+                        var parent = d3.select(this.parentNode);
+                        var xPos = $this.attr('xPos');
+                        var yPos = $this.attr('yPos');
+
+                        $this.transition(500)
+                            .attr('transform', 'translate(' + (xPos-110) + "," + (yPos-40) + ') scale(2)');
+
+                        parent.append('text')
+                            .attr('x', parseInt(xPos) + 112)
+                            .attr('y', parseInt(yPos) + 5)
+                            .attr('font-style', 'italic')
+                            .attr('font-size', '0px')
+                            .attr('fill', '#ffffff')
+                            .attr('text-anchor', 'middle')
+                            .text(d.delegates)
+                            .transition()
+                            .delay(100)
+                            .attr('font-size', '22px');
+                    })
+                    .on('mouseout', function(d, i) {
+                        var $this = d3.select(this);
+                        var xPos = $this.attr('xPos');
+                        var yPos = $this.attr('yPos');
+
+                        $this.transition(500)
+                            .attr('transform', 'translate(' + (xPos) + "," + (yPos) + ') scale(1)');
+
+                        svg.selectAll('text').remove();
+                    });
+            });
+
+        });
+    }
+
+    var appendTextToMap = function(svg, d, xPos, yPos)
+    {
+
+    }
+
+    /**
      * Get the max value for an object in the format:
      *
      * [
@@ -368,7 +591,6 @@ Studio24.Charts = function()
         // Loop through the object and check each value to see if it
         // is higher than the last one
         for (var x = 0; x < object.length; x++) {
-            console.log(object[x]['value'], maxValue);
             // If the new value is higher than the old one, it is now the maxValue
             if (parseInt(object[x]['value']) > maxValue) {
                 maxValue = object[x]['value'];
@@ -456,8 +678,6 @@ Studio24.Charts = function()
         });
     }
 
-
-
     /**
      * Set the location of the colour scheme to another file and populate
      * the colour scheme object with its contents
@@ -492,6 +712,7 @@ Studio24.Charts = function()
         createHorizontalColumnsBarChart: createHorizontalColumnsBarChart,
         createPieChart: createPieChart,
         createLayeredPieChart: createLayeredPieChart,
+        createMap: createMap,
         setColourScheme: setColourScheme
     }
 

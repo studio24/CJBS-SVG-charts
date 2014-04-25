@@ -24,5 +24,14 @@
             "colour" : "#ACD59F",
             "inactive" : "#CFCFCF"
         }
+    },
+
+    "data-pink" : {
+        "1" : {
+            "colour" : "#F9C7DD"
+        },
+        "2" : {
+            "colour" : "#E8008B"
+        }
     }
 }
