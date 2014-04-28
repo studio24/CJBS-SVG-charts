@@ -640,13 +640,13 @@ Studio24.Charts = function()
         var path = d3.geo.path()
             .projection(projection);
 
-        d3.json('/js/d3/world.json', function (json) {
+        d3.json(options.worldJson, function (json) {
             svg.append('path')
                 .datum(topojson.feature(json, json.objects.land))
                 .attr('class', 'map')
                 .attr('d', path);
 
-            d3.csv("/js/data/mfin-post-mfin-location.csv", function(error, data) {
+            d3.csv(jsonUrl, function(error, data) {
                 var container = svg.selectAll("path")
                     .data(data)
                     .enter()

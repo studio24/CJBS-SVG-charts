@@ -67,7 +67,9 @@
         height: 320
     });
 
-    Studio24.Charts.createMap('.svg-container-6', '../js/data/mfin-post-mfin-location.csv', {});
+    Studio24.Charts.createMap('.svg-container-6', '../js/data/mfin-post-mfin-location.csv', {
+        worldJson: '../js/d3/world.json'
+    });
 
     Studio24.Charts.createPieChart('.svg-container-7', '../js/data/mfin-changed-country.json', {
         title: "Students who changed country",
