@@ -1,0 +1,20 @@
+svg {
+    font-family: Cambria;
+}
+
+.map {
+    fill: #ccc;
+}
+
+.point,.arrow{
+    fill: #e6228d;
+    cursor: pointer;
+    stroke: white;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #888;
+    shape-rendering: crispEdges;
+}

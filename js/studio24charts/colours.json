@@ -6,8 +6,49 @@
 
     "data" : {
         "1" : {
-            "colour" : "#e80087",
-            "font" : "#ffffff"
+            "colour" : "#f599c1"
+        },
+        "2": {
+            "colour" : "#c496c5"
+        },
+        "3" : {
+            "colour" : "#d98a95"
+        },
+        "4" : {
+            "colour" : "#d08379"
+        },
+        "5" : {
+            "colour" : "#ade0eb"
+        },
+        "6" : {
+            "colour" : "#a2b2db"
+        },
+        "7" : {
+            "colour" : "#a3bf8e"
+        },
+        "8" : {
+            "colour" : "#8394cb"
+        },
+        "9" : {
+            "colour" : "#aad69d"
+        },
+        "10" : {
+            "colour" : "#aacbbf"
+        },
+        "11" : {
+            "colour" : "#82bbb0"
+        },
+        "12" : {
+            "colour" : "#f7a39c"
+        },
+        "13" : {
+            "colour" : "#cc846b"
+        },
+        "14" : {
+            "colour" : "#e8c698"
+        },
+        "15" : {
+            "colour" : "#d1beb5"
         }
     },
 

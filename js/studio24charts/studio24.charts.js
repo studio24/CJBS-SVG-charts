@@ -107,9 +107,143 @@ Studio24.Charts = function()
         return arr;
     }
 
+    /**
+     * Create a standard vertical bar chart
+     *
+     * @param container
+     * @param jsonUrl
+     * @param options
+     */
     var createBarChart = function(container, jsonUrl, options)
     {
+        // Check for requirements and add to the queue if it is not yet ready
+        if (typeof(colours) == "undefined") {
+            invokeQueue.push(prepareForQueue(createBarChart, [container, jsonUrl, options]));
+            return;
+        }
 
+        // Set default values
+        options = setDefaults(options, {
+            width : 700,
+            height: 400
+        });
+
+        // Prepare the config for being passed to the anonymous function
+        var config = {
+            container : container,
+            options : options
+        };
+
+        // Get the JSON dataset
+        d3.json(jsonUrl, function(error, dataset) {
+            if (error) return console.warn(error);
+            else {
+                var width = options.width;
+                var height = options.height;
+
+                var svg = d3.select(config.container)
+                    .append('svg')
+                    .attr('width', width + 50)
+                    .attr('height', height + 250);
+
+                var key = function (d) {
+                    return d.key;
+                }
+
+                var xScale = d3.scale.ordinal()
+                    .domain(d3.range(dataset.length))
+                    .rangeRoundBands([0, width], 0.05);
+
+                var yScale = d3.scale.linear()
+                    .domain([0, d3.max(dataset, function(d) {
+                        return d.value;
+                    })])
+                    .range([height, 0]);
+
+                var xAxisScale = d3.scale.ordinal()
+                    .domain(dataset.map(function(d) {
+                        return d.key;
+                    }))
+                    .rangeRoundBands([0, width], 0.05);
+
+                var xAxis = d3.svg.axis()
+                    .scale(xAxisScale)
+                    .orient('bottom');
+
+                var yAxis = d3.svg.axis()
+                    .scale(yScale)
+                    .orient('left')
+                    .ticks(10);
+
+                var rectGroup = svg.append('g')
+                    .attr('transform', 'translate(' + 25 + ', ' + 25 + ')')
+                    .attr('class', 'rect-group');
+
+                var rects = svg.select('.rect-group')
+                    .selectAll('rect')
+                    .data(dataset, key)
+                    .enter()
+                    .append('rect')
+                    .attr('class', 'bar');
+
+                rects.attr('y', function (d) {
+                    return yScale(d.value);
+                })
+                    .attr('x', function (d,i) {
+                        return xScale(i);
+                    })
+                    .attr('fill', '#E9008C')
+                    .attr('width', xScale.rangeBand() / 1.5)
+                    .attr('height', function (d) {
+                        return height - yScale(d.value);
+                    })
+                    .on('mouseover', function (d) {
+                        var bar = d3.select((this));
+                        var x = parseInt(bar.attr('x'));
+                        var y = parseInt(bar.attr('y'));
+                        var width = bar.attr('width');
+                        var height = bar.attr('height');
+
+                        bar.transition().duration(200).style('fill', '#9C4094');
+
+                        svg.select('.rect-group')
+                            .append('text')
+                            .attr('x', x + (width / 2))
+                            .attr('y', y + 20)
+                            .attr("font-family", "sans-serif")
+                            .attr("font-size", "14px")
+                            .attr("fill", "white")
+                            .style('text-anchor', 'middle')
+                            .transition()
+                            .duration(500)
+                            .attr('class', 'hover-label')
+                            .text(d.value);
+                    })
+                    .on('mouseout', function() {
+                        d3.selectAll('.hover-label').remove();
+                        d3.select((this)).transition().duration(500).style('fill', '#E9008C');
+                    });
+
+                svg.append('g')
+                    .attr('class', 'x axis')
+                    .attr('transform', 'translate(' + 25 + ', ' + (height + 25 + 5) + ')')
+                    .call(xAxis)
+                    .selectAll('text')
+                    .attr('font-size', '13px')
+                    .style('text-anchor', 'end')
+                    .attr('dx', '-.8em')
+                    .attr('dy', '.15em')
+                    .attr('transform', 'rotate(-65)');
+
+                var gy = svg.append('g')
+                    .attr('class', 'y axis')
+                    .attr('transform', 'translate(' + 25 + ', ' + 25 + ')')
+                    .call(yAxis);
+
+                gy.selectAll("g").filter(function(d) { return d; })
+                    .classed("minor", true);
+            }
+        });
     }
 
     /**
@@ -271,13 +405,13 @@ Studio24.Charts = function()
 
                 // Create a container for the legend
                 var legendContainer = svg.append("g")
-                    .attr("transform", "translate(" + (width - 230) + "," + 50 + ")");
+                    .attr("transform", "translate(" + (width - (width/3)) + "," + 50 + ")");
 
                 // Add the text to the middle, and call the wrap function
                 container.append('text')
                     .attr('font-style', 'italic')
                     .attr('text-anchor', 'middle')
-                    .attr('font-size', '30px')
+                    .attr('font-size', '22px')
                     .attr('fill', '#414141')
                     .text(options.title)
                     .call(wrap, 200);
@@ -418,10 +552,10 @@ Studio24.Charts = function()
                 container.append('text')
                     .attr('font-style', 'italic')
                     .attr('text-anchor', 'middle')
-                    .attr('font-size', '30px')
+                    .attr('font-size', '22px')
                     .attr('fill', '#414141')
                     .text(options.title)
-                    .call(wrap, 200);
+                    .call(wrap, height / 2);
 
                 var maxValue = getTotalValue(dataset);
                 var currentColor = 1;
@@ -736,6 +870,7 @@ Studio24.Charts = function()
      */
     var public = {
         init: init,
+        createBarChart: createBarChart,
         createHorizontalBarChart: createHorizontalBarChart,
         createHorizontalColumnsBarChart: createHorizontalColumnsBarChart,
         createPieChart: createPieChart,

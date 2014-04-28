@@ -49,20 +49,20 @@
         width : 700
     });
 
-    //.svg-container-2
     Studio24.Charts.createLayeredPieChart('.svg-container-2', '/js/data/mfin-employment-breakdown.json', {
         title: "Breakdown of those Employed",
         colours: "data-green"
     });
 
-    //.svg-container-3
+
     Studio24.Charts.createPieChart('.svg-container-3', '/js/data/mfin-career-overview.json', {
         title: "Career Outcome Overview",
-        colours: "data-pink"
+        colours: "data-green"
     });
 
-    Studio24.Charts.createMap('.svg-container-4', '/js/data/judge-map-data.csv', {
-
+    Studio24.Charts.createPieChart('.svg-container-4', '/js/data/mfin-changed-area.json', {
+        title: "Students who changed industry area",
+        colours: "data-pink"
     });
 </script>
 </body>

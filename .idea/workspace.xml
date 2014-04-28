@@ -23,58 +23,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="0" selection-start="993" selection-end="993" vertical-scroll-proportion="-17.571428" vertical-offset="363" max-vertical-offset="1406">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mfin-job-function.json" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/data/mfin-job-function.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="114">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="colours.json" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="colours.json" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/studio24charts/colours.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="6" selection-start="513" selection-end="513" vertical-scroll-proportion="-17.642857" vertical-offset="0" max-vertical-offset="798">
+            <state line="51" column="9" selection-start="1003" selection-end="1003" vertical-scroll-proportion="1.0430571" vertical-offset="0" max-vertical-offset="1577">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="studio24.charts.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="studio24.charts.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/studio24charts/studio24.charts.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="18" selection-start="94" selection-end="94" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="475">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="studio24.charts.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/studio24charts/studio24.charts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="473" column="13" selection-start="16627" selection-end="16627" vertical-scroll-proportion="0.49682203" vertical-offset="8518" max-vertical-offset="14307">
+            <state line="541" column="0" selection-start="18767" selection-end="18767" vertical-scroll-proportion="0.0" vertical-offset="9149" max-vertical-offset="16872">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mfin-post-mfin-location.csv" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/data/mfin-post-mfin-location.csv">
-          <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-            <state />
-          </provider>
+      <file leaf-file-name="mfin.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/mfin.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="32" selection-start="758" selection-end="758" vertical-scroll-proportion="-16.185184" vertical-offset="0" max-vertical-offset="551">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mfin-career-overview.json" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/data/mfin-career-overview.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="1" selection-start="94" selection-end="94" vertical-scroll-proportion="-2.0357144" vertical-offset="0" max-vertical-offset="171">
+            <state line="11" column="0" selection-start="273" selection-end="273" vertical-scroll-proportion="-7.464286" vertical-offset="0" max-vertical-offset="1672">
               <folding />
             </state>
           </provider>
@@ -91,21 +70,28 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/pie-donut.html" />
-        <option value="$PROJECT_DIR$/research.html" />
         <option value="$PROJECT_DIR$/bars.html" />
         <option value="$PROJECT_DIR$/js/studio24.charts.js" />
         <option value="$PROJECT_DIR$/js/data/horizontal-bar-chart-1.json" />
         <option value="$PROJECT_DIR$/js/data/horizontal-bar-chart-2.json" />
         <option value="$PROJECT_DIR$/js/data/mfin-class-profile.json" />
         <option value="$PROJECT_DIR$/js/data/mfin-breakdown-of-employed.json" />
-        <option value="$PROJECT_DIR$/js/studio24charts/colours.json" />
         <option value="$PROJECT_DIR$/js/data/mfin-employment-breakdown.json" />
         <option value="$PROJECT_DIR$/js/data/mfin-career-overview.json" />
         <option value="$PROJECT_DIR$/judge-map.html" />
         <option value="$PROJECT_DIR$/studio24.html" />
         <option value="$PROJECT_DIR$/Readme.md" />
+        <option value="$PROJECT_DIR$/js/data/mfin-finance-industry-area.json" />
+        <option value="$PROJECT_DIR$/js/data/mfin-changed-area.json" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/js/data/mfin-job-function.json" />
+        <option value="$PROJECT_DIR$/js/data/mfin-changed-country.json" />
+        <option value="$PROJECT_DIR$/js/data/mfin-post-mfin-location.csv" />
+        <option value="$PROJECT_DIR$/js/studio24charts/colours.json" />
+        <option value="$PROJECT_DIR$/research.html" />
         <option value="$PROJECT_DIR$/js/studio24charts/studio24.charts.js" />
+        <option value="$PROJECT_DIR$/examples/mfin.html" />
+        <option value="$PROJECT_DIR$/js/studio24charts/studio24.charts.css" />
       </list>
     </option>
   </component>
@@ -177,6 +163,10 @@
               <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="studio24charts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -211,6 +201,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="d3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="d3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="d3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="examples" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -360,20 +364,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/research.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="21" selection-start="1922" selection-end="1922" vertical-scroll-proportion="0.9590958" vertical-offset="344" max-vertical-offset="3249">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bars.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="49" selection-start="2526" selection-end="3478" vertical-scroll-proportion="0.73627555" vertical-offset="1330" max-vertical-offset="4047">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/data/mfin-class-profile.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="47" selection-start="49" selection-end="49" vertical-scroll-proportion="0.020452099" vertical-offset="0" max-vertical-offset="929">
@@ -419,40 +409,89 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/data/mfin-post-mfin-location.csv">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/js/data/mfin-finance-industry-area.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="32" selection-start="758" selection-end="758" vertical-scroll-proportion="-16.185184" vertical-offset="0" max-vertical-offset="551">
+        <state line="12" column="1" selection-start="585" selection-end="585" vertical-scroll-proportion="-8.142858" vertical-offset="0" max-vertical-offset="342">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/data/mfin-job-function.json">
+    <entry file="file://$PROJECT_DIR$/js/data/mfin-changed-area.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="957">
+        <state line="3" column="1" selection-start="89" selection-end="89" vertical-scroll-proportion="-2.0357144" vertical-offset="0" max-vertical-offset="171">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="0" selection-start="993" selection-end="993" vertical-scroll-proportion="-17.571428" vertical-offset="363" max-vertical-offset="1406">
+        <state line="57" column="23" selection-start="1371" selection-end="1371" vertical-scroll-proportion="0.66445917" vertical-offset="481" max-vertical-offset="1406">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/studio24charts/colours.json">
+    <entry file="file://$PROJECT_DIR$/js/data/mfin-post-mfin-location.csv">
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="6" selection-start="513" selection-end="513" vertical-scroll-proportion="-17.642857" vertical-offset="0" max-vertical-offset="798">
+        <state line="10" column="32" selection-start="371" selection-end="371" vertical-scroll-proportion="-7.037037" vertical-offset="0" max-vertical-offset="304">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/data/mfin-changed-country.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="47" selection-start="92" selection-end="92" vertical-scroll-proportion="0.040904198" vertical-offset="0" max-vertical-offset="929">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bars.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="135" column="45" selection-start="4533" selection-end="4533" vertical-scroll-proportion="-11.535714" vertical-offset="2242" max-vertical-offset="4047">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/research.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="18" selection-start="437" selection-end="437" vertical-scroll-proportion="0.44994617" vertical-offset="0" max-vertical-offset="3249">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/data/mfin-job-function.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="1" selection-start="709" selection-end="709" vertical-scroll-proportion="0.30678147" vertical-offset="0" max-vertical-offset="929">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/studio24charts/studio24.charts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="473" column="13" selection-start="16627" selection-end="16627" vertical-scroll-proportion="0.49682203" vertical-offset="8518" max-vertical-offset="14307">
+        <state line="541" column="0" selection-start="18767" selection-end="18767" vertical-scroll-proportion="0.0" vertical-offset="9814" max-vertical-offset="16872">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/mfin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="0" selection-start="273" selection-end="273" vertical-scroll-proportion="-7.464286" vertical-offset="0" max-vertical-offset="1672">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/studio24charts/studio24.charts.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="18" selection-start="94" selection-end="94" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="475">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/studio24charts/colours.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="9" selection-start="1003" selection-end="1003" vertical-scroll-proportion="1.0430571" vertical-offset="0" max-vertical-offset="1577">
           <folding />
         </state>
       </provider>

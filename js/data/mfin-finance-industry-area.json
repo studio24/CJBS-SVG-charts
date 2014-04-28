@@ -1,0 +1,13 @@
+[
+    {"key" : "Investment Banking", "value" : "8"},
+    {"key" : "Asset Management", "value" : "5"},
+    {"key" : "Financial Role in a Non-Financial Org", "value" : "5"},
+    {"key" : "Commercial/Retail Banking", "value" : "5"},
+    {"key" : "Venture Capital / Private Equity", "value" : "4"},
+    {"key" : "Public Sector Finance", "value" : "4"},
+    {"key" : "Corporate Finance", "value" : "4"},
+    {"key" : "Other", "value" : "2"},
+    {"key" : "Financial Consulting", "value" : "2"},
+    {"key" : "Hedge Fund", "value" : "1"},
+    {"key" : "Real Estate Finance", "value" : "1"}
+]
