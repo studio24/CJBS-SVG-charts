@@ -14,74 +14,71 @@
 </head>
 
 <body>
+    <!-- SVG Containers -->
+    <div class="svg-container-1"></div>
+    <div class="svg-container-2"></div>
+    <div class="svg-container-3"></div>
+    <div class="svg-container-4"></div>
+    <div class="svg-container-5"></div>
+    <div class="svg-container-6"></div>
+    <div class="svg-container-7"></div>
 
-<div class="svg-container-1"></div>
-<div class="svg-container-2"></div>
-<div class="svg-container-3"></div>
-<div class="svg-container-4"></div>
-<div class="svg-container-5"></div>
-<div class="svg-container-6"></div>
-<div class="svg-container-7"></div>
+    <script>
+        // Initialise the library
+        Studio24.Charts.init({
+            colourScheme: '../js/studio24charts/colours.json'
+        });
 
-<script>
-    // Initialise the library
-    Studio24.Charts.init({
-        colourScheme: '../js/studio24charts/colours.json'
-    });
+        // Pie Chart
+        Studio24.Charts.createPieChart('.svg-container-1', '../js/data/mfin-career-overview.json', {
+            title: "Career Outcome Overview",
+            colours: "data-pink",
+            width: 500,
+            height: 320
+        });
 
-    // Pie Chart
-    Studio24.Charts.createPieChart('.svg-container-1', '../js/data/mfin-career-overview.json', {
-        title: "Career Outcome Overview",
-        colours: "data-pink",
-        width: 500,
-        height: 320
-    });
+        // Layered Pie Chart
+        Studio24.Charts.createLayeredPieChart('.svg-container-2', '../js/data/mfin-employment-breakdown.json', {
+            title: "Breakdown of those Employed",
+            colours: "data-green",
+            width: 600,
+            height: 320
+        });
 
-    // Layered Pie Chart
-    Studio24.Charts.createLayeredPieChart('.svg-container-2', '../js/data/mfin-employment-breakdown.json', {
-        title: "Breakdown of those Employed",
-        colours: "data-green",
-        width: 600,
-        height: 320
-    });
+        // Pie Chart
+        Studio24.Charts.createPieChart('.svg-container-3', '../js/data/mfin-finance-industry-area.json', {
+            title: "Finance Industry Area",
+            colours: "data",
+            width: 800,
+            height: 500
+        });
 
-    // Pie Chart
-    Studio24.Charts.createPieChart('.svg-container-3', '../js/data/mfin-finance-industry-area.json', {
-        title: "Finance Industry Area",
-        colours: "data",
-        width: 800,
-        height: 500
-    });
+        // Bar Chart
+        Studio24.Charts.createBarChart('.svg-container-4', '../js/data/mfin-job-function.json', {
+            width: 500,
+            height: 320
+        });
 
-    // Bar Chart
-    Studio24.Charts.createBarChart('.svg-container-4', '../js/data/mfin-job-function.json', {
-        width: 500,
-        height: 320
-    });
+        // Pie Chart
+        Studio24.Charts.createPieChart('.svg-container-5', '../js/data/mfin-changed-area.json', {
+            title: "Students who changed industry area",
+            colours: "data-pink",
+            width: 500,
+            height: 320
+        });
 
-    // Pie Chart
-    Studio24.Charts.createPieChart('.svg-container-5', '../js/data/mfin-changed-area.json', {
-        title: "Students who changed industry area",
-        colours: "data-pink",
-        width: 500,
-        height: 320
-    });
+        // Map
+        Studio24.Charts.createMap('.svg-container-6', '../js/data/mfin-post-mfin-location.csv', {
+            worldJson: '../js/d3/world.json'
+        });
 
-    // Map
-    Studio24.Charts.createMap('.svg-container-6', '../js/data/mfin-post-mfin-location.csv', {
-        worldJson: '../js/d3/world.json'
-    });
-
-    // Pie Chart
-    Studio24.Charts.createPieChart('.svg-container-7', '../js/data/mfin-changed-country.json', {
-        title: "Students who changed country",
-        colours: "data-pink",
-        width: 550,
-        height: 320
-    });
-
-    // Currently insufficient data
-    //Studio24.Charts.createBarChart('.svg-container-8', '/js/data/mfin')
-</script>
+        // Pie Chart
+        Studio24.Charts.createPieChart('.svg-container-7', '../js/data/mfin-changed-country.json', {
+            title: "Students who changed country",
+            colours: "data-pink",
+            width: 550,
+            height: 320
+        });
+    </script>
 </body>
 </html>
