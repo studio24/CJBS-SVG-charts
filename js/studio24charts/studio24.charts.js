@@ -694,7 +694,7 @@ Studio24.Charts = function()
                             .attr('fill', '#ffffff')
                             .attr('text-anchor', 'left')
                             .attr('pointer-events', 'none')
-                            .text('x' + d.delegates)
+                            .text('x' + d.number)
                             .transition()
                             .delay(100)
                             .attr('font-size', '22px');
