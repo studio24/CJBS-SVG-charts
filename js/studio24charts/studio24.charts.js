@@ -107,6 +107,11 @@ Studio24.Charts = function()
         return arr;
     }
 
+    var createBarChart = function(container, jsonUrl, options)
+    {
+
+    }
+
     /**
      * Horizontal Bar Chart
      *
@@ -501,17 +506,25 @@ Studio24.Charts = function()
         var path = d3.geo.path()
             .projection(projection);
 
-        d3.json('world.json', function (json) {
+        d3.json('/js/d3/world.json', function (json) {
             svg.append('path')
                 .datum(topojson.feature(json, json.objects.land))
                 .attr('class', 'map')
                 .attr('d', path);
 
-            d3.csv("judge-map-data.csv", function(error, data) {
-                svg.selectAll("path")
+            d3.csv("/js/data/mfin-post-mfin-location.csv", function(error, data) {
+                var container = svg.selectAll("path")
                     .data(data)
                     .enter()
                     .append('g')
+                    .on('mouseover', function(d, i) {
+                        // Move the group to the front
+                        this.parentNode.appendChild(this);
+                    })
+                    .attr('transform', function(d) {
+                        return 'translate(' + (projection([d.lon, d.lat])[0]) + "," + (projection([d.lon, d.lat])[1]) + ')';
+                    });
+                container
                     .append("path")
                     .attr("cx", function(d) {
                         return projection([d.lon, d.lat])[0];
@@ -521,57 +534,72 @@ Studio24.Charts = function()
                     })
                     .attr('d', 'M130,19.321C130,8.65,121.337,0,110.651,0S91.301,8.65,91.301,19.321c0,9.365,6.674,17.169,15.531,18.94 l3.805,3.799l3.8-3.794C123.31,36.507,130,28.696,130,19.321z')
                     .attr('transform', function(d) {
-                        return 'translate(' + (projection([d.lon, d.lat])[0] - 108) + "," + (projection([d.lon, d.lat])[1] - 40) + ')';
+                        return 'translate(-108, -40)';
                     })
-                    .attr('xPos', function(d) {
-                        return (projection([d.lon, d.lat])[0] - 108)
-                    })
-                    .attr('yPos', function(d) {
-                        return (projection([d.lon, d.lat])[1] - 40)
-                    })
-                    .attr("stroke", "white")
-                    .attr("stroke-width", 2)
+//                    .attr("stroke", "white")
+//                    .attr("stroke-width", 2)
                     .attr("fill", "#E12B88")
                     .on('mouseover', function(d, i) {
-                        //this.parentNode.appendChild(this);
                         var $this = d3.select(this);
                         var parent = d3.select(this.parentNode);
+                        var person = parent.select('g');
                         var xPos = $this.attr('xPos');
                         var yPos = $this.attr('yPos');
 
                         $this.transition(500)
-                            .attr('transform', 'translate(' + (xPos-110) + "," + (yPos-40) + ') scale(2)');
+                            .attr('transform', 'translate(-218, -80) scale(2)');
+
+                        person.transition(200)
+                            .attr('transform', 'translate(-30, -55) scale(1.5)');
 
                         parent.append('text')
-                            .attr('x', parseInt(xPos) + 112)
-                            .attr('y', parseInt(yPos) + 5)
+                            .attr('x', 4)
+                            .attr('y', -32)
                             .attr('font-style', 'italic')
                             .attr('font-size', '0px')
                             .attr('fill', '#ffffff')
-                            .attr('text-anchor', 'middle')
-                            .text(d.delegates)
+                            .attr('text-anchor', 'left')
+                            .attr('pointer-events', 'none')
+                            .text('x' + d.delegates)
                             .transition()
                             .delay(100)
                             .attr('font-size', '22px');
                     })
                     .on('mouseout', function(d, i) {
                         var $this = d3.select(this);
+                        var parent = d3.select(this.parentNode);
+                        var person = parent.select('g');
                         var xPos = $this.attr('xPos');
                         var yPos = $this.attr('yPos');
 
+                        person.transition(200)
+                            .attr('transform', 'translate(-7, -30) scale(1)');
+
                         $this.transition(500)
-                            .attr('transform', 'translate(' + (xPos) + "," + (yPos) + ') scale(1)');
+                            .attr('transform', function() {
+                                return 'translate(-108, -40)';
+                            });
 
                         svg.selectAll('text').remove();
                     });
+
+                var person = container.append('g')
+                    .attr('transform', 'translate(-7, -30)');
+
+                person.append('circle')
+                    .attr('r', '2')
+                    .attr('cx', 10)
+                    .attr('cy', 2)
+                    .attr('pointer-events', 'none')
+                    .attr('fill', '#ffffff');
+                person.append('path')
+                    .attr('d', 'M59,21H41c-5.5,0-9.602,4.482-9.115,9.961l2.229,25.078c0.33,3.713,2.689,6.963,5.885,8.676V92  c0,4.4,3.6,8,8,8h4c4.4,0,8-3.6,8-8V64.715c3.196-1.713,5.556-4.963,5.886-8.676l2.229-25.078C68.602,25.482,64.5,21,59,21z')
+                    .attr('transform', 'scale(0.2)')
+                    .attr('pointer-events', 'none')
+                    .attr('fill', '#ffffff');
             });
 
         });
-    }
-
-    var appendTextToMap = function(svg, d, xPos, yPos)
-    {
-
     }
 
     /**

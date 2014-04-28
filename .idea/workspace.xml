@@ -23,19 +23,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="23" selection-start="377" selection-end="377" vertical-scroll-proportion="0.3476857" vertical-offset="0" max-vertical-offset="1292">
+            <state line="45" column="0" selection-start="993" selection-end="993" vertical-scroll-proportion="-17.571428" vertical-offset="363" max-vertical-offset="1406">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="barchart.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/barchart.html">
+      <file leaf-file-name="mfin-job-function.json" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/data/mfin-job-function.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="9" selection-start="1638" selection-end="1638" vertical-scroll-proportion="-5.357143" vertical-offset="895" max-vertical-offset="6498">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="114">
               <folding />
             </state>
           </provider>
@@ -50,22 +50,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="studio24.charts.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="studio24.charts.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/studio24charts/studio24.charts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="524" column="22" selection-start="18615" selection-end="18615" vertical-scroll-proportion="0.0" vertical-offset="9703" max-vertical-offset="13775">
+            <state line="473" column="13" selection-start="16627" selection-end="16627" vertical-scroll-proportion="0.49682203" vertical-offset="8518" max-vertical-offset="14307">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="judge-map-data.csv" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/judge-map-data.csv">
+      <file leaf-file-name="mfin-post-mfin-location.csv" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/data/mfin-post-mfin-location.csv">
           <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="25" selection-start="376" selection-end="376" vertical-scroll-proportion="-7.740741" vertical-offset="0" max-vertical-offset="551">
+            <state line="23" column="32" selection-start="758" selection-end="758" vertical-scroll-proportion="-16.185184" vertical-offset="0" max-vertical-offset="551">
               <folding />
             </state>
           </provider>
@@ -103,8 +103,9 @@
         <option value="$PROJECT_DIR$/js/data/mfin-career-overview.json" />
         <option value="$PROJECT_DIR$/judge-map.html" />
         <option value="$PROJECT_DIR$/studio24.html" />
-        <option value="$PROJECT_DIR$/js/studio24charts/studio24.charts.js" />
+        <option value="$PROJECT_DIR$/Readme.md" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/js/studio24charts/studio24.charts.js" />
       </list>
     </option>
   </component>
@@ -163,6 +164,56 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="d3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="d3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="d3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="d3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="d3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="d3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="d3" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -177,6 +228,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/js/data" />
+      <recent name="$PROJECT_DIR$/js/d3" />
       <recent name="$PROJECT_DIR$/js/studio24charts" />
     </key>
   </component>
@@ -229,7 +282,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
@@ -265,13 +318,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/judge-map.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="31" selection-start="1575" selection-end="1575" vertical-scroll-proportion="0.0" vertical-offset="1083" max-vertical-offset="2147">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pie-donut.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="45" column="0" selection-start="1368" selection-end="1368" vertical-scroll-proportion="0.0" vertical-offset="458" max-vertical-offset="1387">
@@ -286,21 +332,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/judge-bar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="43" selection-start="2704" selection-end="2714" vertical-scroll-proportion="0.0" vertical-offset="1066" max-vertical-offset="3021">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/topojson.min.js">
+    <entry file="file://$PROJECT_DIR$/js/d3/topojson.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="944">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/d3.min.js">
+    <entry file="file://$PROJECT_DIR$/js/d3/d3.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="944">
           <folding />
@@ -321,23 +360,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pie-donut.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="0" selection-start="1368" selection-end="1368" vertical-scroll-proportion="0.42734122" vertical-offset="458" max-vertical-offset="1387">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/research.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="65" column="21" selection-start="1922" selection-end="1922" vertical-scroll-proportion="0.9590958" vertical-offset="344" max-vertical-offset="3249">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/judge-bar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="43" selection-start="2704" selection-end="2714" vertical-scroll-proportion="0.20236814" vertical-offset="1066" max-vertical-offset="3021">
           <folding />
         </state>
       </provider>
@@ -363,6 +388,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/d3/mercator.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3496">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pie-donut.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="0" selection-start="1368" selection-end="1368" vertical-scroll-proportion="0.45748118" vertical-offset="430" max-vertical-offset="1387">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/data/mfin-career-overview.json">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="1" selection-start="94" selection-end="94" vertical-scroll-proportion="-2.0357144" vertical-offset="0" max-vertical-offset="171">
@@ -370,16 +419,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/judge-map.html">
+    <entry file="file://$PROJECT_DIR$/js/data/mfin-post-mfin-location.csv">
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="26" selection-start="662" selection-end="662" vertical-scroll-proportion="-4.214286" vertical-offset="509" max-vertical-offset="2090">
+        <state line="23" column="32" selection-start="758" selection-end="758" vertical-scroll-proportion="-16.185184" vertical-offset="0" max-vertical-offset="551">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mercator.json">
+    <entry file="file://$PROJECT_DIR$/js/data/mfin-job-function.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3496">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="957">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="0" selection-start="993" selection-end="993" vertical-scroll-proportion="-17.571428" vertical-offset="363" max-vertical-offset="1406">
           <folding />
         </state>
       </provider>
@@ -391,33 +450,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/judge-map-data.csv">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="25" selection-start="376" selection-end="376" vertical-scroll-proportion="-7.740741" vertical-offset="0" max-vertical-offset="551">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/studio24charts/studio24.charts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="524" column="22" selection-start="18615" selection-end="18615" vertical-scroll-proportion="0.0" vertical-offset="9703" max-vertical-offset="13775">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/barchart.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="9" selection-start="1638" selection-end="1638" vertical-scroll-proportion="-5.357143" vertical-offset="895" max-vertical-offset="6498">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="23" selection-start="377" selection-end="377" vertical-scroll-proportion="0.3476857" vertical-offset="0" max-vertical-offset="1292">
+        <state line="473" column="13" selection-start="16627" selection-end="16627" vertical-scroll-proportion="0.49682203" vertical-offset="8518" max-vertical-offset="14307">
           <folding />
         </state>
       </provider>

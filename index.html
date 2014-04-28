@@ -3,10 +3,10 @@
 <html>
 <head>
     <title>Studio 24 Charting Library</title>
-    <script src="/js/d3.min.js"></script>
+    <script src="/js/d3/d3.min.js"></script>
 
     <!-- Extra requirements -->
-    <script src="/js/topojson.min.js"></script>
+    <script src="/js/d3/topojson.min.js"></script>
 
     <script src="/js/studio24charts/studio24.charts.js"></script>
     <style>
@@ -32,11 +32,17 @@
 <!--<div class="svg-container-2"></div>-->
 <!--<div class="svg-container-3"></div>-->
 <div class="svg-container-4"></div>
+<div class="svg-container-5"></div>
 
 <script>
     Studio24.Charts.init({
         colourScheme: '/js/studio24charts/colours.json'
     });
+
+//    //.svg-container
+//    Studio24.Charts.createBarChart('.svg-container-5', '/js/data/mfin-job-function.json', {
+//        width : 700
+//    });
 
     //.svg-container
     Studio24.Charts.createHorizontalBarChart('.svg-container-1', '/js/data/horizontal-bar-chart-1.json', {
@@ -55,7 +61,7 @@
         colours: "data-pink"
     });
 
-    Studio24.Charts.createMap('.svg-container-4', '/js/data/mfin-post-location.json', {
+    Studio24.Charts.createMap('.svg-container-4', '/js/data/judge-map-data.csv', {
 
     });
 </script>
