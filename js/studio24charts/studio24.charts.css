@@ -2,18 +2,19 @@ svg {
     font-family: Cambria;
 }
 
-.map {
+svg .map {
     fill: #ccc;
 }
 
-.point,.arrow{
+svg .point,
+svg .arrow{
     fill: #e6228d;
     cursor: pointer;
     stroke: white;
 }
 
-.axis path,
-.axis line {
+svg .axis path,
+svg .axis line {
     fill: none;
     stroke: #888;
     shape-rendering: crispEdges;

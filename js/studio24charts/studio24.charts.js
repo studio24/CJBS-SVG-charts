@@ -366,7 +366,8 @@ Studio24.Charts = function()
         options = setDefaults(options, {
             width : 750,
             height: 500,
-            title: ""
+            title: "",
+            legendWidth: 150
         });
 
         // Get the data colour scheme
@@ -384,7 +385,9 @@ Studio24.Charts = function()
             else {
                 var width = options.width;
                 var height = options.height;
-                var barRadius = height/10;
+                var legendWidth = options.legendWidth;
+                var barRadius = 32;
+                var chartDiameter = 320;
 
                 // Keep tau (T) for working out angles (2pi)
                 var T = 2 * Math.PI;
@@ -396,7 +399,7 @@ Studio24.Charts = function()
                 // Get the SVG object
                 var svg = d3.select(config.container)
                     .append('svg')
-                    .attr('width', width)
+                    .attr('width', width + legendWidth)
                     .attr('height', height);
 
                 // Create a container for the main pie chart
@@ -405,16 +408,17 @@ Studio24.Charts = function()
 
                 // Create a container for the legend
                 var legendContainer = svg.append("g")
-                    .attr("transform", "translate(" + (width - (width/3)) + "," + 50 + ")");
+                    .attr("transform", "translate(" + (width) + "," + (height - 10) + ")");
 
                 // Add the text to the middle, and call the wrap function
                 container.append('text')
                     .attr('font-style', 'italic')
                     .attr('text-anchor', 'middle')
-                    .attr('font-size', '22px')
+                    .attr('font-size', '19px')
                     .attr('fill', '#414141')
+                    .attr('y', -10)
                     .text(options.title)
-                    .call(wrap, 200);
+                    .call(wrap, height / 3);
 
                 var currentAngle = 0;
                 var maxValue = getTotalValue(dataset);
@@ -424,8 +428,8 @@ Studio24.Charts = function()
 
                     // Initiate the arc for drawing the bars
                     var arc = d3.svg.arc()
-                        .innerRadius(height / 2 - (2 * barRadius))
-                        .outerRadius(height / 2 - barRadius)
+                        .innerRadius(chartDiameter / 2 - (2 * barRadius))
+                        .outerRadius(chartDiameter / 2 - barRadius)
                         .startAngle(currentAngle)
                         .endAngle(currentAngle + (T / maxValue) * value);
 
@@ -456,27 +460,22 @@ Studio24.Charts = function()
                         .duration(1000)
                         .call(arcTween, (T / maxValue) * value, arc);
 
-//                    container.append("svg:line")
-//                        .attr("x1", 0)
-//                        .attr("y1", 0)
-//                        .attr("x2", 120)
-//                        .attr("y2", 120)
-//                        .style("stroke", "rgb(6,120,155)");
-
                     // Legend circles
                     legendContainer.append("circle")
-                        .attr('r', 10)
+                        .attr('r', 5)
                         .attr('cx', 0)
-                        .attr('cy', i * 40)
-                        .attr('fill', colourScheme[currentColor].colour);
+                        .attr('cy', -40 - (i * 30))
+                        .attr('fill', '#fff')
+                        .attr('stroke', colourScheme[currentColor].colour)
+                        .attr('stroke-width', '4');
 
                     // Legend text
                     legendContainer.append("text")
                         .attr('font-style', 'italic')
-                        .attr('font-size', '18px')
+                        .attr('font-size', '16px')
                         .attr('fill', '#414141')
                         .attr('x', 25)
-                        .attr('y', 6 + i * 40)
+                        .attr('y', -36 - i * 30)
                         .text(dataset[i]["key"]);
 
                     // Increase the next angle
@@ -510,6 +509,7 @@ Studio24.Charts = function()
         options = setDefaults(options, {
             width : 750,
             height: 500,
+            legendWidth: 200,
             title: "",
             showInactive: true
         });
@@ -530,6 +530,7 @@ Studio24.Charts = function()
                 var width = options.width;
                 var height = options.height;
                 var barRadius = (height/5) / dataset.length;
+                var legendWidth = options.legendWidth;
 
                 // Keep tau (T) for working out angles (2pi)
                 var T = 2 * Math.PI;
@@ -537,7 +538,7 @@ Studio24.Charts = function()
                 // Get the SVG object
                 var svg = d3.select(config.container)
                     .append('svg')
-                    .attr('width', width)
+                    .attr('width', width + legendWidth)
                     .attr('height', height);
 
                 // Create a container for the main pie chart
@@ -546,16 +547,17 @@ Studio24.Charts = function()
 
                 // Create a container for the legend
                 var legendContainer = svg.append("g")
-                    .attr("transform", "translate(" + (width - 230) + "," + 50 + ")");
+                    .attr("transform", "translate(" + width + "," + (height - 10) + ")");
 
                 // Add the text to the middle, and call the wrap function
                 container.append('text')
                     .attr('font-style', 'italic')
                     .attr('text-anchor', 'middle')
-                    .attr('font-size', '22px')
+                    .attr('font-size', '19px')
+                    .attr('y', -10)
                     .attr('fill', '#414141')
                     .text(options.title)
-                    .call(wrap, height / 2);
+                    .call(wrap, height / 3);
 
                 var maxValue = getTotalValue(dataset);
                 var currentColor = 1;
@@ -585,20 +587,24 @@ Studio24.Charts = function()
                         .duration(1000)
                         .call(arcTween, (T / maxValue) * value, arc);
 
+                    console.log(height - (i * 30));
+
                     // Legend circles
                     legendContainer.append("circle")
-                        .attr('r', 10)
+                        .attr('r', 5)
                         .attr('cx', 0)
-                        .attr('cy', i * 40)
-                        .attr('fill', colourScheme[currentColor].colour);
+                        .attr('cy', -40 - (i * 30))
+                        .attr('fill', '#fff')
+                        .attr('stroke', colourScheme[currentColor].colour)
+                        .attr('stroke-width', '4');
 
                     // Legend text
                     legendContainer.append("text")
                         .attr('font-style', 'italic')
-                        .attr('font-size', '18px')
+                        .attr('font-size', '16px')
                         .attr('fill', '#414141')
                         .attr('x', 25)
-                        .attr('y', 6 + i * 40)
+                        .attr('y', -36 - i * 30)
                         .text(dataset[i]["key"]);
 
                     // Increment the colour and check if we have any more colours
@@ -686,6 +692,7 @@ Studio24.Charts = function()
                         person.transition(200)
                             .attr('transform', 'translate(-30, -55) scale(1.5)');
 
+                        // Add number text
                         parent.append('text')
                             .attr('x', 4)
                             .attr('y', -32)
@@ -698,6 +705,19 @@ Studio24.Charts = function()
                             .transition()
                             .delay(100)
                             .attr('font-size', '22px');
+
+                        // Add location text
+                        parent.append('text')
+                            .attr('x', 0)
+                            .attr('y', -90)
+                            .attr('fill', '#333')
+                            .attr('text-anchor', 'middle')
+                            .attr('font-style', 'italic')
+                            .attr('font-size', '0px')
+                            .text(d.place)
+                            .transition()
+                            .delay(200)
+                            .attr('font-size', '16px');
                     })
                     .on('mouseout', function(d, i) {
                         var $this = d3.select(this);

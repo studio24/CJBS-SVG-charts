@@ -6,49 +6,38 @@
 
     "data" : {
         "1" : {
-            "colour" : "#eb3596"
+            "colour" : "#f599c1"
         },
         "2": {
-            "colour" : "#f38bb9"
+            "colour" : "#c496c5"
         },
         "3" : {
-            "colour" : "#ac58a2"
+            "colour" : "#d98a95"
         },
         "4" : {
-            "colour" : "#c08bbe"
+            "colour" : "#d08379"
         },
         "5" : {
-            "colour" : "#61cadc"
+            "colour" : "#ade0eb"
         },
         "6" : {
-            "colour" : "#9ddae9"
+            "colour" : "#a2b2db"
         },
         "7" : {
-            "colour" : "#0d6cb6"
+            "colour" : "#a3bfe4"
         },
+
         "8" : {
-            "colour" : "#6b8cc6"
+            "colour" : "#8394cb"
         },
         "9" : {
-            "colour" : "#96acd9"
+            "colour" : "#aad69d"
         },
         "10" : {
-            "colour" : "#5ebc5a"
+            "colour" : "#aacbbf"
         },
         "11" : {
-            "colour" : "#99cf8a"
-        },
-        "12" : {
-            "colour" : "#f7a39c"
-        },
-        "13" : {
-            "colour" : "#cc846b"
-        },
-        "14" : {
-            "colour" : "#e8c698"
-        },
-        "15" : {
-            "colour" : "#d1beb5"
+            "colour" : "#a3bf8e"
         }
     },
 
