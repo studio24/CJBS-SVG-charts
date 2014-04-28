@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="colours.json" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="colours.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/studio24charts/colours.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="9" selection-start="1003" selection-end="1003" vertical-scroll-proportion="1.0430571" vertical-offset="0" max-vertical-offset="1577">
+            <state line="0" column="1" selection-start="1" selection-end="1" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1577">
               <folding />
             </state>
           </provider>
@@ -50,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mfin.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="mfin.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/mfin.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="0" selection-start="273" selection-end="273" vertical-scroll-proportion="-7.464286" vertical-offset="0" max-vertical-offset="1672">
+            <state line="71" column="59" selection-start="2094" selection-end="2094" vertical-scroll-proportion="0.65446717" vertical-offset="741" max-vertical-offset="1672">
               <folding />
             </state>
           </provider>
@@ -90,8 +90,8 @@
         <option value="$PROJECT_DIR$/js/studio24charts/colours.json" />
         <option value="$PROJECT_DIR$/research.html" />
         <option value="$PROJECT_DIR$/js/studio24charts/studio24.charts.js" />
-        <option value="$PROJECT_DIR$/examples/mfin.html" />
         <option value="$PROJECT_DIR$/js/studio24charts/studio24.charts.css" />
+        <option value="$PROJECT_DIR$/examples/mfin.html" />
       </list>
     </option>
   </component>
@@ -475,13 +475,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/mfin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="273" selection-end="273" vertical-scroll-proportion="-7.464286" vertical-offset="0" max-vertical-offset="1672">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/studio24charts/studio24.charts.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="18" selection-start="94" selection-end="94" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="475">
@@ -489,9 +482,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="146" selection-end="146" vertical-scroll-proportion="0.2580982" vertical-offset="0" max-vertical-offset="957">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/studio24charts/colours.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="9" selection-start="1003" selection-end="1003" vertical-scroll-proportion="1.0430571" vertical-offset="0" max-vertical-offset="1577">
+        <state line="0" column="1" selection-start="1" selection-end="1" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1577">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/mfin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="59" selection-start="2094" selection-end="2094" vertical-scroll-proportion="0.65446717" vertical-offset="741" max-vertical-offset="1672">
           <folding />
         </state>
       </provider>
