@@ -441,41 +441,102 @@ Studio24.Charts = function()
                         .attr('s_startAngle', currentAngle)
                         .attr('s_endAngle', currentAngle + (T / maxValue) * value)
                         .attr('height', height)
-                        .on('click', function() {
+                        .attr('id', 'bar-'  + i)
+                        .on('mouseover', function() {
+                            var $this = d3.select(this);
+                            var startAngle = $this.attr('s_startAngle');
+                            var endAngle = $this.attr('s_endAngle');
+                            var id = $this.attr('id').split('-')[1];
+
+                            legendContainer.selectAll('g')
+                                .style('opacity', '0.2');
+                            legendContainer.select('#legend-' + id)
+                                .style('opacity', '1');
+
+                            var newArc = d3.svg.arc()
+                                .innerRadius(chartDiameter / 2 - (2 * barRadius))
+                                .outerRadius(chartDiameter / 2 - barRadius + 15)
+                                .startAngle(parseFloat(startAngle))
+                                .endAngle(parseFloat(endAngle));
+
+                            d3.select(this).attr('d', newArc);
+                        })
+                        .on('mouseout', function() {
                             var $this = d3.select(this);
                             var startAngle = $this.attr('s_startAngle');
                             var endAngle = $this.attr('s_endAngle');
 
-                            console.log(startAngle, endAngle);
+                            legendContainer.selectAll('g')
+                                .style('opacity', '1');
 
                             var newArc = d3.svg.arc()
-                                .innerRadius(0)
-                                .outerRadius(200)
-                                .startAngle(startAngle)
-                                .endAngle(endAngle);
+                                .innerRadius(chartDiameter / 2 - (2 * barRadius))
+                                .outerRadius(chartDiameter / 2 - barRadius)
+                                .startAngle(parseFloat(startAngle))
+                                .endAngle(parseFloat(endAngle));
 
-                            //d3.select(this).attr('d', newArc);
+                            d3.select(this).attr('d', newArc);
                         })
                         .transition()
                         .duration(1000)
                         .call(arcTween, (T / maxValue) * value, arc);
 
+                    // Legend group
+                    var legendItem = legendContainer.append('g')
+                        .attr('id', 'legend-'  + i)
+                        .attr('transform', 'translate(0, '+(-40 - (i * 30))+')')
+                        .on('mouseover', function() {
+                            var $this = d3.select(this);
+                            var id = $this.attr('id').split('-')[1];
+                            var bar = container.select('#bar-' + id);
+                            var startAngle = bar.attr('s_startAngle');
+                            var endAngle = bar.attr('s_endAngle');
+
+                            legendContainer.selectAll('g')
+                                .style('opacity', '0.2');
+                            $this.style('opacity', '1');
+
+                            var newArc = d3.svg.arc()
+                                .innerRadius(chartDiameter / 2 - (2 * barRadius))
+                                .outerRadius(chartDiameter / 2 - barRadius + 15)
+                                .startAngle(parseFloat(startAngle))
+                                .endAngle(parseFloat(endAngle));
+
+                            bar.attr('d', newArc);
+                        })
+                        .on('mouseout', function() {
+                            var $this = d3.select(this);
+                            var id = $this.attr('id').split('-')[1];
+                            var bar = container.select('#bar-' + id);
+                            var startAngle = bar.attr('s_startAngle');
+                            var endAngle = bar.attr('s_endAngle');
+
+                            legendContainer.selectAll('g')
+                                .style('opacity', '1');
+
+                            var newArc = d3.svg.arc()
+                                .innerRadius(chartDiameter / 2 - (2 * barRadius))
+                                .outerRadius(chartDiameter / 2 - barRadius)
+                                .startAngle(parseFloat(startAngle))
+                                .endAngle(parseFloat(endAngle));
+
+                           bar.attr('d', newArc);
+                        });
+
                     // Legend circles
-                    legendContainer.append("circle")
+                    legendItem.append("circle")
                         .attr('r', 5)
-                        .attr('cx', 0)
-                        .attr('cy', -40 - (i * 30))
                         .attr('fill', '#fff')
                         .attr('stroke', colourScheme[currentColor].colour)
                         .attr('stroke-width', '4');
 
                     // Legend text
-                    legendContainer.append("text")
+                    legendItem.append("text")
                         .attr('font-style', 'italic')
                         .attr('font-size', '16px')
                         .attr('fill', '#414141')
                         .attr('x', 25)
-                        .attr('y', -36 - i * 30)
+                        .attr('y', 6)
                         .text(dataset[i]["key"]);
 
                     // Increase the next angle
@@ -556,6 +617,7 @@ Studio24.Charts = function()
                     .attr('font-size', '19px')
                     .attr('y', -10)
                     .attr('fill', '#414141')
+                    .attr('class', 'center-text')
                     .text(options.title)
                     .call(wrap, height / 3);
 
@@ -583,31 +645,119 @@ Studio24.Charts = function()
                         .datum({endAngle: 0})
                         .style("fill", colourScheme[currentColor].colour)
                         .attr("d", arc)
+                        .attr('value', value)
+                        .attr('id', 'bar-' + i)
+                        .on('mouseover', function() {
+                            var $this = d3.select(this);
+                            var currentValue = $this.attr('value');
+                            var id = $this.attr('id').split('-')[1];
+
+                            // Set the opacity of all bars to a lower value
+                            container.selectAll('path')
+                                .style('opacity', '0.2');
+
+                            legendContainer.selectAll('g')
+                                .style('opacity', '0.2');
+                            legendContainer.select('#legend-' + id)
+                                .style('opacity', '1');
+
+                            // Set the opacity of the selected bar to one
+                            $this.style('opacity', '1');
+
+                            // Hide the center text
+                            container.select('.center-text')
+                                .style('opacity', '0');
+
+                            // Append data text to the center
+                            container.append('text')
+                                .attr('font-style', 'italic')
+                                .attr('text-anchor', 'middle')
+                                .attr('font-size', '40px')
+                                .attr('y', 10)
+                                .attr('fill', '#414141')
+                                .attr('class', 'data-text')
+                                .text(currentValue);
+                        })
+                        .on('mouseout', function() {
+                            // Reset everything on mouseout
+                            container.selectAll('path')
+                                .style('opacity', '1');
+                            container.selectAll('.data-text').remove();
+                            container.select('.center-text')
+                                .style('opacity', '1');
+                            legendContainer.selectAll('g')
+                                .style('opacity', '1');
+                        })
                         .transition()
                         .duration(1000)
                         .call(arcTween, (T / maxValue) * value, arc);
 
-                    console.log(height - (i * 30));
+                    // Group for legend item
+                    var legendItem = legendContainer.append('g')
+                        .attr('id', 'legend-' + i)
+                        .attr('transform', 'translate(0, ' + (-40 - (i * 30)) + ')')
+                        .on('mouseover', function() {
+                            console.log('test');
+                            var $this = d3.select(this);
+                            var id = $this.attr('id').split('-')[1];
+                            var bar = d3.select('#bar-' + id);
+                            var currentValue = bar.attr('value');
 
-                    // Legend circles
-                    legendContainer.append("circle")
+                            // Set the opacity of all bars to a lower value
+                            container.selectAll('path')
+                                .style('opacity', '0.2');
+
+                            // Set the legend opacity
+                            legendContainer.selectAll('g')
+                                .style('opacity', '0.2');
+                            $this.style('opacity', '1');
+
+                            // Set the opacity of the selected bar to one
+                            bar.style('opacity', '1');
+
+                            // Hide the center text
+                            container.select('.center-text')
+                                .style('opacity', '0');
+
+                            // Append data text to the center
+                            container.append('text')
+                                .attr('font-style', 'italic')
+                                .attr('text-anchor', 'middle')
+                                .attr('font-size', '40px')
+                                .attr('y', 10)
+                                .attr('fill', '#414141')
+                                .attr('class', 'data-text')
+                                .text(currentValue);
+                        })
+                        .on('mouseout', function() {
+                            // Reset everything on mouseout
+                            container.selectAll('path')
+                                .style('opacity', '1');
+                            container.selectAll('.data-text').remove();
+                            container.select('.center-text')
+                                .style('opacity', '1');
+                            legendContainer.selectAll('g')
+                                .style('opacity', '1');
+                        });
+
+                    // Legend circle
+                    legendItem.append("circle")
                         .attr('r', 5)
-                        .attr('cx', 0)
-                        .attr('cy', -40 - (i * 30))
                         .attr('fill', '#fff')
                         .attr('stroke', colourScheme[currentColor].colour)
                         .attr('stroke-width', '4');
 
                     // Legend text
-                    legendContainer.append("text")
+                    legendItem.append("text")
                         .attr('font-style', 'italic')
                         .attr('font-size', '16px')
                         .attr('fill', '#414141')
                         .attr('x', 25)
-                        .attr('y', -36 - i * 30)
+                        .attr('y', 6)
                         .text(dataset[i]["key"]);
 
                     // Increment the colour and check if we have any more colours
+                    // Loop back to the start if we have run out
                     currentColor++;
                     if (typeof colourScheme[currentColor] == "undefined") currentColor = 1;
                 }
@@ -756,6 +906,91 @@ Studio24.Charts = function()
         });
     }
 
+    //@todo: Make work
+    var createForceDirectedGraph = function(container, jsonUrl, options)
+    {
+        var config = {
+            container: container
+        }
+
+        d3.json(jsonUrl, function(error, dataset) {
+            if (error) return console.warn(error);
+            else {
+                var width = 960,
+                    height = 500;
+
+                var links = [];
+                var nodes = dataset.nodes.slice();
+                var bilinks = [];
+
+                // Compute the distinct nodes from the links.
+                links.forEach(function(link) {
+                    link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+                    link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+                });
+
+                var color = d3.scale.category20();
+
+                var force = d3.layout.force()
+                    .linkDistance(10)
+                    .linkStrength(2)
+                    .size([width, height]);
+
+
+                var svg = d3.select(config.container).append('svg')
+                    .attr('width', width)
+                    .attr('height', height);
+
+                svg.append("rect")
+                    .attr("width", "100%")
+                    .attr("height", "100%")
+                    .attr('fill', '#023d45');
+
+                dataset.links.forEach(function(link) {
+                    var s = nodes[link.source],
+                        t = nodes[link.target],
+                        i = {};
+
+                    nodes.push(i);
+                    links.push({source: s, target: i}, {source: i, target: t});
+                    bilinks.push([s, i, t]);
+                });
+
+                force.nodes(nodes)
+                    .links(links)
+                    .start();
+
+                var link = svg.selectAll('.link')
+                    .data(bilinks)
+                    .enter().append('path')
+                    .attr('class', 'link');
+
+                var node = svg.selectAll('.node')
+                    .data(dataset.nodes)
+                    .enter().append('g')
+                    .attr('class', 'node')
+                    .call(force.drag);
+
+                node.append('circle')
+                    .attr('r', function (d) { return 3 * d.size; });
+
+//                node.append("text")
+//                    .text(function(d) { return d.id; });
+
+                force.on('tick', function() {
+                    link.attr('d', function(d) {
+                        return "M" + d[0].x + "," + d[0].y
+                            + " S" + d[1].x + "," + d[1].y
+                            + " " + d[2].x + "," + d[2].y;
+                    });
+                    node.attr('transform', function(d) {
+                        return 'translate(' + d.x + ',' + d.y + ')';
+                    });
+                });
+            }
+        });
+    }
+
     /**
      * Get the max value for an object in the format:
      *
@@ -896,6 +1131,7 @@ Studio24.Charts = function()
         createPieChart: createPieChart,
         createLayeredPieChart: createLayeredPieChart,
         createMap: createMap,
+        createForceDirectedGraph: createForceDirectedGraph,
         setColourScheme: setColourScheme
     }
 

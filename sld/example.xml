@@ -1,0 +1,148 @@
+<StyledLayerDescriptor version="1.0.0"
+                       xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd"
+                       xmlns="http://www.opengis.net/sld"
+                       xmlns:ogc="http://www.opengis.net/ogc"
+                       xmlns:xlink="http://www.w3.org/1999/xlink"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <NamedLayer>
+        <Name>Attribute-based polygon</Name>
+        <UserStyle>
+            <Title>Social Unrest Risk Scale</Title>
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>class1</Name>
+                    <Title>Less Than 1</Title>
+                    <                                                                                                                                                                                     ogc:Filter>
+                        <ogc:PropertyIsLessThan>
+                            <ogc:PropertyName>socialunrestrisk</ogc:PropertyName>
+                            <ogc:Literal>1</ogc:Literal>
+                        </ogc:PropertyIsLessThan>
+                    </ogc:Filter>
+                    <PointSymbolizer>
+                        <Graphic>
+                            <Mark>
+                                <WellKnownName>circle</WellKnownName>
+                                <Fill>
+                                    <CssParameter name="fill">#c1e62e</CssParameter>
+                                </Fill>
+                            </Mark>
+                            <Size>
+                                <ogc:Literal>5</ogc:Literal>
+                            </Size>
+                        </Graphic>
+                    </PointSymbolizer>
+                </Rule>
+                <Rule>
+                    <Name>class2</Name>
+                    <Title>1 to 2</Title>
+                    <ogc:Filter>
+                        <ogc:And>
+                            <ogc:PropertyIsGreaterThanOrEqualTo>
+                                <ogc:PropertyName>socialunrestrisk</ogc:PropertyName>
+                                <ogc:Literal>1</ogc:Literal>
+                            </ogc:PropertyIsGreaterThanOrEqualTo>
+                            <ogc:PropertyIsLessThan>
+                                <ogc:PropertyName>socialunrestrisk</ogc:PropertyName>
+                                <ogc:Literal>2</ogc:Literal>
+                            </ogc:PropertyIsLessThan>
+                        </ogc:And>
+                    </ogc:Filter>
+                    <PointSymbolizer>
+                        <Graphic>
+                            <Mark>
+                                <WellKnownName>circle</WellKnownName>
+                                <Fill>
+                                    <CssParameter name="fill">#e6d32e</CssParameter>
+                                </Fill>
+                            </Mark>
+                            <Size>
+                                <ogc:Literal>10</ogc:Literal>
+                            </Size>
+                        </Graphic>
+                    </PointSymbolizer>
+                </Rule>
+                <Rule>
+                    <Name>class3</Name>
+                    <Title>2 to 3</Title>
+                    <ogc:Filter>
+                        <ogc:And>
+                            <ogc:PropertyIsGreaterThanOrEqualTo>
+                                <ogc:PropertyName>socialunrestrisk</ogc:PropertyName>
+                                <ogc:Literal>2</ogc:Literal>
+                            </ogc:PropertyIsGreaterThanOrEqualTo>
+                            <ogc:PropertyIsLessThan>
+                                <ogc:PropertyName>socialunrestrisk</ogc:PropertyName>
+                                <ogc:Literal>3</ogc:Literal>
+                            </ogc:PropertyIsLessThan>
+                        </ogc:And>
+                    </ogc:Filter>
+                    <PointSymbolizer>
+                        <Graphic>
+                            <Mark>
+                                <WellKnownName>circle</WellKnownName>
+                                <Fill>
+                                    <CssParameter name="fill">#e69c2e</CssParameter>
+                                </Fill>
+                            </Mark>
+                            <Size>
+                                <ogc:Literal>15</ogc:Literal>
+                            </Size>
+                        </Graphic>
+                    </PointSymbolizer>
+                </Rule>
+                <Rule>
+                    <Name>class4</Name>
+                    <Title>3 to 4</Title>
+                    <ogc:Filter>
+                        <ogc:And>
+                            <ogc:PropertyIsGreaterThanOrEqualTo>
+                                <ogc:PropertyName>socialunrestrisk</ogc:PropertyName>
+                                <ogc:Literal>3</ogc:Literal>
+                            </ogc:PropertyIsGreaterThanOrEqualTo>
+                            <ogc:PropertyIsLessThan>
+                                <ogc:PropertyName>socialunrestrisk</ogc:PropertyName>
+                                <ogc:Literal>4</ogc:Literal>
+                            </ogc:PropertyIsLessThan>
+                        </ogc:And>
+                    </ogc:Filter>
+                    <PointSymbolizer>
+                        <Graphic>
+                            <Mark>
+                                <WellKnownName>circle</WellKnownName>
+                                <Fill>
+                                    <CssParameter name="fill">#c6652e</CssParameter>
+                                </Fill>
+                            </Mark>
+                            <Size>
+                                <ogc:Literal>18</ogc:Literal>
+                            </Size>
+                        </Graphic>
+                    </PointSymbolizer>
+                </Rule>
+                <Rule>
+                    <Name>class4</Name>
+                    <Title>4 or greater</Title>
+                    <ogc:Filter>
+                        <ogc:PropertyIsGreaterThanOrEqualTo>
+                            <ogc:PropertyName>socialunrestrisk</ogc:PropertyName>
+                            <ogc:Literal>4</ogc:Literal>
+                        </ogc:PropertyIsGreaterThanOrEqualTo>
+                    </ogc:Filter>
+                    <PointSymbolizer>
+                        <Graphic>
+                            <Mark>
+                                <WellKnownName>circle</WellKnownName>
+                                <Fill>
+                                    <CssParameter name="fill">#e62e2e</CssParameter>
+                                </Fill>
+                            </Mark>
+                            <Size>
+                                <ogc:Literal>22</ogc:Literal>
+                            </Size>
+                        </Graphic>
+                    </PointSymbolizer>
+                </Rule>
+            </FeatureTypeStyle>
+        </UserStyle>
+    </NamedLayer>
+</StyledLayerDescriptor>
