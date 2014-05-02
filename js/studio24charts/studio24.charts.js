@@ -428,7 +428,7 @@ Studio24.Charts = function()
 
                     // Initiate the arc for drawing the bars
                     var arc = d3.svg.arc()
-                        .innerRadius(chartDiameter / 2 - (2 * barRadius))
+                        .innerRadius(chartDiameter / 2 - (2.3 * barRadius))
                         .outerRadius(chartDiameter / 2 - barRadius)
                         .startAngle(currentAngle)
                         .endAngle(currentAngle + (T / maxValue) * value);
@@ -449,12 +449,17 @@ Studio24.Charts = function()
                             var id = $this.attr('id').split('-')[1];
 
                             legendContainer.selectAll('g')
+                                .transition()
+                                .duration(0)
                                 .style('opacity', '0.2');
                             legendContainer.select('#legend-' + id)
+                                .transition()
+                                .duration(500)
                                 .style('opacity', '1');
 
+
                             var newArc = d3.svg.arc()
-                                .innerRadius(chartDiameter / 2 - (2 * barRadius))
+                                .innerRadius(chartDiameter / 2 - (2.3 * barRadius))
                                 .outerRadius(chartDiameter / 2 - barRadius + 15)
                                 .startAngle(parseFloat(startAngle))
                                 .endAngle(parseFloat(endAngle));
@@ -470,7 +475,7 @@ Studio24.Charts = function()
                                 .style('opacity', '1');
 
                             var newArc = d3.svg.arc()
-                                .innerRadius(chartDiameter / 2 - (2 * barRadius))
+                                .innerRadius(chartDiameter / 2 - (2.3 * barRadius))
                                 .outerRadius(chartDiameter / 2 - barRadius)
                                 .startAngle(parseFloat(startAngle))
                                 .endAngle(parseFloat(endAngle));
@@ -493,11 +498,15 @@ Studio24.Charts = function()
                             var endAngle = bar.attr('s_endAngle');
 
                             legendContainer.selectAll('g')
+                                .transition()
+                                .duration(0)
                                 .style('opacity', '0.2');
-                            $this.style('opacity', '1');
+                            $this.transition()
+                                .duration(500)
+                                .style('opacity', '1');
 
                             var newArc = d3.svg.arc()
-                                .innerRadius(chartDiameter / 2 - (2 * barRadius))
+                                .innerRadius(chartDiameter / 2 - (2.3 * barRadius))
                                 .outerRadius(chartDiameter / 2 - barRadius + 15)
                                 .startAngle(parseFloat(startAngle))
                                 .endAngle(parseFloat(endAngle));
@@ -512,10 +521,12 @@ Studio24.Charts = function()
                             var endAngle = bar.attr('s_endAngle');
 
                             legendContainer.selectAll('g')
+                                .transition()
+                                .duration(1000)
                                 .style('opacity', '1');
 
                             var newArc = d3.svg.arc()
-                                .innerRadius(chartDiameter / 2 - (2 * barRadius))
+                                .innerRadius(chartDiameter / 2 - (2.3 * barRadius))
                                 .outerRadius(chartDiameter / 2 - barRadius)
                                 .startAngle(parseFloat(startAngle))
                                 .endAngle(parseFloat(endAngle));
@@ -697,15 +708,18 @@ Studio24.Charts = function()
                         .attr('id', 'legend-' + i)
                         .attr('transform', 'translate(0, ' + (-40 - (i * 30)) + ')')
                         .on('mouseover', function() {
-                            console.log('test');
                             var $this = d3.select(this);
                             var id = $this.attr('id').split('-')[1];
                             var bar = d3.select('#bar-' + id);
                             var currentValue = bar.attr('value');
 
+                            console.log(currentValue);
+
                             // Set the opacity of all bars to a lower value
                             container.selectAll('path')
                                 .style('opacity', '0.2');
+
+                            console.log(bar);
 
                             // Set the legend opacity
                             legendContainer.selectAll('g')
