@@ -3,204 +3,108 @@
 <head>
     <title>Test SVG</title>
     <script src="/js/d3/d3.min.js"></script>
+    <!-- Extra requirements -->
+    <script src="../js/d3/topojson.min.js"></script>
+
+    <script src="../js/studio24charts/studio24.charts.js"></script>
+
+    <link rel="stylesheet" href="/css/documentation.css" />
+    <link rel="stylesheet" href="../js/studio24charts/studio24.charts.css" />
     <style>
-        body {
-            font-family: Cambria;
+        h2 {
+            font-weight: normal;
+            margin-top: 100px;
+            clear: both;
+            display: block;
         }
     </style>
 </head>
 <body>
+<div id="navigation">
+    <ul>
+        <li><a href="/">Documentation Home</a></li>
+        <li><a href="/examples/bars.html" class="active">Bar Charts</a></li>
+        <li><a href="/examples/pie.html">Pie Charts</a></li>
+        <li><a href="/examples/map.html">Global Map</a></li>
+    </ul>
+</div>
 
-<div class="svg-container-1"></div>
-<div class="svg-container-2"></div>
+<h1>Bar Charts</h1>
+
+<p>Bar charts use JSON for the data that they use. An example is the following:</p>
+<p>There are two types of bar charts, which can be invoked in the following ways:</p>
+
+<div class="example-container">
+    <div class="example">
+        <div class="svg-container-1"></div>
+    </div>
+    <div class="example-code">
+        <h3>Code from this example</h3>
+        <pre>
+Studio24.Charts.createHorizontalBarChart('.svg-container-1', '../js/data/mfin-employment-breakdown.json', {
+    legendWidth: 200
+});
+        </pre>
+        <h3>Data from this example</h3>
+        <pre>
+[
+    { "key" : "New job", "value" : "21" },
+    { "key" : "Returned to Employer", "value" : "14" },
+    { "key" : "Internship", "value" : "3" },
+    { "key" : "Started own Company", "value" : "3" }
+]
+        </pre>
+    </div>
+</div>
+
+
+<div class="example-container">
+    <div class="example">
+        <h2>Finance Industry Area</h2>
+        <div class="svg-container-2"></div>
+    </div>
+    <div class="example-code">
+        <h3>Code from this example</h3>
+        <pre>
+Studio24.Charts.createBarChart('.svg-container-2', '../js/data/mfin-finance-industry-area.json', {
+    width: 528
+});
+        </pre>
+        <h3>Data from this example</h3>
+        <pre>
+[
+    {"key" : "Investment Banking", "value" : "8"},
+    {"key" : "Asset Management", "value" : "5"},
+    {"key" : "Financial Role in a Non-Financial Org", "value" : "5"},
+    {"key" : "Commercial/Retail Banking", "value" : "5"},
+    {"key" : "Venture Capital / Private Equity", "value" : "4"},
+    {"key" : "Public Sector Finance", "value" : "4"},
+    {"key" : "Corporate Finance", "value" : "4"},
+    {"key" : "Other", "value" : "2"},
+    {"key" : "Financial Consulting", "value" : "2"},
+    {"key" : "Hedge Fund", "value" : "1"},
+    {"key" : "Real Estate Finance", "value" : "1"}
+]
+        </pre>
+    </div>
+</div>
 
 <script>
-    var dataset = [ { key: 'Element 1', value: 3 },
-        { key: 'Element 2', value: 7 },
-        { key: 'Element 3', value: 9.5 },
-        { key: 'Element 4', value: 7 },
-        { key: 'Element 5', value: 5 },
-        { key: 'Element 6', value: 9 }
-    ];
+    Studio24.Charts.init({
+        colourScheme: '/js/studio24charts/colours.json'
+    });
 
-    var margin = {top: 20, right: 30, bottom: 200, left: 40};
-    var width = 700 - margin.left - margin.right;
-    var height = 400 - margin.top - margin.bottom;
-    var barWidth = width - 200;
+    // Horizontal bar chart
+    Studio24.Charts.createHorizontalBarChart('.svg-container-1', '../js/data/mfin-employment-breakdown.json', {
+        legendWidth: 200,
+        width : 600,
+        height: 300
+    });
 
-    // Get the SVG object
-    var svg = d3.select('.svg-container-1')
-            .append('svg')
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom);
-
-    // Get the max data values
-    var maxValue = 0;
-    for (var x = 0; x < dataset.length; x++) {
-        // If the new value is higher than the old one, it is now the maxValue
-        if (dataset[x]['value'] > maxValue) {
-            maxValue = dataset[x]['value'];
-        }
-    }
-
-    // Append the title
-    svg.append('text')
-            .attr('x', 0)
-            .attr('y', 30)
-            .attr('font-size', '32px')
-            .text('Sectors');
-
-    // Loop through the data
-    for (var i = 0; i < dataset.length; i++) {
-        // Draw container
-        var container = svg.append('g')
-                .attr('transform', 'translate(' + 0 + ', ' + (i * 40 + 70) + ')');
-
-        container.append('text')
-                .attr('font-style', 'italic')
-                .text(dataset[i]['key']);
-
-        container.append('rect')
-                .attr('width', 0)
-                .attr('height', 30)
-                .attr('x', 100)
-                .attr('y', -20)
-                .attr('fill', '#e80087')
-                .transition()
-                .duration(1000)
-                .attr('width', (barWidth / maxValue) * dataset[i]['value']);
-
-        container.append('text')
-                .attr('font-style', 'italic')
-                .attr('fill', 'white')
-                .attr('y', 0)
-                .attr('x', 100)
-                .transition()
-                .duration(1000)
-                .attr('x', ((barWidth / maxValue) * dataset[i]['value']) + 70)
-                .text(dataset[i]['value'])
-
-    }
-</script>
-<script>
-    var dataset = [ { key: 'Charity', value: 1 },
-        { key: 'Consulting', value: 2 },
-        { key: 'Cultural Sector', value: 1 },
-        { key: 'Education', value: 1 },
-        { key: 'Energy/Utilities', value: 2 },
-        { key: 'Financial Services', value: 10 },
-        { key: 'Government', value: 1 },
-        { key: 'Healthcare', value: 3 },
-        { key: 'Legal', value: 1 },
-        { key: 'Manufacturer', value: 3 },
-        { key: 'Media/Entertainment', value: 1 },
-        { key: 'Mining', value: 3 },
-        { key: 'Multilateral Development Bank', value: 1 },
-        { key: 'Oil and Gas', value: 2 },
-        { key: 'Pharmaceutical', value: 2 },
-        { key: 'Public Administration', value: 2 },
-        { key: 'Publishing', value: 1 },
-        { key: 'Real Estate', value: 1 },
-        { key: 'Retail', value: 1 },
-        { key: 'Technology', value: 2 },
-        { key: 'Telecoms', value: 1 },
-        { key: 'Transport/Aviation', value: 1 } ];
-
-    // Set some values which are useful for laying out the chart
-    var margin = {top: 20, right: 30, bottom: 200, left: 40};
-    var width = 1000 - margin.left - margin.right;
-    var height = 700 - margin.top - margin.bottom;
-    var columns = 3;
-    var dataPerColumn = Math.ceil(dataset.length / columns);
-    var columnWidth = Math.floor(width / columns);
-    var topPadding = 50;
-    var maxBarWidth = columnWidth - 50;
-
-    // Get the SVG object
-    var svg = d3.select('.svg-container-2')
-            .append('svg')
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom);
-
-    // Append the title
-    svg.append('text')
-            .attr('x', 0)
-            .attr('y', 30)
-            .attr('font-size', '32px')
-            .text('Sectors');
-
-    // Get the max data values
-    var maxValue = 0;
-    for (var x = 0; x < dataset.length; x++) {
-        // If the new value is higher than the old one, it is now the maxValue
-        if (dataset[x]['value'] > maxValue) {
-            maxValue = dataset[x]['value'];
-        }
-    }
-
-    // Loop through all columns
-    for (var i=0; i < columns; i++) {
-        // Loop through all of the data
-        for (var j=0; j < dataPerColumn; j++) {
-            // Get the data from the dataset
-            var data = dataset[(i * dataPerColumn) + j];
-
-            if (typeof(data) != "undefined") {
-                // Set some variables
-                var barWidth = maxBarWidth * (1 / maxValue * data['value']);
-
-                // Draw container
-                var container = svg.append('g')
-                        .attr('transform', 'translate(' + (i * columnWidth) + ', ' + (j * 50 + 20 + topPadding) + ')');
-
-                // Draw label
-                container.append('text')
-                        .attr('font-style', 'italic')
-                        .text(data['key']);
-                // Draw bar
-                container.append('rect')
-                        .attr('class', 'bar')
-                        .attr('y', 13)
-                        .attr('width', 0)
-                        .attr('height', 15)
-                        .attr('fill', '#E80087')
-                        .on('mouseover', function(d, i) {
-                            d3.select((this))
-                                .transition(500)
-                                .attr('fill', '#9C4192');
-                        })
-                        .on('mouseout', function(d, i) {
-                            d3.select((this))
-                                    .transition(500)
-                                    .attr('fill', '#e80087')
-                        })
-                        .transition()
-                        .duration(1000)
-                        .attr('width', barWidth);
-
-                // Draw the circle and the text
-                container.append('circle')
-                        .attr('r', 15)
-                        .attr('cx', 20)
-                        .attr('cy', 20)
-                        .attr('fill', '#E80087')
-                        .transition()
-                        .duration(1000)
-                        .attr('cx', barWidth + 20);
-                container.append('text')
-                        .attr('x', 20)
-                        .attr('y', 25)
-                        .attr('fill', 'white')
-                        .style('text-anchor', 'middle')
-                        .attr('font-style', 'italic')
-                        .text(data['value'])
-                        .transition()
-                        .duration(1000)
-                        .attr('x', barWidth + 20);
-
-            }
-        }
-    }
+    // Vertical bar chart
+    Studio24.Charts.createBarChart('.svg-container-2', '../js/data/mfin-finance-industry-area.json', {
+        width: 528
+    });
 </script>
 
 

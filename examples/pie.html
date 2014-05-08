@@ -10,6 +10,7 @@
 
     <script src="../js/studio24charts/studio24.charts.js"></script>
 
+    <link rel="stylesheet" href="/css/documentation.css" />
     <link rel="stylesheet" href="../js/studio24charts/studio24.charts.css" />
     <style>
         h2 {
@@ -22,13 +23,108 @@
 </head>
 
 <body>
+<div id="navigation">
+    <ul>
+        <li><a href="/">Documentation Home</a></li>
+        <li><a href="/examples/bars.html">Bar Charts</a></li>
+        <li><a href="/examples/pie.html" class="active">Pie Charts</a></li>
+        <li><a href="/examples/map.html">Global Map</a></li>
+    </ul>
+</div>
+
+<h1>Pie Charts</h1>
+
+<p>The data for pie charts is stored in JSON, in exactly the same way as bar charts (see above).</p>
+
+<p>Pie charts are called in much the same way as Bar Charts. Again, there are two different types: pie chart and layered pie chart.</p>
+
 <!-- SVG Containers -->
-<h2>Career Outcome Overview</h2>
-<div class="svg-container-1"></div>
-<h2>Breakdown of those Employed</h2>
-<div class="svg-container-2"></div>
-<h2>Finance Industry Area</h2>
-<div class="svg-container-3"></div>
+<div class="example-container">
+    <div class="example">
+        <h2>Career Outcome Overview</h2>
+        <div class="svg-container-1"></div>
+    </div>
+    <div class="example-code">
+       <h3>Code from this example</h3>
+        <pre>
+Studio24.Charts.createPieChart('.svg-container-1', '../js/data/mfin-career-overview.json', {
+    title: "Career Outcome Overview",
+    colours: "data-pink",
+    width: 350,
+    height: 300
+});
+        </pre>
+        <h3>Data from this example</h3>
+        <pre>
+[
+    { "key" : "Employed", "value" : "41" },
+    { "key" : "Still looking", "value" : "3" }
+]
+        </pre>
+    </div>
+</div>
+
+<div class="example-container">
+    <div class="example">
+        <h2>Breakdown of those Employed</h2>
+        <div class="svg-container-2"></div>
+    </div>
+    <div class="example-code">
+        <h3>Code from this example</h3>
+        <pre>
+Studio24.Charts.createLayeredPieChart('.svg-container-2', '../js/data/mfin-employment-breakdown.json', {
+    title: "Breakdown of those Employed",
+    colours: "data-green",
+    width: 350,
+    height: 320
+});
+        </pre>
+        <h3>Data from this example</h3>
+        <pre>
+[
+    { "key" : "New job", "value" : "21" },
+    { "key" : "Returned to Employer", "value" : "14" },
+    { "key" : "Internship", "value" : "3" },
+    { "key" : "Started own Company", "value" : "3" }
+]
+        </pre>
+    </div>
+</div>
+
+<div class="example-container">
+    <div class="example">
+        <h2>Finance Industry Area</h2>
+        <div class="svg-container-3"></div>
+    </div>
+    <div class="example-code">
+        <h3>Code from this example</h3>
+        <pre>
+Studio24.Charts.createPieChart('.svg-container-3', '../js/data/mfin-finance-industry-area.json', {
+    title: "Finance Industry Area",
+    colours: "data",
+    width: 350,
+    height: 380,
+    legendWidth: 300
+});
+        </pre>
+        <h3>Data from this example</h3>
+        <pre>
+[
+    {"key" : "Investment Banking", "value" : "8"},
+    {"key" : "Asset Management", "value" : "5"},
+    {"key" : "Financial Role in a Non-Financial Org", "value" : "5"},
+    {"key" : "Commercial/Retail Banking", "value" : "5"},
+    {"key" : "Venture Capital / Private Equity", "value" : "4"},
+    {"key" : "Public Sector Finance", "value" : "4"},
+    {"key" : "Corporate Finance", "value" : "4"},
+    {"key" : "Other", "value" : "2"},
+    {"key" : "Financial Consulting", "value" : "2"},
+    {"key" : "Hedge Fund", "value" : "1"},
+    {"key" : "Real Estate Finance", "value" : "1"}
+]
+        </pre>
+    </div>
+</div>
 
 <script>
     // Initialise the library

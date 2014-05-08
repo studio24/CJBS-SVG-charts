@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Studio 24 Charting Library</title>
+    <script src="../js/d3/d3.min.js"></script>
+
+    <!-- Extra requirements -->
+    <script src="../js/d3/topojson.min.js"></script>
+
+    <script src="../js/studio24charts/studio24.charts.js"></script>
+
+    <link rel="stylesheet" href="../js/studio24charts/studio24.charts.css" />
+    <style>
+        h2 {
+            font-weight: normal;
+            margin-top: 100px;
+            clear: both;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+<!-- SVG Containers -->
+<h2>Counter 1-999 (5000 ms)</h2>
+<div class="svg-container-1"></div>
+
+<h2>Counter 1000-99999 (10000 ms)</h2>
+<div class="svg-container-2"></div>
+
+<script>
+    // Initialise the library
+    Studio24.Charts.init({
+        colourScheme: '../js/studio24charts/colours.json'
+    });
+
+    Studio24.Charts.createCounter('.svg-container-1', 1, 999, {
+
+    });
+
+    Studio24.Charts.createCounter('.svg-container-2', 1000, 99999, {
+
+    })
+</script>
+</body>
+</html>

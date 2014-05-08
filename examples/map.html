@@ -10,6 +10,7 @@
 
     <script src="../js/studio24charts/studio24.charts.js"></script>
 
+    <link rel="stylesheet" href="/css/documentation.css" />
     <link rel="stylesheet" href="../js/studio24charts/studio24.charts.css" />
     <style>
         h2 {
@@ -22,9 +23,52 @@
 </head>
 
 <body>
+<div id="navigation">
+    <ul>
+        <li><a href="/">Documentation Home</a></li>
+        <li><a href="/examples/bars.html">Bar Charts</a></li>
+        <li><a href="/examples/pie.html">Pie Charts</a></li>
+        <li><a href="/examples/map.html" class="active">Global Map</a></li>
+    </ul>
+</div>
+
+<h1>Maps</h1>
+
+<p>Maps are the only type of chart which are invoked with CSV data. This is because a CSV file is a more efficient way of storing data with more columns.</p>
+
 <!-- SVG Containers -->
-<h2>Post MFin Location</h2>
-<div class="svg-container-1"></div>
+<div class="example-container">
+    <div class="example">
+        <h2>Post MFin Location</h2>
+        <div class="svg-container-1"></div>
+    </div>
+    <div class="example-code">
+        <h3>Code from this example</h3>
+        <pre>
+Studio24.Charts.createMap('.svg-container-1', '../js/data/mfin-post-mfin-location.csv', {
+    worldJson: '../js/d3/world.json',
+    width: 800,
+    legendWidth: 100
+});
+        </pre>
+        <h3>Data from this example</h3>
+        <pre>
+place,number,lat,lon
+
+United Kingdom,15,53.347806,-2.062500
+South East Asia,10,3.521166,115.145264
+Europe (Excluding UK),5,48.229842,11.434326
+East Asia,4,33.144049,113.739014
+North America/Canada,3,48.463498,-96.495361
+Middle East,2,29.343875,42.714844
+South Asia,2,21.739091,77.167969
+Africa,1,5.747174,21.972656
+Australasia,1,-23.120154,135.175781
+Caribbean,1,20.591652,-75.937500
+        </pre>
+    </div>
+</div>
+
 
 <script>
     // Initialise the library
@@ -34,7 +78,9 @@
 
     // Map
     Studio24.Charts.createMap('.svg-container-1', '../js/data/mfin-post-mfin-location.csv', {
-        worldJson: '../js/d3/world.json'
+        worldJson: '../js/d3/world.json',
+        width: 800,
+        legendWidth: 100
     });
 
 </script>

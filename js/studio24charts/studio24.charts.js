@@ -187,16 +187,14 @@ Studio24.Charts = function()
                     .attr('class', 'bar');
 
                 rects.attr('y', function (d) {
-                    return yScale(d.value);
-                })
+                        return height;
+                    })
                     .attr('x', function (d,i) {
                         return xScale(i);
                     })
                     .attr('fill', '#E9008C')
-                    .attr('width', xScale.rangeBand() / 1.5)
-                    .attr('height', function (d) {
-                        return height - yScale(d.value);
-                    })
+                    .attr('width', xScale.rangeBand())
+                    .attr('height', 0)
                     .on('mouseover', function (d) {
                         var bar = d3.select((this));
                         var x = parseInt(bar.attr('x'));
@@ -204,12 +202,10 @@ Studio24.Charts = function()
                         var width = bar.attr('width');
                         var height = bar.attr('height');
 
-                        bar.transition().duration(200).style('fill', '#9C4094');
-
                         svg.select('.rect-group')
                             .append('text')
                             .attr('x', x + (width / 2))
-                            .attr('y', y + 20)
+                            .attr('y', y + 30)
                             .attr("font-family", "sans-serif")
                             .attr("font-size", "14px")
                             .attr("fill", "white")
@@ -222,6 +218,14 @@ Studio24.Charts = function()
                     .on('mouseout', function() {
                         d3.selectAll('.hover-label').remove();
                         d3.select((this)).transition().duration(500).style('fill', '#E9008C');
+                    })
+                    .transition()
+                    .duration(1000)
+                    .attr('y', function (d) {
+                        return yScale(d.value);
+                    })
+                    .attr('height', function (d) {
+                        return height - yScale(d.value);
                     });
 
                 svg.append('g')
@@ -264,7 +268,8 @@ Studio24.Charts = function()
         // Set default values
         options = setDefaults(options, {
             width : 700,
-            height: 400
+            height: 300,
+            legendWidth: 100
         });
 
         // Prepare the config for being passed to the anonymous function
@@ -279,7 +284,8 @@ Studio24.Charts = function()
             else {
                 var width = options.width;
                 var height = options.height;
-                var barWidth = width - 200;
+                var legendWidth = options.legendWidth;
+                var barWidth = width - legendWidth - 50;
 
                 // Get the SVG object
                 var svg = d3.select(config.container)
@@ -301,7 +307,7 @@ Studio24.Charts = function()
                 for (var i = 0; i < dataset.length; i++) {
                     // Draw container
                     var container = svg.append('g')
-                        .attr('transform', 'translate(' + 0 + ', ' + (i * 40 + 70) + ')');
+                        .attr('transform', 'translate(' + 0 + ', ' + (i * 35 + 70) + ')');
 
                     // Bar label
                     container.append('text')
@@ -312,7 +318,7 @@ Studio24.Charts = function()
                     container.append('rect')
                         .attr('width', 0)
                         .attr('height', 30)
-                        .attr('x', 100)
+                        .attr('x', legendWidth)
                         .attr('y', -20)
                         .attr('fill', colours.primary.colour)
                         .transition()
@@ -324,10 +330,10 @@ Studio24.Charts = function()
                         .attr('font-style', 'italic')
                         .attr('fill', colours.primary.font)
                         .attr('y', 0)
-                        .attr('x', 100)
+                        .attr('x', legendWidth)
                         .transition()
                         .duration(1000)
-                        .attr('x', ((barWidth / maxValue) * dataset[i]['value']) + 70)
+                        .attr('x', ((barWidth / maxValue) * dataset[i]['value']) + legendWidth - 30)
                         .text(dataset[i]['value']);
                 }
             }
@@ -416,6 +422,7 @@ Studio24.Charts = function()
                     .attr('text-anchor', 'middle')
                     .attr('font-size', '19px')
                     .attr('fill', '#414141')
+                    .attr('class', 'center-text')
                     .attr('y', -10)
                     .text(options.title)
                     .call(wrap, height / 3);
@@ -431,22 +438,24 @@ Studio24.Charts = function()
                         .innerRadius(chartDiameter / 2 - (2.3 * barRadius))
                         .outerRadius(chartDiameter / 2 - barRadius)
                         .startAngle(currentAngle)
-                        .endAngle(currentAngle + (T / maxValue) * value);
+                        .endAngle(currentAngle);
 
                     // Colour pie bar
                     container.append("path")
-                        .datum({endAngle: 0})
+                        .datum({currentAngle: currentAngle, endAngle: currentAngle + (T / maxValue) * value, barRadius: barRadius})
                         .style("fill", colourScheme[currentColor].colour)
                         .attr("d", arc)
                         .attr('s_startAngle', currentAngle)
                         .attr('s_endAngle', currentAngle + (T / maxValue) * value)
                         .attr('height', height)
                         .attr('id', 'bar-'  + i)
+                        .attr('value', value)
                         .on('mouseover', function() {
                             var $this = d3.select(this);
-                            var startAngle = $this.attr('s_startAngle');
-                            var endAngle = $this.attr('s_endAngle');
+                            var startAngle = parseFloat($this.attr('s_startAngle'));
+                            var endAngle = parseFloat($this.attr('s_endAngle'));
                             var id = $this.attr('id').split('-')[1];
+                            var currentValue = $this.attr('value');
 
                             legendContainer.selectAll('g')
                                 .transition()
@@ -457,21 +466,52 @@ Studio24.Charts = function()
                                 .duration(500)
                                 .style('opacity', '1');
 
+                            d3.select(this).transition()
+                                .duration(500)
+                                .ease("elastic")
+                                .attrTween("d", function(d) {
+                                    var i = d3.interpolate(chartDiameter / 2 - barRadius, chartDiameter / 2 - barRadius + 15);
+                                    var newArc = d3.svg.arc()
+                                        .innerRadius(chartDiameter / 2 - (2.3 * barRadius))
+                                        .outerRadius(i)
+                                        .startAngle(startAngle)
+                                        .endAngle(endAngle);
 
-                            var newArc = d3.svg.arc()
-                                .innerRadius(chartDiameter / 2 - (2.3 * barRadius))
-                                .outerRadius(chartDiameter / 2 - barRadius + 15)
-                                .startAngle(parseFloat(startAngle))
-                                .endAngle(parseFloat(endAngle));
+                                    return newArc;
+                                });
 
-                            d3.select(this).attr('d', newArc);
+                            container.select('.center-text')
+                                .transition()
+                                .duration(0)
+                                .style('opacity', '0');
+
+                            // Append data text to the center
+                            container.append('text')
+                                .attr('font-style', 'italic')
+                                .attr('text-anchor', 'middle')
+                                .attr('font-size', '40px')
+                                .attr('y', 10)
+                                .attr('fill', '#414141')
+                                .attr('class', 'data-text')
+                                .style('opacity', '1')
+                                .text(currentValue);
                         })
                         .on('mouseout', function() {
                             var $this = d3.select(this);
                             var startAngle = $this.attr('s_startAngle');
                             var endAngle = $this.attr('s_endAngle');
 
+                            container.select('.data-text')
+                                .remove();
+                            container.select('.center-text')
+                                .transition()
+                                .delay(0)
+                                .duration(500)
+                                .style('opacity', '1');
+
                             legendContainer.selectAll('g')
+                                .transition()
+                                .duration(500)
                                 .style('opacity', '1');
 
                             var newArc = d3.svg.arc()
@@ -480,11 +520,29 @@ Studio24.Charts = function()
                                 .startAngle(parseFloat(startAngle))
                                 .endAngle(parseFloat(endAngle));
 
-                            d3.select(this).attr('d', newArc);
+                            d3.select(this)
+                                .transition()
+                                .duration(100)
+                                .attr('d', newArc);
                         })
                         .transition()
-                        .duration(1000)
-                        .call(arcTween, (T / maxValue) * value, arc);
+                        .delay(500 + i * 300)
+                        .duration(300)
+                        .ease('linear')
+                        .attrTween('d', function(d) {
+                            var currentAngle = d.currentAngle;
+                            var endAngle = d.endAngle;
+                            var barRadius = d.barRadius;
+                            var i = d3.interpolate(currentAngle, endAngle);
+
+                            var newArc = d3.svg.arc()
+                                .innerRadius(chartDiameter / 2 - (2.3 * barRadius))
+                                .outerRadius(chartDiameter / 2 - barRadius)
+                                .startAngle(currentAngle)
+                                .endAngle(i);
+
+                            return newArc;
+                        });
 
                     // Legend group
                     var legendItem = legendContainer.append('g')
@@ -494,24 +552,47 @@ Studio24.Charts = function()
                             var $this = d3.select(this);
                             var id = $this.attr('id').split('-')[1];
                             var bar = container.select('#bar-' + id);
-                            var startAngle = bar.attr('s_startAngle');
-                            var endAngle = bar.attr('s_endAngle');
+                            var startAngle = parseFloat(bar.attr('s_startAngle'));
+                            var endAngle = parseFloat(bar.attr('s_endAngle'));
+                            var currentValue = bar.attr('value');
 
                             legendContainer.selectAll('g')
                                 .transition()
                                 .duration(0)
                                 .style('opacity', '0.2');
                             $this.transition()
-                                .duration(500)
+                                .duration(100)
                                 .style('opacity', '1');
 
-                            var newArc = d3.svg.arc()
-                                .innerRadius(chartDiameter / 2 - (2.3 * barRadius))
-                                .outerRadius(chartDiameter / 2 - barRadius + 15)
-                                .startAngle(parseFloat(startAngle))
-                                .endAngle(parseFloat(endAngle));
+                            bar.transition()
+                                .duration(500)
+                                .ease("elastic")
+                                .attrTween("d", function(d) {
+                                    var i = d3.interpolate(chartDiameter / 2 - barRadius, chartDiameter / 2 - barRadius + 15);
+                                    var newArc = d3.svg.arc()
+                                        .innerRadius(chartDiameter / 2 - (2.3 * barRadius))
+                                        .outerRadius(i)
+                                        .startAngle(startAngle)
+                                        .endAngle(endAngle);
 
-                            bar.attr('d', newArc);
+                                    return newArc;
+                                });
+
+                            container.select('.center-text')
+                                .transition()
+                                .duration(0)
+                                .style('opacity', '0');
+
+                            // Append data text to the center
+                            container.append('text')
+                                .attr('font-style', 'italic')
+                                .attr('text-anchor', 'middle')
+                                .attr('font-size', '40px')
+                                .attr('y', 10)
+                                .attr('fill', '#414141')
+                                .attr('class', 'data-text')
+                                .style('opacity', '1')
+                                .text(currentValue);
                         })
                         .on('mouseout', function() {
                             var $this = d3.select(this);
@@ -520,9 +601,17 @@ Studio24.Charts = function()
                             var startAngle = bar.attr('s_startAngle');
                             var endAngle = bar.attr('s_endAngle');
 
+                            container.select('.data-text')
+                                .remove();
+                            container.select('.center-text')
+                                .transition()
+                                .delay(0)
+                                .duration(500)
+                                .style('opacity', '1');
+
                             legendContainer.selectAll('g')
                                 .transition()
-                                .duration(1000)
+                                .duration(500)
                                 .style('opacity', '1');
 
                             var newArc = d3.svg.arc()
@@ -531,7 +620,9 @@ Studio24.Charts = function()
                                 .startAngle(parseFloat(startAngle))
                                 .endAngle(parseFloat(endAngle));
 
-                           bar.attr('d', newArc);
+                           bar.transition()
+                               .duration(100)
+                               .attr('d', newArc);
                         });
 
                     // Legend circles
@@ -665,18 +756,28 @@ Studio24.Charts = function()
 
                             // Set the opacity of all bars to a lower value
                             container.selectAll('path')
+                                .transition()
+                                .duration(500)
                                 .style('opacity', '0.2');
 
                             legendContainer.selectAll('g')
+                                .transition()
+                                .duration(500)
                                 .style('opacity', '0.2');
                             legendContainer.select('#legend-' + id)
+                                .transition()
+                                .duration(500)
                                 .style('opacity', '1');
 
                             // Set the opacity of the selected bar to one
-                            $this.style('opacity', '1');
+                            $this.transition()
+                                .duration(200)
+                                .style('opacity', '1');
 
                             // Hide the center text
                             container.select('.center-text')
+                                .transition()
+                                .duration(0)
                                 .style('opacity', '0');
 
                             // Append data text to the center
@@ -687,20 +788,32 @@ Studio24.Charts = function()
                                 .attr('y', 10)
                                 .attr('fill', '#414141')
                                 .attr('class', 'data-text')
-                                .text(currentValue);
+                                .style('opacity', '0')
+                                .text(currentValue)
+                                .transition()
+                                .duration(200)
+                                .style('opacity', '1');
                         })
                         .on('mouseout', function() {
                             // Reset everything on mouseout
                             container.selectAll('path')
+                                .transition()
+                                .duration(500)
                                 .style('opacity', '1');
                             container.selectAll('.data-text').remove();
                             container.select('.center-text')
+                                .transition()
+                                .delay(100)
+                                .duration(500)
                                 .style('opacity', '1');
                             legendContainer.selectAll('g')
+                                .transition()
+                                .duration(500)
                                 .style('opacity', '1');
                         })
                         .transition()
-                        .duration(1000)
+                        .delay(500)
+                        .duration(2000)
                         .call(arcTween, (T / maxValue) * value, arc);
 
                     // Group for legend item
@@ -710,27 +823,32 @@ Studio24.Charts = function()
                         .on('mouseover', function() {
                             var $this = d3.select(this);
                             var id = $this.attr('id').split('-')[1];
-                            var bar = d3.select('#bar-' + id);
+                            var bar = svg.select('#bar-' + id);
                             var currentValue = bar.attr('value');
-
-                            console.log(currentValue);
 
                             // Set the opacity of all bars to a lower value
                             container.selectAll('path')
+                                .transition().duration(500)
                                 .style('opacity', '0.2');
-
-                            console.log(bar);
 
                             // Set the legend opacity
                             legendContainer.selectAll('g')
+                                .transition()
+                                .duration(200)
                                 .style('opacity', '0.2');
-                            $this.style('opacity', '1');
+                            $this.transition()
+                                .duration(100)
+                                .style('opacity', '1');
 
                             // Set the opacity of the selected bar to one
-                            bar.style('opacity', '1');
+                            bar.transition()
+                                .duration(500)
+                                .style('opacity', '1');
 
                             // Hide the center text
                             container.select('.center-text')
+                                .transition()
+                                .duration(0)
                                 .style('opacity', '0');
 
                             // Append data text to the center
@@ -741,16 +859,27 @@ Studio24.Charts = function()
                                 .attr('y', 10)
                                 .attr('fill', '#414141')
                                 .attr('class', 'data-text')
-                                .text(currentValue);
+                                .style('opacity', '0')
+                                .text(currentValue)
+                                .transition()
+                                .duration(200)
+                                .style('opacity', '1');
                         })
                         .on('mouseout', function() {
                             // Reset everything on mouseout
                             container.selectAll('path')
+                                .transition()
+                                .duration(500)
                                 .style('opacity', '1');
                             container.selectAll('.data-text').remove();
                             container.select('.center-text')
+                                .transition()
+                                .delay(100)
+                                .duration(500)
                                 .style('opacity', '1');
                             legendContainer.selectAll('g')
+                                .transition()
+                                .duration(500)
                                 .style('opacity', '1');
                         });
 
@@ -795,17 +924,24 @@ Studio24.Charts = function()
             return;
         }
 
-        var width = 1020;
-        var height = 600;
+        // Set the default values
+        setDefaults(options, {
+            width: 1020,
+            legendWidth: 100
+        });
+
+        var legendWidth = options.legendWidth;
+        var width = options.width - legendWidth,
+            height = options.width * 0.7;
 
         var svg = d3.select(container)
             .append('svg')
-            .attr('width', width)
-            .attr('height', height);
+            .attr('width', width + legendWidth)
+            .attr('height', height * 0.75);
 
         var projection = d3.geo.mercator()
-            .translate([width / 2, height / 2])
-            .scale((width + 1) / 2 / Math.PI)
+            .translate([(width - legendWidth) / 2, (height * 0.75) / 2])
+            .scale((width - legendWidth) / 2 / Math.PI)
             .center([0,50]);
         var path = d3.geo.path()
             .projection(projection);
@@ -816,106 +952,243 @@ Studio24.Charts = function()
                 .attr('class', 'map')
                 .attr('d', path);
 
+            var legendContainer = svg.append('g')
+                .attr('transform', 'translate(' + (width - legendWidth)  + ', 0)');
+
             d3.csv(jsonUrl, function(error, data) {
-                var container = svg.selectAll("path")
-                    .data(data)
-                    .enter()
-                    .append('g')
-                    .on('mouseover', function(d, i) {
-                        // Move the group to the front
-                        this.parentNode.appendChild(this);
-                    })
-                    .attr('transform', function(d) {
-                        return 'translate(' + (projection([d.lon, d.lat])[0]) + "," + (projection([d.lon, d.lat])[1]) + ')';
-                    });
-                container
-                    .append("path")
-                    .attr("cx", function(d) {
-                        return projection([d.lon, d.lat])[0];
-                    })
-                    .attr("cy", function(d) {
-                        return projection([d.lon, d.lat])[1];
-                    })
-                    .attr('d', 'M130,19.321C130,8.65,121.337,0,110.651,0S91.301,8.65,91.301,19.321c0,9.365,6.674,17.169,15.531,18.94 l3.805,3.799l3.8-3.794C123.31,36.507,130,28.696,130,19.321z')
-                    .attr('transform', function(d) {
-                        return 'translate(-108, -40)';
-                    })
-//                    .attr("stroke", "white")
-//                    .attr("stroke-width", 2)
-                    .attr("fill", "#E12B88")
-                    .on('mouseover', function(d, i) {
-                        var $this = d3.select(this);
-                        var parent = d3.select(this.parentNode);
-                        var person = parent.select('g');
-                        var xPos = $this.attr('xPos');
-                        var yPos = $this.attr('yPos');
+                // Loop through the data to create the legend, as we need
+                // access to the "i" value
+                for (var i=1; i < data.length; i++) {
+                    var currentData = data[i];
 
-                        $this.transition(500)
-                            .attr('transform', 'translate(-218, -80) scale(2)');
+                    var container = svg.append('g')
+                        .datum({place: currentData.place, number: currentData.number, lon: currentData.lon, lat: currentData.lat})
+                        .on('mouseover', function(d, i) {
+                            // Move the group to the front
+                            this.parentNode.appendChild(this);
+                        })
+                        .attr('transform', function(d) {
+                            return 'translate(' + (projection([d.lon, d.lat])[0]) + "," + (projection([d.lon, d.lat])[1]) + ')';
+                        });
+                    container
+                        .append("path")
+                        .datum({place: currentData.place, number: currentData.number, lon: currentData.lon, lat: currentData.lat})
+                        .attr("cx", function(d) {
+                            return projection([d.lon, d.lat])[0];
+                        })
+                        .attr("cy", function(d) {
+                            return projection([d.lon, d.lat])[1];
+                        })
+                        .attr('id', 'marker-' + i)
+                        .attr('d', 'M130,19.321C130,8.65,121.337,0,110.651,0S91.301,8.65,91.301,19.321c0,9.365,6.674,17.169,15.531,18.94 l3.805,3.799l3.8-3.794C123.31,36.507,130,28.696,130,19.321z')
+                        .attr('transform', function(d) {
+                            return 'translate(-108, -40)';
+                        })
+                        .attr("fill", "#E12B88")
+                        .on('mouseover', function(d, i) {
+                            var $this = d3.select(this);
+                            var parent = d3.select(this.parentNode);
+                            var person = parent.select('g');
+                            var xPos = $this.attr('xPos');
+                            var yPos = $this.attr('yPos');
+                            var id = $this.attr('id').split('-')[1];
+                            var legend = svg.select('#legend-' + id);
 
-                        person.transition(200)
-                            .attr('transform', 'translate(-30, -55) scale(1.5)');
+                            legendContainer.selectAll('g')
+                                .transition()
+                                .duration(300)
+                                .style('opacity', '0.2');
+                            legend.transition()
+                                .duration(300)
+                                .style('opacity', '1');
 
-                        // Add number text
-                        parent.append('text')
-                            .attr('x', 4)
-                            .attr('y', -32)
-                            .attr('font-style', 'italic')
-                            .attr('font-size', '0px')
-                            .attr('fill', '#ffffff')
-                            .attr('text-anchor', 'left')
-                            .attr('pointer-events', 'none')
-                            .text('x' + d.number)
-                            .transition()
-                            .delay(100)
-                            .attr('font-size', '22px');
+                            $this.transition(500)
+                                .attr('transform', 'translate(-242, -90) scale(2.2)');
 
-                        // Add location text
-                        parent.append('text')
-                            .attr('x', 0)
-                            .attr('y', -90)
-                            .attr('fill', '#333')
-                            .attr('text-anchor', 'middle')
-                            .attr('font-style', 'italic')
-                            .attr('font-size', '0px')
-                            .text(d.place)
-                            .transition()
-                            .delay(200)
-                            .attr('font-size', '16px');
-                    })
-                    .on('mouseout', function(d, i) {
-                        var $this = d3.select(this);
-                        var parent = d3.select(this.parentNode);
-                        var person = parent.select('g');
-                        var xPos = $this.attr('xPos');
-                        var yPos = $this.attr('yPos');
+                            person.transition(200)
+                                .attr('transform', 'translate(-35, -58) scale(1.5)');
 
-                        person.transition(200)
-                            .attr('transform', 'translate(-7, -30) scale(1)');
+                            // Add number text
+                            parent.append('text')
+                                .attr('x', 15)
+                                .attr('y', -37)
+                                .attr('font-style', 'italic')
+                                .attr('font-size', '0px')
+                                .attr('fill', '#ffffff')
+                                .attr('text-anchor', 'middle')
+                                .attr('pointer-events', 'none')
+                                .text('x' + d.number)
+                                .transition()
+                                .delay(100)
+                                .attr('font-size', '22px');
 
-                        $this.transition(500)
-                            .attr('transform', function() {
-                                return 'translate(-108, -40)';
-                            });
+                            // Add location text
+                            parent.append('text')
+                                .attr('x', 0)
+                                .attr('y', -100)
+                                .attr('fill', '#333')
+                                .attr('text-anchor', 'middle')
+                                .attr('font-style', 'italic')
+                                .attr('font-size', '0px')
+                                .text(d.place)
+                                .transition()
+                                .delay(200)
+                                .attr('font-size', '16px');
+                        })
+                        .on('mouseout', function(d, i) {
+                            var $this = d3.select(this);
+                            var parent = d3.select(this.parentNode);
+                            var person = parent.select('g');
+                            var xPos = $this.attr('xPos');
+                            var yPos = $this.attr('yPos');
 
-                        svg.selectAll('text').remove();
-                    });
+                            person.transition(200)
+                                .attr('transform', 'translate(-7, -30) scale(1)');
 
-                var person = container.append('g')
-                    .attr('transform', 'translate(-7, -30)');
+                            $this.transition(500)
+                                .attr('transform', function() {
+                                    return 'translate(-108, -40)';
+                                });
 
-                person.append('circle')
-                    .attr('r', '2')
-                    .attr('cx', 10)
-                    .attr('cy', 2)
-                    .attr('pointer-events', 'none')
-                    .attr('fill', '#ffffff');
-                person.append('path')
-                    .attr('d', 'M59,21H41c-5.5,0-9.602,4.482-9.115,9.961l2.229,25.078c0.33,3.713,2.689,6.963,5.885,8.676V92  c0,4.4,3.6,8,8,8h4c4.4,0,8-3.6,8-8V64.715c3.196-1.713,5.556-4.963,5.886-8.676l2.229-25.078C68.602,25.482,64.5,21,59,21z')
-                    .attr('transform', 'scale(0.2)')
-                    .attr('pointer-events', 'none')
-                    .attr('fill', '#ffffff');
+                            parent.selectAll('text').remove();
+
+                            legendContainer.selectAll('g')
+                                .transition()
+                                .duration(300)
+                                .style('opacity', '1');
+                        });
+
+                    var person = container.append('g')
+                        .attr('transform', 'translate(-7, -30)');
+
+                    person.append('circle')
+                        .attr('r', '2')
+                        .attr('cx', 10)
+                        .attr('cy', 2)
+                        .attr('pointer-events', 'none')
+                        .attr('fill', '#ffffff');
+                    person.append('path')
+                        .attr('d', 'M59,21H41c-5.5,0-9.602,4.482-9.115,9.961l2.229,25.078c0.33,3.713,2.689,6.963,5.885,8.676V92  c0,4.4,3.6,8,8,8h4c4.4,0,8-3.6,8-8V64.715c3.196-1.713,5.556-4.963,5.886-8.676l2.229-25.078C68.602,25.482,64.5,21,59,21z')
+                        .attr('transform', 'scale(0.2)')
+                        .attr('pointer-events', 'none')
+                        .attr('fill', '#ffffff');
+
+                    var legendItem = legendContainer.append('g')
+                        .attr('id', 'legend-' + i)
+                        .attr('transform', 'translate(0, '+ (i * 30) +')')
+                        .on('mouseover', function() {
+                            var $this = d3.select(this);
+                            var id = $this.attr('id').split('-')[1];
+
+                            var marker = svg.select('#marker-' + id);
+                            var parent = d3.select(marker[0][0].parentNode);
+                            var person = parent.select('g');
+                            var xPos = $this.attr('xPos');
+                            var yPos = $this.attr('yPos');
+                            var d = marker.datum();
+
+                            legendContainer.selectAll('g')
+                                .transition()
+                                .duration(300)
+                                .style('opacity', '0.2');
+                            $this.transition()
+                                .duration(300)
+                                .style('opacity', '1');
+
+                            // Reorder the markers
+                            marker[0][0].parentNode.parentNode.appendChild(parent[0][0]);
+
+                            marker.transition(500)
+                                .attr('transform', 'translate(-242, -90) scale(2.2)');
+
+                            person.transition(200)
+                                .attr('transform', 'translate(-35, -58) scale(1.5)');
+
+                            // Add number text
+                            parent.append('text')
+                                .attr('x', 15)
+                                .attr('y', -37)
+                                .attr('font-style', 'italic')
+                                .attr('font-size', '0px')
+                                .attr('fill', '#ffffff')
+                                .attr('text-anchor', 'middle')
+                                .attr('pointer-events', 'none')
+                                .text('x' + d.number)
+                                .transition()
+                                .delay(100)
+                                .attr('font-size', '22px');
+
+                            // Add location text
+                            parent.append('text')
+                                .attr('x', 0)
+                                .attr('y', -100)
+                                .attr('fill', '#333')
+                                .attr('text-anchor', 'middle')
+                                .attr('font-style', 'italic')
+                                .attr('font-size', '0px')
+                                .text(d.place)
+                                .transition()
+                                .delay(200)
+                                .attr('font-size', '16px');
+                        })
+                        .on('mouseout', function() {
+                            var $this = d3.select(this);
+                            var id = $this.attr('id').split('-')[1];
+
+                            var marker = svg.select('#marker-' + id);
+                            var parent = d3.select(marker[0][0].parentNode);
+                            var person = parent.select('g');
+                            var xPos = $this.attr('xPos');
+                            var yPos = $this.attr('yPos');
+                            var d = marker.datum();
+
+                            person.transition(200)
+                                .attr('transform', 'translate(-7, -30) scale(1)');
+
+                            marker.transition(500)
+                                .attr('transform', function() {
+                                    return 'translate(-108, -40)';
+                                });
+
+                            parent.selectAll('text').remove();
+
+                            legendContainer.selectAll('g')
+                                .transition()
+                                .duration(300)
+                                .style('opacity', '1');
+                        });
+
+                    // Legend circle
+                    legendItem.append("circle")
+                        .attr('cx', 15)
+                        .attr('cy', -5)
+                        .attr('r', 5)
+                        .attr('fill', '#fff')
+                        .attr('stroke', '#e12b88')
+                        .attr('stroke-width', '4');
+
+                    // Legend text
+                    legendItem.append('text')
+                        .attr('x', 30)
+                        .text(currentData.place);
+                }
             });
+
+        });
+    }
+
+    /**
+     * Create a counter that will start at the starting number and count up towards
+     * the end number, depending on the speed that it is run at, defaults at 1000ms
+     *
+     * @param container
+     * @param start
+     * @param end
+     * @param options
+     */
+    var createCounter = function(container, start, end, options)
+    {
+        var config = setDefaults(options, {
 
         });
     }
@@ -949,7 +1222,6 @@ Studio24.Charts = function()
                     .linkDistance(10)
                     .linkStrength(2)
                     .size([width, height]);
-
 
                 var svg = d3.select(config.container).append('svg')
                     .attr('width', width)
@@ -987,9 +1259,6 @@ Studio24.Charts = function()
 
                 node.append('circle')
                     .attr('r', function (d) { return 3 * d.size; });
-
-//                node.append("text")
-//                    .text(function(d) { return d.id; });
 
                 force.on('tick', function() {
                     link.attr('d', function(d) {
@@ -1062,7 +1331,8 @@ Studio24.Charts = function()
      * @param newAngle
      * @param arc
      */
-    var arcTween = function(transition, newAngle, arc) {
+    var arcTween = function(transition, newAngle, arc)
+    {
         transition.attrTween("d", function(d) {
             var interpolate = d3.interpolate(d.endAngle, newAngle);
 
@@ -1080,7 +1350,8 @@ Studio24.Charts = function()
      * @param text
      * @param width
      */
-    var wrap = function(text, width) {
+    var wrap = function(text, width)
+    {
         text.each(function() {
             // Prepare lots of variables to replace the text with multiple
             // lines in the correct positions
