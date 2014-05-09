@@ -1202,8 +1202,10 @@ Studio24.Charts = function()
             width: 200,
             height: 100,
             color: '#000',
-            fontfamily: 'Cambria',
-            textstyle: 'normal',
+            fontstyle: 'normal',
+            fontsize: '22px',
+            duration: 2000,
+            easing: 'cubic-out',
             title: '',
             description: ''
         });
@@ -1217,22 +1219,29 @@ Studio24.Charts = function()
         svg.append('title').text(options.title);
         svg.append('description').text(options.description);
 
-        var container = svg.append('g');
+        var container = svg.append('g')
+            .attr('transform', 'translate(' + (options.width / 2) + ',' + (options.height / 2) + ')');
 
         container.append('text')
+            .datum({endNumber: end})
+            .attr('font-style', options.fontstyle)
+            .attr('font-size', options.fontsize)
             .attr('fill', options.color)
-            .attr('text-style', options.textstyle)
+            .attr('text-anchor', 'middle')
+            .attr('pointer-events', 'none')
             .text(start)
-//            .tween("text", function(d) {
-//                console.log(d.end);
-//                var i = d3.interpolate(this.textContent, d),
-//                    prec = (d + "").split("."),
-//                    round = (prec.length > 1) ? Math.pow(10, prec[1].length) : 1;
-//
-//                return function(t) {
-//                    this.textContent = Math.round(i(t) * round) / round;
-//                };
-//            })
+            .transition()
+            .ease(options.easing)
+            .duration(options.duration)
+            .tween("text", function(d) {
+                var i = d3.interpolate(this.textContent, d.endNumber),
+                    prec = (d + "").split("."),
+                    round = (prec.length > 1) ? Math.pow(10, prec[1].length) : 1;
+
+                return function(t) {
+                    this.textContent = Math.round(i(t) * round) / round;
+                };
+            })
     }
 
     //@todo: Make work

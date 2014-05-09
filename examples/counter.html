@@ -23,12 +23,57 @@
 </head>
 
 <body>
-<!-- SVG Containers -->
-<h2>Counter 1-999 (5000 ms)</h2>
-<div class="svg-container-1"></div>
+<div id="navigation">
+    <ul>
+        <li><a href="../index.html">Documentation Home</a></li>
+        <li><a href="bars.html">Bar Charts</a></li>
+        <li><a href="pie.html">Pie Charts</a></li>
+        <li><a href="map.html">Global Map</a></li>
+        <li><a href="counter.html" class="active">Counters</a></li>
+    </ul>
+</div>
 
-<h2>Counter 1000-99999 (10000 ms)</h2>
-<div class="svg-container-2"></div>
+<h1>Counters</h1>
+
+<p>Counters are a bit different to most chart types, as they do not require a data file. Instead, they are initiated by specifying the start and end values in the declaration.</p>
+
+<p>The options still work the same way as all other charts and are still added at the end of the declaration.</p>
+
+<!-- SVG Containers -->
+<div class="example-container">
+    <div class="example">
+        <h2>Counter 1-999 (5000 ms)</h2>
+        <div class="svg-container-1"></div>
+    </div>
+    <div class="example-code">
+        <h3>Code from this example</h3>
+        <pre>
+Studio24.Charts.createCounter('.svg-container-1', 1, 999, {
+    duration: 5000
+});
+        </pre>
+    </div>
+</div>
+
+<div class="example-container">
+    <div class="example">
+        <h2>Counter 1000-99999 (10000 ms)</h2>
+        <div class="svg-container-2"></div>
+    </div>
+    <div class="example-code">
+        <h3>Code from this example</h3>
+        <pre>
+Studio24.Charts.createCounter('.svg-container-2', 1000, 99999, {
+    duration: 10000,
+    width: 200,
+    height: 100,
+    color: '#f00',
+    fontstyle: 'italic',
+    fontsize: '22px'
+})
+        </pre>
+    </div>
+</div>
 
 <script>
     // Initialise the library
@@ -37,11 +82,16 @@
     });
 
     Studio24.Charts.createCounter('.svg-container-1', 1, 999, {
-
+        duration: 5000
     });
 
     Studio24.Charts.createCounter('.svg-container-2', 1000, 99999, {
-
+        duration: 10000,
+        width: 200,
+        height: 100,
+        color: '#f00',
+        fontstyle: 'italic',
+        fontsize: '22px'
     })
 </script>
 </body>
