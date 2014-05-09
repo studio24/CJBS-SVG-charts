@@ -27,7 +27,7 @@ All files in the /js/d3 folder are required for the Global Map pages (mercator.j
 Before any charts are initialised on the page, the charting library must be first be initialised:
 
 ```
-Studio24.Charts.init({
+S24.Charts.init({
     colourScheme: '/js/studio24charts/colours.json'
 });
 ```

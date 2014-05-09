@@ -1,11 +1,11 @@
-var Studio24 = Studio24 || {};
+var S24 = S24 || {};
 
 /**
  * Studio 24 Charting Library
  *
  * @author George Mickleburgh <george.mickleburgh@studio24.net>
  */
-Studio24.Charts = function()
+S24.Charts = function()
 {
     /**
      * Store the object parsed from the JSON given in the config file
@@ -1489,7 +1489,7 @@ Studio24.Charts = function()
      *
      * init: someInitFunction
      *
-     * would be called with Studio24.Charts.init()
+     * would be called with S24.Charts.init()
      *
      * @var
      */

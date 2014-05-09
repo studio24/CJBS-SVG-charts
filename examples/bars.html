@@ -42,7 +42,7 @@
     <div class="example-code">
         <h3>Code from this example</h3>
         <pre>
-Studio24.Charts.createHorizontalBarChart('.svg-container-1', '../js/data/mfin-employment-breakdown.json', {
+S24.Charts.createHorizontalBarChart('.svg-container-1', '../js/data/mfin-employment-breakdown.json', {
     legendWidth: 200,
     width : 600,
     height: 300
@@ -69,7 +69,7 @@ Studio24.Charts.createHorizontalBarChart('.svg-container-1', '../js/data/mfin-em
     <div class="example-code">
         <h3>Code from this example</h3>
         <pre>
-Studio24.Charts.createBarChart('.svg-container-2', '../js/data/mfin-finance-industry-area.json', {
+S24.Charts.createBarChart('.svg-container-2', '../js/data/mfin-finance-industry-area.json', {
     width: 528
 });
         </pre>
@@ -93,19 +93,19 @@ Studio24.Charts.createBarChart('.svg-container-2', '../js/data/mfin-finance-indu
 </div>
 
 <script>
-    Studio24.Charts.init({
+    S24.Charts.init({
         colourScheme: '../js/s24/colours.json'
     });
 
     // Horizontal bar chart
-    Studio24.Charts.createHorizontalBarChart('.svg-container-1', '../js/data/mfin-employment-breakdown.json', {
+    S24.Charts.createHorizontalBarChart('.svg-container-1', '../js/data/mfin-employment-breakdown.json', {
         legendWidth: 200,
         width : 600,
         height: 300
     });
 
     // Vertical bar chart
-    Studio24.Charts.createBarChart('.svg-container-2', '../js/data/mfin-finance-industry-area.json', {
+    S24.Charts.createBarChart('.svg-container-2', '../js/data/mfin-finance-industry-area.json', {
         width: 400,
         title: 'Finance Industry Area',
         description: 'Testing description'
