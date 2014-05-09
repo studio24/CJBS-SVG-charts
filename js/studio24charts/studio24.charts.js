@@ -1219,9 +1219,11 @@ Studio24.Charts = function()
         svg.append('title').text(options.title);
         svg.append('description').text(options.description);
 
+        // Create a central container
         var container = svg.append('g')
             .attr('transform', 'translate(' + (options.width / 2) + ',' + (options.height / 2) + ')');
 
+        // Append the text and create a tween to interpolate the current value and the total value
         container.append('text')
             .datum({endNumber: end})
             .attr('font-style', options.fontstyle)
