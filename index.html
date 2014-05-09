@@ -63,6 +63,19 @@ Studio24.Charts.init({
 
     <p>The colour scheme is a changeable option, so if two pages have different colours, this can be updated.</p>
 
+    <h3>Accessibility</h3>
+
+    <p>All of the charts in the library can be made accessible by adding a title and description tag into the svg element. This is easily configurable and can be done from the standard configuration. For example:</p>
+
+    <pre>
+Studio24.Charts.createBarChart('.container', '../js/data/data-file.json', {
+    title: 'Chart Title',
+    description: 'Testing description'
+});
+    </pre>
+
+    <p>The above options are available on all types of charts across the library.</p>
+
     <h3>Real world examples</h3>
     <ul>
         <li><a href="examples/mfin.html">MFin Example</a></li>
