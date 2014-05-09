@@ -68,6 +68,8 @@ S24.Charts = function()
      */
     var prepareForQueue = function(fn, params)
     {
+        // Return an anonymous function, which wraps the fn.apply, which
+        // causes the function not to be executed until explicitly told to
         return function() {
             fn.apply(this, params);
         };
@@ -82,6 +84,7 @@ S24.Charts = function()
      */
     var setDefaults = function(arr, defaults)
     {
+        // Create the new blank object
         arr = arr || {};
 
         // Loop through the properties in the defaults
@@ -104,6 +107,7 @@ S24.Charts = function()
             }
         }
 
+        // Return the new object
         return arr;
     }
 
@@ -143,6 +147,7 @@ S24.Charts = function()
                 var width = options.width;
                 var height = options.height;
 
+                // Create the svg
                 var svg = d3.select(config.container)
                     .append('svg')
                     .attr('width', width)
@@ -156,35 +161,42 @@ S24.Charts = function()
                     return d.key;
                 }
 
+                // Work out the scale using an ordinal scale
                 var xScale = d3.scale.ordinal()
                     .domain(d3.range(dataset.length))
                     .rangeRoundBands([0, width], 0.05);
 
+                // Work out the scale using an ordinal scale
                 var yScale = d3.scale.linear()
                     .domain([0, d3.max(dataset, function(d) {
                         return d.value;
                     })])
                     .range([height, 0]);
 
+                // Work out the scale using an ordinal scale
                 var xAxisScale = d3.scale.ordinal()
                     .domain(dataset.map(function(d) {
                         return d.key;
                     }))
                     .rangeRoundBands([0, width], 0.05);
 
+                // X Axis scale
                 var xAxis = d3.svg.axis()
                     .scale(xAxisScale)
                     .orient('bottom');
 
+                // Y Axis scale
                 var yAxis = d3.svg.axis()
                     .scale(yScale)
                     .orient('left')
                     .ticks(10);
 
+                // Create the rect container
                 var rectGroup = svg.append('g')
                     .attr('transform', 'translate(' + 0 + ', ' + 25 + ')')
                     .attr('class', 'rect-group');
 
+                // Append the rects to the rect group
                 var rects = svg.select('.rect-group')
                     .selectAll('rect')
                     .data(dataset, key)
@@ -192,6 +204,7 @@ S24.Charts = function()
                     .append('rect')
                     .attr('class', 'bar');
 
+                // Style the rects appropriately
                 rects.attr('y', function (d) {
                         return height;
                     })
@@ -415,6 +428,7 @@ S24.Charts = function()
         d3.json(jsonUrl, function(error, dataset) {
             if (error) return console.warn(error);
             else {
+                // Set easy to use variables
                 var width = options.width;
                 var height = options.height;
                 var legendWidth = options.legendWidth;
@@ -457,9 +471,11 @@ S24.Charts = function()
                     .text(options.title)
                     .call(wrap, height / 3);
 
+                // Set values before the loop
                 var currentAngle = 0;
                 var maxValue = getTotalValue(dataset);
                 var currentColor = 1;
+                // Loop through each data point
                 for (var i = 0; i < dataset.length; i++) {
                     var value = dataset[i]['value'];
 
@@ -481,12 +497,14 @@ S24.Charts = function()
                         .attr('id', 'bar-'  + i)
                         .attr('value', value)
                         .on('mouseover', function() {
+                            // Get the event variables
                             var $this = d3.select(this);
                             var startAngle = parseFloat($this.attr('s_startAngle'));
                             var endAngle = parseFloat($this.attr('s_endAngle'));
                             var id = $this.attr('id').split('-')[1];
                             var currentValue = $this.attr('value');
 
+                            // Deal with the legend
                             legendContainer.selectAll('g')
                                 .transition()
                                 .duration(0)
@@ -496,6 +514,7 @@ S24.Charts = function()
                                 .duration(500)
                                 .style('opacity', '1');
 
+                            // Tween the bar's arc with a slightly larger arc
                             d3.select(this).transition()
                                 .duration(500)
                                 .ease("elastic")
@@ -510,6 +529,7 @@ S24.Charts = function()
                                     return newArc;
                                 });
 
+                            // Hide the center text
                             container.select('.center-text')
                                 .transition()
                                 .duration(0)
@@ -579,6 +599,7 @@ S24.Charts = function()
                         .attr('id', 'legend-'  + i)
                         .attr('transform', 'translate(0, '+(-40 - (i * 30))+')')
                         .on('mouseover', function() {
+                            // Get the nice event variables
                             var $this = d3.select(this);
                             var id = $this.attr('id').split('-')[1];
                             var bar = container.select('#bar-' + id);
@@ -586,6 +607,7 @@ S24.Charts = function()
                             var endAngle = parseFloat(bar.attr('s_endAngle'));
                             var currentValue = bar.attr('value');
 
+                            // Deal with legend transparency
                             legendContainer.selectAll('g')
                                 .transition()
                                 .duration(0)
@@ -594,6 +616,7 @@ S24.Charts = function()
                                 .duration(100)
                                 .style('opacity', '1');
 
+                            // Tween the bar's arc to a slightly larger version
                             bar.transition()
                                 .duration(500)
                                 .ease("elastic")
@@ -625,12 +648,14 @@ S24.Charts = function()
                                 .text(currentValue);
                         })
                         .on('mouseout', function() {
+                            // Get the nice variables from the event
                             var $this = d3.select(this);
                             var id = $this.attr('id').split('-')[1];
                             var bar = container.select('#bar-' + id);
                             var startAngle = bar.attr('s_startAngle');
                             var endAngle = bar.attr('s_endAngle');
 
+                            // Hide the data text and show the center text
                             container.select('.data-text')
                                 .remove();
                             container.select('.center-text')
@@ -639,17 +664,20 @@ S24.Charts = function()
                                 .duration(500)
                                 .style('opacity', '1');
 
+                            // Reset the legend
                             legendContainer.selectAll('g')
                                 .transition()
                                 .duration(500)
                                 .style('opacity', '1');
 
+                            // Recreate the original; arc
                             var newArc = d3.svg.arc()
                                 .innerRadius(chartDiameter / 2 - (2.3 * barRadius))
                                 .outerRadius(chartDiameter / 2 - barRadius)
                                 .startAngle(parseFloat(startAngle))
                                 .endAngle(parseFloat(endAngle));
 
+                            // Set the bars arc to be the old one
                            bar.transition()
                                .duration(100)
                                .attr('d', newArc);
@@ -769,6 +797,7 @@ S24.Charts = function()
                         .outerRadius(height / 2 - (i*barRadius))
                         .startAngle(0);
 
+                    // Show the greyed out bar if options.showInactive is true
                     if (options.showInactive) {
                         // Greyed pie bar
                         container.append("path")
@@ -967,10 +996,12 @@ S24.Charts = function()
             description: ''
         });
 
+        // Work out the optimal height from the width
         var legendWidth = options.legendWidth;
         var width = options.width - legendWidth,
             height = options.width * 0.7;
 
+        // Create the SVG element
         var svg = d3.select(container)
             .append('svg')
             .attr('width', width + legendWidth)
@@ -980,13 +1011,16 @@ S24.Charts = function()
         svg.append('title').text(options.title);
         svg.append('description').text(options.description);
 
+        // Get the mercator map projection, which is fairly standard map projection
         var projection = d3.geo.mercator()
             .translate([(width - legendWidth) / 2, (height * 0.75) / 2])
             .scale((width - legendWidth) / 2 / Math.PI)
             .center([0,50]);
+        // The path for the projection
         var path = d3.geo.path()
             .projection(projection);
 
+        // Get the world JSON file
         d3.json(options.worldJson, function (json) {
             svg.append('path')
                 .datum(topojson.feature(json, json.objects.land))
@@ -1077,15 +1111,16 @@ S24.Charts = function()
                                 .attr('font-size', '16px');
                         })
                         .on('mouseout', function(d, i) {
+                            // Get some nice easy variables
                             var $this = d3.select(this);
                             var parent = d3.select(this.parentNode);
                             var person = parent.select('g');
                             var xPos = $this.attr('xPos');
                             var yPos = $this.attr('yPos');
 
+                           // Shrink the person and move it into place
                             person.transition(200)
                                 .attr('transform', 'translate(-7, -30) scale(1)');
-
                             $this.transition(500)
                                 .attr('transform', function() {
                                     return 'translate(-108, -40)';
@@ -1093,21 +1128,26 @@ S24.Charts = function()
 
                             parent.selectAll('text').remove();
 
+                            // Set the legend opacities back to 1
                             legendContainer.selectAll('g')
                                 .transition()
                                 .duration(300)
                                 .style('opacity', '1');
                         });
 
+                    // Create the person group
                     var person = container.append('g')
                         .attr('transform', 'translate(-7, -30)');
 
+                    // The person's head
                     person.append('circle')
                         .attr('r', '2')
                         .attr('cx', 10)
                         .attr('cy', 2)
                         .attr('pointer-events', 'none')
                         .attr('fill', '#ffffff');
+
+                    // The person's body
                     person.append('path')
                         .attr('d', 'M59,21H41c-5.5,0-9.602,4.482-9.115,9.961l2.229,25.078c0.33,3.713,2.689,6.963,5.885,8.676V92  c0,4.4,3.6,8,8,8h4c4.4,0,8-3.6,8-8V64.715c3.196-1.713,5.556-4.963,5.886-8.676l2.229-25.078C68.602,25.482,64.5,21,59,21z')
                         .attr('transform', 'scale(0.2)')
@@ -1118,9 +1158,11 @@ S24.Charts = function()
                         .attr('id', 'legend-' + i)
                         .attr('transform', 'translate(0, '+ (i * 30) +')')
                         .on('mouseover', function() {
+                            // Get basic event variables
                             var $this = d3.select(this);
                             var id = $this.attr('id').split('-')[1];
 
+                            // Setup easy to use variables
                             var marker = svg.select('#marker-' + id);
                             var parent = d3.select(marker[0][0].parentNode);
                             var person = parent.select('g');
@@ -1128,6 +1170,7 @@ S24.Charts = function()
                             var yPos = $this.attr('yPos');
                             var d = marker.datum();
 
+                            // Deal with legend transparency
                             legendContainer.selectAll('g')
                                 .transition()
                                 .duration(300)
@@ -1139,6 +1182,7 @@ S24.Charts = function()
                             // Reorder the markers
                             marker[0][0].parentNode.parentNode.appendChild(parent[0][0]);
 
+                            // Grow the marker and the person objects
                             marker.transition(500)
                                 .attr('transform', 'translate(-242, -90) scale(2.2)');
 
@@ -1173,9 +1217,11 @@ S24.Charts = function()
                                 .attr('font-size', '16px');
                         })
                         .on('mouseout', function() {
+                            // Get some basic values from the event
                             var $this = d3.select(this);
                             var id = $this.attr('id').split('-')[1];
 
+                            // Setup required variables
                             var marker = svg.select('#marker-' + id);
                             var parent = d3.select(marker[0][0].parentNode);
                             var person = parent.select('g');
@@ -1268,10 +1314,12 @@ S24.Charts = function()
             .ease(options.easing)
             .duration(options.duration)
             .tween("text", function(d) {
+                // Interpolate the current text number with the end number
                 var i = d3.interpolate(this.textContent, d.endNumber),
                     prec = (d + "").split("."),
                     round = (prec.length > 1) ? Math.pow(10, prec[1].length) : 1;
 
+                // Set the text on the element to the correct, rounded number
                 return function(t) {
                     this.textContent = Math.round(i(t) * round) / round;
                 };
@@ -1285,12 +1333,14 @@ S24.Charts = function()
             container: container
         }
 
+        // Get the JSON
         d3.json(jsonUrl, function(error, dataset) {
             if (error) return console.warn(error);
             else {
                 var width = 960,
                     height = 500;
 
+                // Setup the required variables
                 var links = [];
                 var nodes = dataset.nodes.slice();
                 var bilinks = [];
@@ -1300,8 +1350,6 @@ S24.Charts = function()
                     link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
                     link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
                 });
-
-                var color = d3.scale.category20();
 
                 var force = d3.layout.force()
                     .linkDistance(10)
@@ -1317,6 +1365,7 @@ S24.Charts = function()
                     .attr("height", "100%")
                     .attr('fill', '#023d45');
 
+                // Loop through the dataset and construct the nodes and links
                 dataset.links.forEach(function(link) {
                     var s = nodes[link.source],
                         t = nodes[link.target],
@@ -1327,24 +1376,29 @@ S24.Charts = function()
                     bilinks.push([s, i, t]);
                 });
 
+                // Start the force directed graph
                 force.nodes(nodes)
                     .links(links)
                     .start();
 
+                // Create the links
                 var link = svg.selectAll('.link')
                     .data(bilinks)
                     .enter().append('path')
                     .attr('class', 'link');
 
+                // Create the blank node
                 var node = svg.selectAll('.node')
                     .data(dataset.nodes)
                     .enter().append('g')
                     .attr('class', 'node')
                     .call(force.drag);
 
+                // Add the circle to the node
                 node.append('circle')
                     .attr('r', function (d) { return 3 * d.size; });
 
+                // Move around the link and nodes on each tick
                 force.on('tick', function() {
                     link.attr('d', function(d) {
                         return "M" + d[0].x + "," + d[0].y
