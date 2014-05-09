@@ -125,7 +125,9 @@ Studio24.Charts = function()
         // Set default values
         options = setDefaults(options, {
             width : 700,
-            height: 400
+            height: 400,
+            title: '',
+            description: ''
         });
 
         // Prepare the config for being passed to the anonymous function
@@ -145,6 +147,10 @@ Studio24.Charts = function()
                     .append('svg')
                     .attr('width', width + 50)
                     .attr('height', height + 250);
+
+                // Accessible tags
+                svg.append('title').text(options.title);
+                svg.append('description').text(options.description);
 
                 var key = function (d) {
                     return d.key;
@@ -269,7 +275,9 @@ Studio24.Charts = function()
         options = setDefaults(options, {
             width : 700,
             height: 300,
-            legendWidth: 100
+            legendWidth: 100,
+            title: '',
+            description: ''
         });
 
         // Prepare the config for being passed to the anonymous function
@@ -293,21 +301,18 @@ Studio24.Charts = function()
                     .attr('width', width)
                     .attr('height', height);
 
+                // Accessible tags
+                svg.append('title').text(options.title);
+                svg.append('description').text(options.description);
+
                 // Get the max data values
                 var maxValue = getMaxValue(dataset);
-
-                // Append the title
-                svg.append('text')
-                    .attr('x', 0)
-                    .attr('y', 30)
-                    .attr('font-size', '32px')
-                    .text('Sectors');
 
                 // Loop through the data
                 for (var i = 0; i < dataset.length; i++) {
                     // Draw container
                     var container = svg.append('g')
-                        .attr('transform', 'translate(' + 0 + ', ' + (i * 35 + 70) + ')');
+                        .attr('transform', 'translate(' + 0 + ', ' + (i * 35 + 30) + ')');
 
                     // Bar label
                     container.append('text')
@@ -341,18 +346,6 @@ Studio24.Charts = function()
     }
 
     /**
-     * Column based horizontal bar chart
-     *
-     * @param container
-     * @param jsonUrl
-     * @param options
-     */
-    var createHorizontalColumnsBarChart = function(container, jsonUrl, options)
-    {
-
-    }
-
-    /**
      * Create a Pie Chart
      *
      * @param container
@@ -372,8 +365,9 @@ Studio24.Charts = function()
         options = setDefaults(options, {
             width : 750,
             height: 500,
-            title: "",
-            legendWidth: 150
+            legendWidth: 150,
+            title: '',
+            description: ''
         });
 
         // Get the data colour scheme
@@ -407,6 +401,10 @@ Studio24.Charts = function()
                     .append('svg')
                     .attr('width', width + legendWidth)
                     .attr('height', height);
+
+                // Accessible tags
+                svg.append('title').text(options.title);
+                svg.append('description').text(options.description);
 
                 // Create a container for the main pie chart
                 var container = svg.append("g")
@@ -673,8 +671,9 @@ Studio24.Charts = function()
             width : 750,
             height: 500,
             legendWidth: 200,
-            title: "",
-            showInactive: true
+            showInactive: true,
+            title: '',
+            description: ''
         });
 
         // Get the data colour scheme
@@ -703,6 +702,10 @@ Studio24.Charts = function()
                     .append('svg')
                     .attr('width', width + legendWidth)
                     .attr('height', height);
+
+                // Accessible tags
+                svg.append('title').text(options.title);
+                svg.append('description').text(options.description);
 
                 // Create a container for the main pie chart
                 var container = svg.append("g")
@@ -927,7 +930,9 @@ Studio24.Charts = function()
         // Set the default values
         setDefaults(options, {
             width: 1020,
-            legendWidth: 100
+            legendWidth: 100,
+            title: '',
+            description: ''
         });
 
         var legendWidth = options.legendWidth;
@@ -938,6 +943,10 @@ Studio24.Charts = function()
             .append('svg')
             .attr('width', width + legendWidth)
             .attr('height', height * 0.75);
+
+        // Accessible tags
+        svg.append('title').text(options.title);
+        svg.append('description').text(options.description);
 
         var projection = d3.geo.mercator()
             .translate([(width - legendWidth) / 2, (height * 0.75) / 2])
@@ -1188,9 +1197,42 @@ Studio24.Charts = function()
      */
     var createCounter = function(container, start, end, options)
     {
-        var config = setDefaults(options, {
-
+        // Set the default options
+        var options = setDefaults(options, {
+            width: 200,
+            height: 100,
+            color: '#000',
+            fontfamily: 'Cambria',
+            textstyle: 'normal',
+            title: '',
+            description: ''
         });
+
+        // Create the SVG object
+        var svg = d3.select(container).append('svg')
+            .attr('width', options.width)
+            .attr('height', options.height);
+
+        // Accessible tags
+        svg.append('title').text(options.title);
+        svg.append('description').text(options.description);
+
+        var container = svg.append('g');
+
+        container.append('text')
+            .attr('fill', options.color)
+            .attr('text-style', options.textstyle)
+            .text(start)
+//            .tween("text", function(d) {
+//                console.log(d.end);
+//                var i = d3.interpolate(this.textContent, d),
+//                    prec = (d + "").split("."),
+//                    round = (prec.length > 1) ? Math.pow(10, prec[1].length) : 1;
+//
+//                return function(t) {
+//                    this.textContent = Math.round(i(t) * round) / round;
+//                };
+//            })
     }
 
     //@todo: Make work
@@ -1412,10 +1454,10 @@ Studio24.Charts = function()
         init: init,
         createBarChart: createBarChart,
         createHorizontalBarChart: createHorizontalBarChart,
-        createHorizontalColumnsBarChart: createHorizontalColumnsBarChart,
         createPieChart: createPieChart,
         createLayeredPieChart: createLayeredPieChart,
         createMap: createMap,
+        createCounter: createCounter,
         createForceDirectedGraph: createForceDirectedGraph,
         setColourScheme: setColourScheme
     }
