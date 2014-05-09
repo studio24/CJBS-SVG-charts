@@ -145,7 +145,7 @@ Studio24.Charts = function()
 
                 var svg = d3.select(config.container)
                     .append('svg')
-                    .attr('width', width + 50)
+                    .attr('width', width)
                     .attr('height', height + 250);
 
                 // Accessible tags
@@ -182,7 +182,7 @@ Studio24.Charts = function()
                     .ticks(10);
 
                 var rectGroup = svg.append('g')
-                    .attr('transform', 'translate(' + 25 + ', ' + 25 + ')')
+                    .attr('transform', 'translate(' + 0 + ', ' + 25 + ')')
                     .attr('class', 'rect-group');
 
                 var rects = svg.select('.rect-group')
@@ -220,10 +220,23 @@ Studio24.Charts = function()
                             .duration(500)
                             .attr('class', 'hover-label')
                             .text(d.value);
+
+                        rectGroup.selectAll('rect')
+                            .transition()
+                            .duration(300)
+                            .attr('opacity', '0.2');
+
+                        bar.transition()
+                            .duration(200)
+                            .attr('opacity', '1');
                     })
                     .on('mouseout', function() {
                         d3.selectAll('.hover-label').remove();
-                        d3.select((this)).transition().duration(500).style('fill', '#E9008C');
+
+                        rectGroup.selectAll('rect')
+                            .transition()
+                            .duration(300)
+                            .attr('opacity', '1');
                     })
                     .transition()
                     .duration(1000)
@@ -234,9 +247,10 @@ Studio24.Charts = function()
                         return height - yScale(d.value);
                     });
 
+                // Add the X Axis
                 svg.append('g')
                     .attr('class', 'x axis')
-                    .attr('transform', 'translate(' + 25 + ', ' + (height + 25 + 5) + ')')
+                    .attr('transform', 'translate(' + 0 + ', ' + (height + 25 + 5) + ')')
                     .call(xAxis)
                     .selectAll('text')
                     .attr('font-size', '13px')
@@ -245,13 +259,14 @@ Studio24.Charts = function()
                     .attr('dy', '.15em')
                     .attr('transform', 'rotate(-65)');
 
-                var gy = svg.append('g')
-                    .attr('class', 'y axis')
-                    .attr('transform', 'translate(' + 25 + ', ' + 25 + ')')
-                    .call(yAxis);
+                // Old Y Scale Axis
+//                var gy = svg.append('g')
+//                    .attr('class', 'y axis')
+//                    .attr('transform', 'translate(' + 25 + ', ' + 25 + ')')
+//                    .call(yAxis);
 
-                gy.selectAll("g").filter(function(d) { return d; })
-                    .classed("minor", true);
+//                gy.selectAll("g").filter(function(d) { return d; })
+//                    .classed("minor", true);
             }
         });
     }
@@ -312,7 +327,24 @@ Studio24.Charts = function()
                 for (var i = 0; i < dataset.length; i++) {
                     // Draw container
                     var container = svg.append('g')
-                        .attr('transform', 'translate(' + 0 + ', ' + (i * 35 + 30) + ')');
+                        .attr('transform', 'translate(' + 0 + ', ' + (i * 35 + 30) + ')')
+                        .on('mouseover', function() {
+                            var $this = d3.select(this);
+
+                            svg.selectAll('g')
+                                .transition()
+                                .duration(300)
+                                .attr('opacity', '0.2');
+                            $this.transition()
+                                .duration(200)
+                                .attr('opacity', '1');
+                        })
+                        .on('mouseout', function() {
+                            svg.selectAll('g')
+                                .transition()
+                                .duration(300)
+                                .attr('opacity', '1');
+                        });
 
                     // Bar label
                     container.append('text')
