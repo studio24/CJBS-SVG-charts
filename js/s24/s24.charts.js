@@ -257,7 +257,7 @@ Studio24.Charts = function()
                     .style('text-anchor', 'end')
                     .attr('dx', '-.8em')
                     .attr('dy', '.15em')
-                    .attr('transform', 'rotate(-65)');
+                    .attr('transform', 'rotate(-90)');
 
                 // Old Y Scale Axis
 //                var gy = svg.append('g')
@@ -793,7 +793,7 @@ Studio24.Charts = function()
                             container.selectAll('path')
                                 .transition()
                                 .duration(500)
-                                .style('opacity', '0.2');
+                                .style('opacity', '0.4');
 
                             legendContainer.selectAll('g')
                                 .transition()

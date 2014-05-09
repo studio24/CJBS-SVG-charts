@@ -6,10 +6,10 @@
     <!-- Extra requirements -->
     <script src="../js/d3/topojson.min.js"></script>
 
-    <script src="../js/studio24charts/studio24.charts.js"></script>
+    <script src="../js/s24/s24.charts.js"></script>
 
     <link rel="stylesheet" href="../css/documentation.css" />
-    <link rel="stylesheet" href="../js/studio24charts/studio24.charts.css" />
+    <link rel="stylesheet" href="../js/s24/s24.charts.css" />
     <style>
         h2 {
             font-weight: normal;
@@ -94,7 +94,7 @@ Studio24.Charts.createBarChart('.svg-container-2', '../js/data/mfin-finance-indu
 
 <script>
     Studio24.Charts.init({
-        colourScheme: '../js/studio24charts/colours.json'
+        colourScheme: '../js/s24/colours.json'
     });
 
     // Horizontal bar chart
@@ -106,7 +106,7 @@ Studio24.Charts.createBarChart('.svg-container-2', '../js/data/mfin-finance-indu
 
     // Vertical bar chart
     Studio24.Charts.createBarChart('.svg-container-2', '../js/data/mfin-finance-industry-area.json', {
-        width: 528,
+        width: 400,
         title: 'Finance Industry Area',
         description: 'Testing description'
     });
