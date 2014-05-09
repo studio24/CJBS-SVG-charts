@@ -733,7 +733,7 @@ Studio24.Charts = function()
 
                     // Initiate the arc for drawing the bars
                     var arc = d3.svg.arc()
-                        .innerRadius(height / 2 - barRadius - (i*barRadius))
+                        .innerRadius(height / 2 - barRadius - (i*barRadius) - 1)
                         .outerRadius(height / 2 - (i*barRadius))
                         .startAngle(0);
 
