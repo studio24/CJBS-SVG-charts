@@ -18,68 +18,118 @@
         </ul>
     </div>
 
-    <h1>Judge Business School Charting Tools</h1>
+    <div class="narrow-content">
 
-    <h3>Overview</h3>
+        <h1>Judge Business School Charting Tools</h1>
 
-    <p>The current list of available charts is as follows:</p>
+        <h3>Overview</h3>
 
-    <ul>
-        <li><a href="examples/bars.html">Horizontal Bar Chart</a></li>
-        <li><a href="examples/bars.html">Vertical Bar Chart</a></li>
-        <li><a href="examples/pie.html">Pie Chart</a></li>
-        <li><a href="examples/pie.html">Layered Pie Chart</a></li>
-        <li><a href="examples/map.html">Global Map</a></li>
-    </ul>
+        <p>The current list of available charts is as follows:</p>
 
-    <p>All charts use JSON data for configuration, with the exception of the Global Map which uses a CSV file, this is purely for ease of editing. </p>
+        <ul>
+            <li><a href="examples/bars.html">Horizontal Bar Chart</a></li>
+            <li><a href="examples/bars.html">Vertical Bar Chart</a></li>
+            <li><a href="examples/pie.html">Pie Chart</a></li>
+            <li><a href="examples/pie.html">Layered Pie Chart</a></li>
+            <li><a href="examples/map.html">Global Map</a></li>
+        </ul>
 
-    <h3>Required files</h3>
+        <p>All charts use JSON data for configuration, with the exception of the Global Map which uses a CSV file, this is purely for ease of editing. </p>
 
-    <p>The following files are required to be included on all pages with any chart on it:</p>
+        <h3>Required files</h3>
 
-    <pre>
-/js/d3/d3.min.js
-/js/s24/s24.charts.js
-/js/s24/s24.charts.css
-    </pre>
+        <p>The following files are required to be included on all pages with any chart on it:</p>
 
-    <p>The following file is required if the page has a Global Map on it:</p>
+        <pre>
+    /js/d3/d3.min.js
+    /js/s24/s24.charts.js
+    /js/s24/s24.charts.css
+        </pre>
 
-    <pre>
-/js/d3/toppjson.min.js
-    </pre>
+        <p>The following file is required if the page has a Global Map on it:</p>
 
-    <p>All files in the /js/d3 folder are required for the Global Map pages (mercator.json and world.json), however these are automatically included in the script.</p>
+        <pre>
+    /js/d3/toppjson.min.js
+        </pre>
 
-    <h3>Setup</h3>
+        <p>All files in the /js/d3 folder are required for the Global Map pages (mercator.json and world.json), however these are automatically included in the script.</p>
 
-    <p>Before any charts are initialised on the page, the charting library must be first be initialised:</p>
+        <h3>Setup</h3>
 
-    <pre>
-S24.Charts.init({
-    colourScheme: '/js/s24/colours.json'
-});
-    </pre>
+        <p>Before any charts are initialised on the page, the charting library must be first be initialised:</p>
 
-    <p>The colour scheme is a changeable option, so if two pages have different colours, this can be updated.</p>
+        <pre>
+    S24.Charts.init({
+        colourScheme: '/js/s24/colours.json'
+    });
+        </pre>
 
-    <h3>Accessibility</h3>
+        <p>The colour scheme is a changeable option, so if two pages have different colours, this can be updated.</p>
 
-    <p>All of the charts in the library can be made accessible by adding a title and description tag into the svg element. This is easily configurable and can be done from the standard configuration. For example:</p>
+        <h3>Accessibility</h3>
 
-    <pre>
-S24.Charts.createBarChart('.container', '../js/data/data-file.json', {
-    title: 'Chart Title',
-    description: 'Testing description'
-});
-    </pre>
+        <p>All of the charts in the library can be made accessible by adding a title and description tag into the svg element. This is easily configurable and can be done from the standard configuration. For example:</p>
 
-    <p>The above options are available on all types of charts across the library.</p>
+        <pre>
+    S24.Charts.createBarChart('.container', '../js/data/data-file.json', {
+        title: 'Chart Title',
+        description: 'Testing description'
+    });
+        </pre>
 
-    <h3>Real world examples</h3>
-    <ul>
-        <li><a href="examples/mfin.html">MFin Example</a></li>
-    </ul>
+        <p>The above options are available on all types of charts across the library.</p>
+
+        <h3>Editing Colours</h3>
+
+        <p>The colour scheme for the charts is located in a JSON file located at:</p>
+
+        <pre>
+    /js/s24/colours.json
+        </pre>
+
+        <p>The bar charts and the map will use the "primary" colours in the schema. This is editable by changing the values in this section:</p>
+
+        <pre>
+    "primary" : {
+        "colour" : "#e80087",
+        "font" : "#ffffff"
+    },
+        </pre>
+
+        <p>The pie/donut charts use multiple colours, a different colour for each section of the pie. This means that the configuration looks slightly different:</p>
+
+        <pre>
+    "data-green" : {
+        "1" : {
+            "colour" : "#0C8D78",
+            "inactive" : "#EBEBEB"
+        },
+        "2" : {
+            "colour" : "#51B756",
+            "inactive" : "#DEDCDD"
+        },
+        "3" : {
+            "colour" : "#ACD59F",
+            "inactive" : "#CFCFCF"
+        }
+    },
+        </pre>
+
+        <p>These sections can have as many colours as desired. The colours will loop around to the start again if there are not enough for the amount of data values.</p>
+
+        <p>The colours that the pie charts will use depend on an option that is passed into the createPieChart (or createLayeredPieChart) method. For example:</p>
+
+        <pre>
+    S24.Charts.createLayeredPieChart('.svg-container', '../js/data/mfin-employment-breakdown.json', {
+        colours: "data-green",
+    });
+        </pre>
+
+        <h3>Real world examples</h3>
+        <ul>
+            <li><a href="examples/mfin.html">MFin Example</a></li>
+        </ul>
+
+    </div>
 </body>
 </html>

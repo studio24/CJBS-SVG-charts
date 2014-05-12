@@ -27,6 +27,10 @@ html, body {
     padding-bottom: 0;
 }
 
+.narrow-content {
+    width: 600px;
+}
+
 .example-container {
     overflow: hidden;
     width: 100%;

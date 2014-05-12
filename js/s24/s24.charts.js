@@ -211,7 +211,7 @@ S24.Charts = function()
                     .attr('x', function (d,i) {
                         return xScale(i);
                     })
-                    .attr('fill', '#E9008C')
+                    .attr('fill', colours.primary.colour)
                     .attr('width', xScale.rangeBand())
                     .attr('height', 0)
                     .on('mouseover', function (d) {
@@ -220,19 +220,6 @@ S24.Charts = function()
                         var y = parseInt(bar.attr('y'));
                         var width = bar.attr('width');
                         var height = bar.attr('height');
-
-                        svg.select('.rect-group')
-                            .append('text')
-                            .attr('x', x + (width / 2))
-                            .attr('y', y + 30)
-                            .attr("font-family", "sans-serif")
-                            .attr("font-size", "14px")
-                            .attr("fill", "white")
-                            .style('text-anchor', 'middle')
-                            .transition()
-                            .duration(500)
-                            .attr('class', 'hover-label')
-                            .text(d.value);
 
                         rectGroup.selectAll('rect')
                             .transition()
@@ -244,8 +231,6 @@ S24.Charts = function()
                             .attr('opacity', '1');
                     })
                     .on('mouseout', function() {
-                        d3.selectAll('.hover-label').remove();
-
                         rectGroup.selectAll('rect')
                             .transition()
                             .duration(300)
@@ -259,6 +244,34 @@ S24.Charts = function()
                     .attr('height', function (d) {
                         return height - yScale(d.value);
                     });
+
+                var barWidth = svg.select('rect.bar').attr('width');
+
+                var text = svg.select('.rect-group')
+                    .selectAll('text')
+                    .data(dataset, key)
+                    .enter()
+                    .append('text');
+
+                text.attr('y', function (d) {
+                        return yScale(d.value) + 20;
+                    })
+                    .attr('x', function (d,i) {
+                        return xScale(i) + (barWidth / 2);
+                    })
+                    .attr("font-family", "sans-serif")
+                    .attr("font-size", "14px")
+                    .attr("fill", "white")
+                    .style('text-anchor', 'middle')
+                    .text(function(d) {
+                        return d.value;
+                    })
+                    .style('opacity', '0')
+                    .transition()
+                    .delay(1000)
+                    .duration(500)
+                    .style('opacity', '1');
+
 
                 // Add the X Axis
                 svg.append('g')
@@ -1059,7 +1072,7 @@ S24.Charts = function()
                         .attr('transform', function(d) {
                             return 'translate(-108, -40)';
                         })
-                        .attr("fill", "#E12B88")
+                        .attr("fill", colours.primary.colour)
                         .on('mouseover', function(d, i) {
                             var $this = d3.select(this);
                             var parent = d3.select(this.parentNode);
@@ -1251,7 +1264,7 @@ S24.Charts = function()
                         .attr('cy', -5)
                         .attr('r', 5)
                         .attr('fill', '#fff')
-                        .attr('stroke', '#e12b88')
+                        .attr('stroke', colours.primary.colour)
                         .attr('stroke-width', '4');
 
                     // Legend text
