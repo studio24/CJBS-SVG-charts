@@ -1,0 +1,23 @@
+[
+    { "key" : "Banking", "value" : "1" },
+    { "key" : "Civil Engineering", "value" : "1" },
+    { "key" : "Construction", "value" : "1" },
+    { "key" : "Consulting", "value" : "1" },
+    { "key" : "Education", "value" : "1" },
+    { "key" : "Energy", "value" : "1" },
+    { "key" : "Finance", "value" : "5" },
+    { "key" : "Healthcare", "value" : "1" },
+    { "key" : "Industry engineering", "value" : "1" },
+    { "key" : "Insurance", "value" : "2" },
+    { "key" : "Investment in mining industry", "value" : "1" },
+    { "key" : "IT", "value" : "3" },
+    { "key" : "Manufacturing", "value" : "2" },
+    { "key" : "Marketing", "value" : "1" },
+    { "key" : "Medical & Life Insurance", "value" : "1" },
+    { "key" : "Oil & Gas", "value" : "3" },
+    { "key" : "Pharmaceutical", "value" : "3" },
+    { "key" : "Public Sector", "value" : "4" },
+    { "key" : "Publishing", "value" : "2" },
+    { "key" : "Research/Education", "value" : "1" },
+    { "key" : "Semiconductor IP", "value" : "1" }
+]

@@ -1005,6 +1005,7 @@ S24.Charts = function()
         setDefaults(options, {
             width: 1020,
             legendWidth: 100,
+            height: null,
             title: '',
             description: ''
         });
@@ -1012,7 +1013,7 @@ S24.Charts = function()
         // Work out the optimal height from the width
         var legendWidth = options.legendWidth;
         var width = options.width - legendWidth,
-            height = options.width * 0.7;
+            height = options.height || options.width * 0.7;
 
         // Create the SVG element
         var svg = d3.select(container)
@@ -1297,6 +1298,9 @@ S24.Charts = function()
             fontsize: '22px',
             duration: 2000,
             easing: 'cubic-out',
+            preText: '',
+            postText: '',
+            decimalPlaces: 0,
             title: '',
             description: ''
         });
@@ -1328,13 +1332,19 @@ S24.Charts = function()
             .duration(options.duration)
             .tween("text", function(d) {
                 // Interpolate the current text number with the end number
-                var i = d3.interpolate(this.textContent, d.endNumber),
-                    prec = (d + "").split("."),
-                    round = (prec.length > 1) ? Math.pow(10, prec[1].length) : 1;
+                var i = d3.interpolate(this.textContent, d.endNumber);
+                var decimalPlaces = options.decimalPlaces;
+                var preText = options.preText;
+                var postText = options.postText;
 
                 // Set the text on the element to the correct, rounded number
                 return function(t) {
-                    this.textContent = Math.round(i(t) * round) / round;
+                    // Get the number from the iterator
+                    var number = i(t);
+                    // Format the number nicely
+                    number = numberWithCommas(number.toFixed(decimalPlaces));
+
+                    this.textContent = preText + number + postText;
                 };
             })
     }
@@ -1424,6 +1434,16 @@ S24.Charts = function()
                 });
             }
         });
+    }
+
+    /**
+     * Format a number to include commas between every 3 digits
+     *
+     * @param x
+     */
+    var numberWithCommas = function(x)
+    {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
     /**
