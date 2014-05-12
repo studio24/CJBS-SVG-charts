@@ -4,6 +4,7 @@
 <head>
     <title>Studio 24 Charting Library</title>
     <script src="../js/d3/d3.min.js"></script>
+    <meta charset="UTF-8">
 
     <!-- Extra requirements -->
     <script src="../js/d3/topojson.min.js"></script>
@@ -49,7 +50,9 @@
         <h3>Code from this example</h3>
         <pre>
 S24.Charts.createCounter('.svg-container-1', 1, 999, {
-    duration: 5000
+    duration: 5000,
+    preText: '£',
+    decimalPlaces: 2
 });
         </pre>
     </div>
@@ -82,7 +85,9 @@ S24.Charts.createCounter('.svg-container-2', 1000, 99999, {
     });
 
     S24.Charts.createCounter('.svg-container-1', 1, 999, {
-        duration: 5000
+        duration: 5000,
+        preText: '£',
+        decimalPlaces: 2
     });
 
     S24.Charts.createCounter('.svg-container-2', 1000, 99999, {
