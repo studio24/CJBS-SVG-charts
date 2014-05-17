@@ -1,4 +1,6 @@
-# Studio 24 Charting Tools
+# Cambridge Judge Business School SVN charts
+
+An Open Source toolkit for creating SVG charts for Cambridge Judge Business School. 
 
 ### Open Source license
 
