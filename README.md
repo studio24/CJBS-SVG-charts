@@ -1,5 +1,11 @@
 # Studio 24 Charting Tools
 
+### Open Source license
+
+Copyright (c) 2014 Studio 24 Ltd
+
+Licensed under the MIT License, see LICENSE.md
+
 ### Overview
 
 All charts use JSON data for configuration, with the exception of the Global Map which uses a CSV file, this is purely for ease of editing.
