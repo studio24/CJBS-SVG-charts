@@ -1,6 +1,8 @@
-# Cambridge Judge Business School SVN charts
+# Cambridge Judge Business School SVG charts
 
 An Open Source toolkit for creating SVG charts for Cambridge Judge Business School. 
+
+Developed for CJBS http://www.jbs.cam.ac.uk by Studio 24 http://www.studio24.net
 
 ### Open Source license
 
