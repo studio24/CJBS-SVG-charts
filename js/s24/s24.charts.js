@@ -1296,7 +1296,7 @@ S24.Charts = function()
             color: '#000',
             fontstyle: 'normal',
             fontsize: '22px',
-            duration: 2000,
+            duration: 3000,
             easing: 'cubic-out',
             preText: '',
             postText: '',

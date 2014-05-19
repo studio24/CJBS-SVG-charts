@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Studio 24 Charting Library</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script src="../js/d3/d3.min.js"></script>
+
+    <!-- Extra requirements -->
+    <script src="../js/d3/topojson.min.js"></script>
+
+    <script src="../js/s24/s24.charts.js"></script>
+
+    <link rel="stylesheet" href="../js/s24/s24.charts.css" />
+    <style>
+        h2 {
+            font-weight: normal;
+            margin-top: 100px;
+            clear: both;
+            display: block;
+        }
+        .counter-container {
+            width: 100%;
+            overflow: hidden;
+        }
+        .counter {
+            float: left;
+            text-align: center;
+            margin-right: 20px;
+            max-width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- SVG Containers -->
+<h2>Cambridge ALP class profile</h2>
+<div class="counter-container">
+    <div class="counter">
+        <h3>Average Class Size</h3>
+        <div class="svg-container-1a"></div>
+    </div>
+    <div class="counter">
+        <h3>Female Attendees</h3>
+        <div class="svg-container-1b"></div>
+    </div>
+    <div class="counter">
+        <h3>Male Attendees</h3>
+        <div class="svg-container-1c"></div>
+    </div>
+    <div class="counter">
+        <h3>Average No of Nationalities represented</h3>
+        <div class="svg-container-1d"></div>
+    </div>
+    <div class="counter">
+        <h3>Average class feedback score</h3>
+        <div class="svg-container-1e"></div>
+    </div>
+
+    <div class="counter">
+        <h3>Average cost of an ALP</h3>
+        <div class="svg-container-1f"></div>
+    </div>
+</div>
+
+<h2>Profile</h2>
+<div class="counter-container">
+    <div class="counter">
+        <h3>Average years experience</h3>
+        <div class="svg-container-2a"></div>
+    </div>
+    <div class="counter">
+        <h3>Average age</h3>
+        <div class="svg-container-2b"></div>
+    </div>
+    <div class="counter">
+        <h3>Average organisation size</h3>
+        <div class="svg-container-2c"></div>
+    </div>
+    <div class="counter">
+        <h3>Average company sales</h3>
+        <div class="svg-container-2d"></div>
+    </div>
+</div>
+
+<h2>Nationalities Represented</h2>
+<div class="svg-container-3"></div>
+
+<h2>Industry Sectors</h2>
+<div class="svg-container-4"></div>
+
+<script>
+    // Initialise the library
+    S24.Charts.init({
+        colourScheme: '../js/s24/colours.json'
+    });
+
+    // Class Stats
+    S24.Charts.createCounter('.svg-container-1a', 0, 19, {});
+    S24.Charts.createCounter('.svg-container-1b', 0, 23, { postText: '%' });
+    S24.Charts.createCounter('.svg-container-1c', 0, 77, { postText: '%' });
+    S24.Charts.createCounter('.svg-container-1d', 0, 23, {});
+    S24.Charts.createCounter('.svg-container-1e', 0, 4.6, { postText: '/5' });
+    S24.Charts.createCounter('.svg-container-1f', 0, 23471, { preText: '£' });
+
+    // Profile
+    S24.Charts.createCounter('.svg-container-2a', 0, 14, { decimalPlaces: 0 });
+    S24.Charts.createCounter('.svg-container-2b', 0, 46, {});
+    S24.Charts.createCounter('.svg-container-2c', 0, 14600, { postText: ' employees' });
+    S24.Charts.createCounter('.svg-container-2d', 0, 5147658000, { preText: '£', decimalPlaces: 2 });
+
+    // Global Map
+    S24.Charts.createMap('.svg-container-3', '../js/data/alp-nationalities-represented.csv', {
+        worldJson: '../js/d3/world.json',
+        height: 900
+    });
+
+    // Industry Sectors
+    S24.Charts.createBarChart('.svg-container-4', '../js/data/alp-industry-sectors.json', {
+
+    });
+</script>
+</body>
+</html>
