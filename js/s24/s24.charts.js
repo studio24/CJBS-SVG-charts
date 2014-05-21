@@ -169,7 +169,7 @@ S24.Charts = function()
                 // Work out the scale using an ordinal scale
                 var yScale = d3.scale.linear()
                     .domain([0, d3.max(dataset, function(d) {
-                        return d.value;
+                        return parseInt(d.value);
                     })])
                     .range([height, 0]);
 
@@ -1465,7 +1465,7 @@ S24.Charts = function()
         for (var x = 0; x < object.length; x++) {
             // If the new value is higher than the old one, it is now the maxValue
             if (parseInt(object[x]['value']) > maxValue) {
-                maxValue = object[x]['value'];
+                maxValue = parseInt(object[x]['value']);
             }
         }
 
