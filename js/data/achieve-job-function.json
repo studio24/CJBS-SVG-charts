@@ -1,0 +1,18 @@
+[
+    { "key" : "Consultant", "value" : "19" },
+    { "key" : "Finance", "value" : "13" },
+    { "key" : "Business development", "value" : "10" },
+    { "key" : "Marketing/sales", "value" : "9" },
+    { "key" : "Corporate planning/strategy", "value" : "7" },
+    { "key" : "General management", "value" : "5" },
+    { "key" : "Project management", "value" : "4" },
+    { "key" : "Technology management", "value" : "2" },
+    { "key" : "Legal", "value" : "2" },
+    { "key" : "Analyst", "value" : "2" },
+    { "key" : "Not known", "value" : "1" },
+    { "key" : "Strategy", "value" : "1" },
+    { "key" : "Research & development", "value" : "1" },
+    { "key" : "Public policy", "value" : "1" },
+    { "key" : "Operations", "value" : "1" },
+    { "key" : "Entrepreneur", "value" : "1" }
+]

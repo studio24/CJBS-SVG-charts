@@ -741,6 +741,7 @@ S24.Charts = function()
 
         // Set default values
         options = setDefaults(options, {
+            colours: 'data-green',
             width : 750,
             height: 500,
             legendWidth: 200,
@@ -1296,6 +1297,7 @@ S24.Charts = function()
             color: '#000',
             fontstyle: 'normal',
             fontsize: '22px',
+            align: 'middle',
             duration: 3000,
             easing: 'cubic-out',
             preText: '',
@@ -1319,12 +1321,23 @@ S24.Charts = function()
             .attr('transform', 'translate(' + (options.width / 2) + ',' + (options.height / 2) + ')');
 
         // Append the text and create a tween to interpolate the current value and the total value
-        container.append('text')
+        var text = container.append('text')
             .datum({endNumber: end})
             .attr('font-style', options.fontstyle)
             .attr('font-size', options.fontsize)
             .attr('fill', options.color)
-            .attr('text-anchor', 'middle')
+            .attr('text-anchor', function() {
+                if (options.align == 'left') {
+                    return 'start';
+                } else {
+                    return 'middle';
+                }
+            })
+            .attr('transform', function() {
+                if (options.align == 'left') {
+                    return 'translate(-' + (options.width / 2) + ', 0)';
+                }
+            })
             .attr('pointer-events', 'none')
             .text(start)
             .transition()
@@ -1346,7 +1359,7 @@ S24.Charts = function()
 
                     this.textContent = preText + number + postText;
                 };
-            })
+            });
     }
 
     //@todo: Make work

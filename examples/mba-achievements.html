@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Studio 24 Charting Library</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script src="../js/d3/d3.min.js"></script>
+
+    <!-- Extra requirements -->
+    <script src="../js/d3/topojson.min.js"></script>
+
+    <script src="../js/s24/s24.charts.js"></script>
+
+    <link rel="stylesheet" href="../js/s24/s24.charts.css" />
+    <style>
+        h2 {
+            font-weight: normal;
+            margin-top: 100px;
+            clear: both;
+            display: block;
+        }
+        .counter-container {
+            width: 100%;
+            overflow: hidden;
+        }
+        .counter {
+            float: left;
+            text-align: center;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- SVG Containers -->
+<h2>MBA 2012/2013 Achievements</h2>
+<div class="counter-container">
+    <div class="svg-container-1a"></div>
+    <div class="svg-container-1b"></div>
+    <div class="svg-container-1c"></div>
+    <div class="svg-container-1d"></div>
+    <div class="svg-container-1e"></div>
+</div>
+
+<h2>Remuneration</h2>
+<div class="counter-container">
+    <div class="counter">
+        <h3>Average base salary</h3>
+        <div class="svg-container-2a"></div>
+    </div>
+    <div class="counter">
+        <h3>Average signing bonus</h3>
+        <div class="svg-container-2b"></div>
+    </div>
+    <div class="counter">
+        <h3>% receiving signing bonus</h3>
+        <div class="svg-container-2c"></div>
+    </div>
+    <div class="counter">
+        <h3>Average package (including benefits)</h3>
+        <div class="svg-container-2d"></div>
+    </div>
+</div>
+
+<h2>Career Transitions</h2>
+<div class="svg-container-3"></div>
+
+<h2>Post MBA Job locations</h2>
+<div class="svg-container-4"></div>
+
+<h2>Pre/post MBA job locations</h2>
+<div class="svg-container-5"></div>
+
+<h2>Post MBA Employment Sector</h2>
+<div class="svg-container-6"></div>
+
+<h2>Post MBA Job Function</h2>
+<div class="svg-container-7"></div>
+
+<script>
+    // Initialise the library
+    S24.Charts.init({
+        colourScheme: '../js/s24/colours.json'
+    });
+
+    // Class Achievements
+    S24.Charts.createCounter('.svg-container-1a', 0, 90, { postText: '% with job offers 3 months out', width: 320, align: 'left' });
+    S24.Charts.createCounter('.svg-container-1b', 0, 89, { postText: '% switched at least country, function or industry sector', width: 550,  align: 'left' });
+    S24.Charts.createCounter('.svg-container-1c', 0, 23, { postText: '% switched all 3', width: 300,  align: 'left' });
+    S24.Charts.createCounter('.svg-container-1d', 0, 60178, { preText: '£', postText: ' average base salary', width: 320,  align: 'left' });
+    S24.Charts.createCounter('.svg-container-1e', 0, 25, { preText: 'Taken up jobs in ', postText: ' countries', width: 350, align: 'left' });
+
+    // Renumerations
+    S24.Charts.createCounter('.svg-container-2a', 0, 60178, { preText: '£' });
+    S24.Charts.createCounter('.svg-container-2b', 0, 15821, { preText: '£' });
+    S24.Charts.createCounter('.svg-container-2c', 0, 46, { postText: '%' });
+    S24.Charts.createCounter('.svg-container-2d', 0, 84925, { preText: '£' });
+
+    // Career Transitions
+    S24.Charts.createLayeredPieChart('.svg-container-3', '../js/data/achieve-career-transition.json', {
+        title: 'Career Transitions',
+        width: 400,
+        height: 320
+    });
+
+    // Map
+    S24.Charts.createMap('.svg-container-4', '../js/data/achieve-locations.csv', {
+        worldJson: '../js/d3/world.json',
+        height: 800
+    });
+
+    // Pre/post locations
+    S24.Charts.createBarChart('.svg-container-5', '../js/data/achieve-pre-post-location.json', {
+
+    });
+
+    // Employment sector
+    S24.Charts.createHorizontalBarChart('.svg-container-6', '../js/data/achieve-employment-sector.json', {
+        width: 720,
+        legendWidth: 200,
+        height: 400
+    });
+
+    // Job functions
+    S24.Charts.createBarChart('.svg-container-7', '../js/data/achieve-job-function.json', {
+        height: 400,
+        width: 400
+    });
+</script>
+</body>
+</html>

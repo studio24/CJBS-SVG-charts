@@ -1,0 +1,13 @@
+[
+    { "key" : "Finance", "value" : "23" },
+    { "key" : "Consulting", "value" : "20" },
+    { "key" : "Technology", "value" : "7" },
+    { "key" : "Internet/e-commerce", "value" : "7" },
+    { "key" : "Other industry", "value" : "6" },
+    { "key" : "Professional services", "value" : "3" },
+    { "key" : "Healthcare/pharma/biotech", "value" : "3" },
+    { "key" : "Energy/utilities", "value" : "3" },
+    { "key" : "Electronics", "value" : "3" },
+    { "key" : "Public sector/NGO", "value" : "2" },
+    { "key" : "Chemical", "value" : "2" }
+]
