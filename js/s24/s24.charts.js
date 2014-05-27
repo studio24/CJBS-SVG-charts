@@ -425,7 +425,8 @@ S24.Charts = function()
             height: 500,
             legendWidth: 150,
             title: '',
-            description: ''
+            description: '',
+            fontsize: 16
         });
 
         // Get the data colour scheme
@@ -706,7 +707,7 @@ S24.Charts = function()
                     // Legend text
                     legendItem.append("text")
                         .attr('font-style', 'italic')
-                        .attr('font-size', '16px')
+                        .attr('font-size', options.fontsize + "px")
                         .attr('fill', '#414141')
                         .attr('x', 25)
                         .attr('y', 6)
@@ -747,7 +748,8 @@ S24.Charts = function()
             legendWidth: 200,
             showInactive: true,
             title: '',
-            description: ''
+            description: '',
+            fontsize: 16
         });
 
         // Get the data colour scheme
@@ -971,7 +973,7 @@ S24.Charts = function()
                     // Legend text
                     legendItem.append("text")
                         .attr('font-style', 'italic')
-                        .attr('font-size', '16px')
+                        .attr('font-size', options.fontsize + 'px')
                         .attr('fill', '#414141')
                         .attr('x', 25)
                         .attr('y', 6)
@@ -1008,7 +1010,8 @@ S24.Charts = function()
             legendWidth: 100,
             height: null,
             title: '',
-            description: ''
+            description: '',
+            fontsize: 16
         });
 
         // Work out the optimal height from the width
@@ -1271,6 +1274,7 @@ S24.Charts = function()
 
                     // Legend text
                     legendItem.append('text')
+                        .attr('font-size', options.fontsize + 'px')
                         .attr('x', 30)
                         .text(currentData.place);
                 }
