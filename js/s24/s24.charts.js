@@ -806,6 +806,7 @@ S24.Charts = function()
                 var currentColor = 1;
                 for (var i = 0; i < dataset.length; i++) {
                     var value = dataset[i]['value'];
+                    var legendNum = dataset.length - i;
 
                     // Initiate the arc for drawing the bars
                     var arc = d3.svg.arc()
@@ -899,7 +900,7 @@ S24.Charts = function()
                     // Group for legend item
                     var legendItem = legendContainer.append('g')
                         .attr('id', 'legend-' + i)
-                        .attr('transform', 'translate(0, ' + (-40 - (i * 30)) + ')')
+                        .attr('transform', 'translate(0, ' + (-40 - (legendNum * 30)) + ')')
                         .on('mouseover', function() {
                             var $this = d3.select(this);
                             var id = $this.attr('id').split('-')[1];
