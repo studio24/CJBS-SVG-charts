@@ -130,6 +130,7 @@ S24.Charts = function()
         options = setDefaults(options, {
             width : 700,
             height: 400,
+            showNumbers: true,
             title: '',
             description: ''
         });
@@ -247,30 +248,32 @@ S24.Charts = function()
 
                 var barWidth = svg.select('rect.bar').attr('width');
 
-                var text = svg.select('.rect-group')
-                    .selectAll('text')
-                    .data(dataset, key)
-                    .enter()
-                    .append('text');
+                if (options.showNumbers) {
+                    var text = svg.select('.rect-group')
+                        .selectAll('text')
+                        .data(dataset, key)
+                        .enter()
+                        .append('text');
 
-                text.attr('y', function (d) {
+                    text.attr('y', function (d) {
                         return yScale(d.value) + 20;
                     })
-                    .attr('x', function (d,i) {
-                        return xScale(i) + (barWidth / 2);
-                    })
-                    .attr("font-family", "sans-serif")
-                    .attr("font-size", "14px")
-                    .attr("fill", "white")
-                    .style('text-anchor', 'middle')
-                    .text(function(d) {
-                        return d.value;
-                    })
-                    .style('opacity', '0')
-                    .transition()
-                    .delay(1000)
-                    .duration(500)
-                    .style('opacity', '1');
+                        .attr('x', function (d,i) {
+                            return xScale(i) + (barWidth / 2);
+                        })
+                        .attr("font-family", "sans-serif")
+                        .attr("font-size", "14px")
+                        .attr("fill", "white")
+                        .style('text-anchor', 'middle')
+                        .text(function(d) {
+                            return d.value;
+                        })
+                        .style('opacity', '0')
+                        .transition()
+                        .delay(1000)
+                        .duration(500)
+                        .style('opacity', '1');
+                }
 
 
                 // Add the X Axis
@@ -317,6 +320,7 @@ S24.Charts = function()
             width : 700,
             height: 300,
             legendWidth: 100,
+            showNumbers: true,
             title: '',
             description: ''
         });
@@ -388,16 +392,18 @@ S24.Charts = function()
                         .duration(1000)
                         .attr('width', (barWidth / maxValue) * dataset[i]['value']);
 
-                    // Bar value text
-                    container.append('text')
-                        .attr('font-style', 'italic')
-                        .attr('fill', colours.primary.font)
-                        .attr('y', 0)
-                        .attr('x', legendWidth)
-                        .transition()
-                        .duration(1000)
-                        .attr('x', ((barWidth / maxValue) * dataset[i]['value']) + legendWidth - 30)
-                        .text(dataset[i]['value']);
+                    if (options.showNumbers) {
+                        // Bar value text
+                        container.append('text')
+                            .attr('font-style', 'italic')
+                            .attr('fill', colours.primary.font)
+                            .attr('y', 0)
+                            .attr('x', legendWidth)
+                            .transition()
+                            .duration(1000)
+                            .attr('x', ((barWidth / maxValue) * dataset[i]['value']) + legendWidth - 30)
+                            .text(dataset[i]['value']);
+                    }
                 }
             }
         });
