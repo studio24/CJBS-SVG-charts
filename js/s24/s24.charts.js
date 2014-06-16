@@ -287,15 +287,6 @@ S24.Charts = function()
                     .attr('dx', '-.8em')
                     .attr('dy', '.15em')
                     .attr('transform', 'rotate(-90)');
-
-                // Old Y Scale Axis
-//                var gy = svg.append('g')
-//                    .attr('class', 'y axis')
-//                    .attr('transform', 'translate(' + 25 + ', ' + 25 + ')')
-//                    .call(yAxis);
-
-//                gy.selectAll("g").filter(function(d) { return d; })
-//                    .classed("minor", true);
             }
         });
     }
@@ -617,7 +608,7 @@ S24.Charts = function()
                     // Legend group
                     var legendItem = legendContainer.append('g')
                         .attr('id', 'legend-'  + i)
-                        .attr('transform', 'translate(0, '+(-40 - (i * 30))+')')
+                        .attr('transform', 'translate(0, '+(0 - (dataset.length * 30) + (i * 30))+')')
                         .on('mouseover', function() {
                             // Get the nice event variables
                             var $this = d3.select(this);
@@ -753,6 +744,8 @@ S24.Charts = function()
             height: 500,
             legendWidth: 200,
             showInactive: true,
+            preText: '',
+            postText: '',
             title: '',
             description: '',
             fontsize: 16
@@ -808,6 +801,7 @@ S24.Charts = function()
                     .text(options.title)
                     .call(wrap, height / 3);
 
+                var valueCount = dataset.length;
                 var maxValue = getTotalValue(dataset);
                 var currentColor = 1;
                 for (var i = 0; i < dataset.length; i++) {
@@ -876,7 +870,7 @@ S24.Charts = function()
                                 .attr('fill', '#414141')
                                 .attr('class', 'data-text')
                                 .style('opacity', '0')
-                                .text(currentValue)
+                                .text(options.preText + currentValue + options.postText)
                                 .transition()
                                 .duration(200)
                                 .style('opacity', '1');
@@ -901,12 +895,12 @@ S24.Charts = function()
                         .transition()
                         .delay(500)
                         .duration(2000)
-                        .call(arcTween, (T / maxValue) * value, arc);
+                        .call(arcTween, (T / 100) * value, arc);
 
                     // Group for legend item
                     var legendItem = legendContainer.append('g')
                         .attr('id', 'legend-' + i)
-                        .attr('transform', 'translate(0, ' + (-40 - (legendNum * 30)) + ')')
+                        .attr('transform', 'translate(0, ' + (0 - (valueCount * 30) + (i * 30)) + ')')
                         .on('mouseover', function() {
                             var $this = d3.select(this);
                             var id = $this.attr('id').split('-')[1];
