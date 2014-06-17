@@ -1,7 +1,8 @@
 {
     "primary" : {
         "colour" : "#e80087",
-        "font" : "#ffffff"
+        "font" : "#ffffff",
+        "border" : "#9e0059"
     },
 
     "data" : {

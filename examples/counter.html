@@ -78,6 +78,25 @@ S24.Charts.createCounter('.svg-container-2', 1000, 99999, {
     </div>
 </div>
 
+<div class="example-container">
+    <div class="example">
+        <h2>Counter 0-999 (5000 ms)</h2>
+        <p style="font-size: 22px; line-height: 25px;"><span class="svg-container-3" style="float: left;"></span>this is wrapped text that is really long and will wrap around on the next line</p>
+    </div>
+    <div class="example-code">
+        <h3>Code from this example</h3>
+        <pre>
+S24.Charts.createCounter('.svg-container-3', 1, 999, {
+    duration: 5000,
+    preText: '£',
+    decimalPlaces: 2,
+    width: 100,
+    height: 40
+});
+        </pre>
+    </div>
+</div>
+
 <script>
     // Initialise the library
     S24.Charts.init({
@@ -97,7 +116,15 @@ S24.Charts.createCounter('.svg-container-2', 1000, 99999, {
         color: '#f00',
         fontstyle: 'italic',
         fontsize: '22px'
-    })
+    });
+
+    S24.Charts.createCounter('.svg-container-3', 1, 999, {
+        duration: 5000,
+        preText: '£',
+        decimalPlaces: 2,
+        width: 100,
+        height: 40
+    });
 </script>
 </body>
 </html>

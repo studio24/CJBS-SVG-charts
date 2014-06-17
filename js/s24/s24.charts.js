@@ -744,6 +744,7 @@ S24.Charts = function()
             height: 500,
             legendWidth: 200,
             showInactive: true,
+            percentageBased: false,
             preText: '',
             postText: '',
             title: '',
@@ -895,7 +896,13 @@ S24.Charts = function()
                         .transition()
                         .delay(500)
                         .duration(2000)
-                        .call(arcTween, (T / 100) * value, arc);
+                        .call(arcTween, (function(value) {
+                            if (options.percentageBased) {
+                                return (T / 100) * value;
+                            } else {
+                                return (T / maxValue) * value;
+                            }
+                        }(value)), arc);
 
                     // Group for legend item
                     var legendItem = legendContainer.append('g')
@@ -1079,6 +1086,8 @@ S24.Charts = function()
                             return 'translate(-108, -40)';
                         })
                         .attr("fill", colours.primary.colour)
+                        .attr("stroke-width", 1)
+                        .attr("stroke", colours.primary.border || "white")
                         .on('mouseover', function(d, i) {
                             var $this = d3.select(this);
                             var parent = d3.select(this.parentNode);
@@ -1308,6 +1317,7 @@ S24.Charts = function()
             preText: '',
             postText: '',
             decimalPlaces: 0,
+            inline: false,
             title: '',
             description: ''
         });
