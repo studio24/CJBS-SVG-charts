@@ -1017,6 +1017,8 @@ S24.Charts = function()
             width: 1020,
             legendWidth: 100,
             height: null,
+            percentageBased: false,
+            showNumbers: false,
             title: '',
             description: '',
             fontsize: 16
@@ -1061,6 +1063,8 @@ S24.Charts = function()
                 // access to the "i" value
                 for (var i=1; i < data.length; i++) {
                     var currentData = data[i];
+                    var colour = currentData.colour || colours.primary.colour;
+                    var borderColour = (currentData.colour) ? shadeColor(colour, -30) : colours.primary.border;
 
                     var container = svg.append('g')
                         .datum({place: currentData.place, number: currentData.number, lon: currentData.lon, lat: currentData.lat})
@@ -1085,9 +1089,9 @@ S24.Charts = function()
                         .attr('transform', function(d) {
                             return 'translate(-108, -40)';
                         })
-                        .attr("fill", colours.primary.colour)
+                        .attr("fill", colour)
                         .attr("stroke-width", 1)
-                        .attr("stroke", colours.primary.border || "white")
+                        .attr("stroke", borderColour || "white")
                         .on('mouseover', function(d, i) {
                             var $this = d3.select(this);
                             var parent = d3.select(this.parentNode);
@@ -1108,22 +1112,37 @@ S24.Charts = function()
                             $this.transition(500)
                                 .attr('transform', 'translate(-242, -90) scale(2.2)');
 
-                            person.transition(200)
-                                .attr('transform', 'translate(-35, -58) scale(1.5)');
+                            // Check if we are showing the numbers by default
+                            if (!options.showNumbers) {
+                                person.transition(200)
+                                    .attr('transform', 'translate(-35, -58) scale(1.5)');
 
-                            // Add number text
-                            parent.append('text')
-                                .attr('x', 15)
-                                .attr('y', -37)
-                                .attr('font-style', 'italic')
-                                .attr('font-size', '0px')
-                                .attr('fill', '#ffffff')
-                                .attr('text-anchor', 'middle')
-                                .attr('pointer-events', 'none')
-                                .text('x' + d.number)
-                                .transition()
-                                .delay(100)
-                                .attr('font-size', '22px');
+                                // Add number text
+                                parent.append('text')
+                                    .attr('x', 15)
+                                    .attr('y', -37)
+                                    .attr('font-style', 'italic')
+                                    .attr('font-size', '0px')
+                                    .attr('fill', '#ffffff')
+                                    .attr('text-anchor', 'middle')
+                                    .attr('pointer-events', 'none')
+                                    .text(function(d) {
+                                        if (!options.percentageBased) {
+                                            return'x' + d.number
+                                        } else {
+                                            return d.number + '%';
+                                        }
+                                    })
+                                    .transition()
+                                    .delay(100)
+                                    .attr('font-size', '22px');
+                            } else {
+                                var text = parent.select('.shown-number');
+                                text.transition(200)
+                                    .attr('x', 5)
+                                    .attr('y', -37)
+                                    .attr('font-size', '24px');
+                            }
 
                             // Add location text
                             parent.append('text')
@@ -1154,7 +1173,16 @@ S24.Charts = function()
                                     return 'translate(-108, -40)';
                                 });
 
-                            parent.selectAll('text').remove();
+                            // Check if we show numbers by default
+                            if (options.showNumbers) {
+                                var text = parent.select('.shown-number');
+                                text.transition(200)
+                                    .attr('x', 5)
+                                    .attr('y', -15)
+                                    .attr('font-size', '14px');
+                            }
+
+                            parent.selectAll('text:not(.shown-number)').remove();
 
                             // Set the legend opacities back to 1
                             legendContainer.selectAll('g')
@@ -1163,24 +1191,47 @@ S24.Charts = function()
                                 .style('opacity', '1');
                         });
 
-                    // Create the person group
-                    var person = container.append('g')
-                        .attr('transform', 'translate(-7, -30)');
+                    // Check if we show numbers by default
+                    if (!options.showNumbers) {
+                        // Create the person group
+                        var person = container.append('g')
+                            .attr('transform', 'translate(-7, -30)');
 
-                    // The person's head
-                    person.append('circle')
-                        .attr('r', '2')
-                        .attr('cx', 10)
-                        .attr('cy', 2)
-                        .attr('pointer-events', 'none')
-                        .attr('fill', '#ffffff');
+                        // The person's head
+                        person.append('circle')
+                            .attr('r', '2')
+                            .attr('cx', 10)
+                            .attr('cy', 2)
+                            .attr('pointer-events', 'none')
+                            .attr('fill', '#ffffff');
 
-                    // The person's body
-                    person.append('path')
-                        .attr('d', 'M59,21H41c-5.5,0-9.602,4.482-9.115,9.961l2.229,25.078c0.33,3.713,2.689,6.963,5.885,8.676V92  c0,4.4,3.6,8,8,8h4c4.4,0,8-3.6,8-8V64.715c3.196-1.713,5.556-4.963,5.886-8.676l2.229-25.078C68.602,25.482,64.5,21,59,21z')
-                        .attr('transform', 'scale(0.2)')
-                        .attr('pointer-events', 'none')
-                        .attr('fill', '#ffffff');
+                        // The person's body
+                        person.append('path')
+                            .attr('d', 'M59,21H41c-5.5,0-9.602,4.482-9.115,9.961l2.229,25.078c0.33,3.713,2.689,6.963,5.885,8.676V92  c0,4.4,3.6,8,8,8h4c4.4,0,8-3.6,8-8V64.715c3.196-1.713,5.556-4.963,5.886-8.676l2.229-25.078C68.602,25.482,64.5,21,59,21z')
+                            .attr('transform', 'scale(0.2)')
+                            .attr('pointer-events', 'none')
+                            .attr('fill', '#ffffff');
+                    } else {
+                        var number = container.append('text')
+                            .attr('x', 5)
+                            .attr('y', -15)
+                            .attr('font-style', 'italic')
+                            .attr('font-size', '0px')
+                            .attr('fill', '#ffffff')
+                            .attr('text-anchor', 'middle')
+                            .attr('pointer-events', 'none')
+                            .attr('class', 'shown-number')
+                            .text(function(d) {
+                                if (!options.percentageBased) {
+                                    return'x' + d.number
+                                } else {
+                                    return d.number + '%';
+                                }
+                            })
+                            .transition()
+                            .delay(100)
+                            .attr('font-size', '14px');
+                    }
 
                     var legendItem = legendContainer.append('g')
                         .attr('id', 'legend-' + i)
@@ -1217,19 +1268,37 @@ S24.Charts = function()
                             person.transition(200)
                                 .attr('transform', 'translate(-35, -58) scale(1.5)');
 
-                            // Add number text
-                            parent.append('text')
-                                .attr('x', 15)
-                                .attr('y', -37)
-                                .attr('font-style', 'italic')
-                                .attr('font-size', '0px')
-                                .attr('fill', '#ffffff')
-                                .attr('text-anchor', 'middle')
-                                .attr('pointer-events', 'none')
-                                .text('x' + d.number)
-                                .transition()
-                                .delay(100)
-                                .attr('font-size', '22px');
+                            // Check if we are showing the numbers by default
+                            if (!options.showNumbers) {
+                                person.transition(200)
+                                    .attr('transform', 'translate(-35, -58) scale(1.5)');
+
+                                // Add number text
+                                parent.append('text')
+                                    .attr('x', 15)
+                                    .attr('y', -37)
+                                    .attr('font-style', 'italic')
+                                    .attr('font-size', '0px')
+                                    .attr('fill', '#ffffff')
+                                    .attr('text-anchor', 'middle')
+                                    .attr('pointer-events', 'none')
+                                    .text(function(d) {
+                                        if (!options.percentageBased) {
+                                            return'x' + d.number
+                                        } else {
+                                            return d.number + '%';
+                                        }
+                                    })
+                                    .transition()
+                                    .delay(100)
+                                    .attr('font-size', '22px');
+                            } else {
+                                var text = parent.select('.shown-number');
+                                text.transition(200)
+                                    .attr('x', 5)
+                                    .attr('y', -37)
+                                    .attr('font-size', '24px');
+                            }
 
                             // Add location text
                             parent.append('text')
@@ -1265,7 +1334,16 @@ S24.Charts = function()
                                     return 'translate(-108, -40)';
                                 });
 
-                            parent.selectAll('text').remove();
+                            parent.selectAll('text:not(.shown-number)').remove();
+
+                            // Check if we show numbers by default
+                            if (options.showNumbers) {
+                                var text = parent.select('.shown-number');
+                                text.transition(200)
+                                    .attr('x', 5)
+                                    .attr('y', -15)
+                                    .attr('font-size', '14px');
+                            }
 
                             legendContainer.selectAll('g')
                                 .transition()
@@ -1596,6 +1674,21 @@ S24.Charts = function()
                 colours = json;
             }
         });
+    }
+
+    /**
+     * Shade colour method to darken a colour
+     *
+     * See: http://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
+     *
+     * @param color
+     * @param percent
+     * @returns {string}
+     */
+    var shadeColor = function (color, percent)
+    {
+        var num = parseInt(color.slice(1),16), amt = Math.round(2.55 * percent), R = (num >> 16) + amt, G = (num >> 8 & 0x00FF) + amt, B = (num & 0x0000FF) + amt;
+        return "#" + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
     }
 
     /**

@@ -51,14 +51,16 @@
 S24.Charts.createMap('.svg-container-1', '../js/data/mfin-post-mfin-location.csv', {
     worldJson: '../js/d3/world.json',
     width: 800,
-    legendWidth: 100
+    legendWidth: 100,
+    percentageBased: true,
+    showNumbers: true
 });
         </pre>
         <h3>Data from this example</h3>
         <pre>
-place,number,lat,lon
+place,number,lat,lon,colour
 
-United Kingdom,15,53.347806,-2.062500
+United Kingdom,15,53.347806,-2.062500,#ff0000
 South East Asia,10,3.521166,115.145264
 Europe (Excluding UK),5,48.229842,11.434326
 East Asia,4,33.144049,113.739014
@@ -83,7 +85,9 @@ Caribbean,1,20.591652,-75.937500
     S24.Charts.createMap('.svg-container-1', '../js/data/mfin-post-mfin-location.csv', {
         worldJson: '../js/d3/world.json',
         width: 800,
-        legendWidth: 100
+        legendWidth: 100,
+        percentageBased: true,
+        showNumbers: true
     });
 
 </script>
