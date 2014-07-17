@@ -1033,7 +1033,9 @@ S24.Charts = function()
         var svg = d3.select(container)
             .append('svg')
             .attr('width', width + legendWidth)
-            .attr('height', height * 0.75);
+            .attr('height', height * 0.75)
+            .attr("viewBox", "0, 0, "+ (width + legendWidth)+", "+height * 0.75)
+            .attr("preserveAspectRatio", "xMidYMid meet");
 
         // Accessible tags
         svg.append('title').text(options.title);
