@@ -421,6 +421,8 @@ S24.Charts = function()
             width : 750,
             height: 500,
             legendWidth: 150,
+            preText: '',
+            postText: '',
             title: '',
             description: '',
             fontsize: 16
@@ -555,7 +557,7 @@ S24.Charts = function()
                                 .attr('fill', '#414141')
                                 .attr('class', 'data-text')
                                 .style('opacity', '1')
-                                .text(currentValue);
+                                .text(options.preText + currentValue + options.postText);
                         })
                         .on('mouseout', function() {
                             var $this = d3.select(this);
@@ -656,7 +658,7 @@ S24.Charts = function()
                                 .attr('fill', '#414141')
                                 .attr('class', 'data-text')
                                 .style('opacity', '1')
-                                .text(currentValue);
+                                .text(options.preText + currentValue + options.postText);
                         })
                         .on('mouseout', function() {
                             // Get the nice variables from the event
